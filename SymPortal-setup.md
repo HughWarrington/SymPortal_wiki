@@ -4,6 +4,7 @@ To setup a local instance of the SymPortal analytical framework follow the direc
 
 See GitHub's [online documentation](https://help.github.com/articles/cloning-a-repository/) for further details.
 
+
 #### 2. Configure settings.py
 
 You will find a file in your chosen directory named: **settings_blank.py**.
