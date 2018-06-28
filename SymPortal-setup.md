@@ -21,30 +21,18 @@ becomes
 
 Save the modified **settings.py**.
 
-#### 3. Setting up Python3
+#### 3. Setting up the Python3 environment
 
 The SymPortal framework is scripted in the [Python3](https://www.python.org/download/releases/3.0/) language.
 
-**WARNING:** Please be aware that overwriting or replacing your system's current python installation can cause fatal instability. If you are unsure of what you are doing, please seek the advice of a person who does. 
+**WARNING:** Please be aware that overwriting or replacing your system's current python installation can cause fatal instability. If you are unsure of what you are doing, please seek the advice of someone who is. 
 
-The following instructions will direct you in setting up a Python3 virtual environment containing all containing all non-standard packages and modules required to get the SymPortal framework up and running. 
+To run SymPortal you must have a python3 installation that satisfies all of SymPortal's [package and module prerequisites](#### 3.1. Package and module prerequisites). Irrespective of whether you already have a Python3 installation on your system, we recommend the [Miniconda](https://conda.io/docs/user-guide/install/download.html) or [Anaconda](https://conda.io/docs/user-guide/install/download.html) distributions. Please see the [docs](https://conda.io/docs/user-guide/install/download.html) for further information on which distribution suits your needs best. Both may be installed independent of root privileges.
 
-##### 3.1 Checking for an existing Python3 installation
+We recommend running SymPortal via setting up a Python3 virtual environment ([conda](https://conda.io/docs/user-guide/tasks/manage-environments.html) or [standard](https://docs.python.org/3.6/library/venv.html)) containing all required [package and module prerequisites](#### 3.1. Package and module prerequisites). But SymPortal may be run using any Python3 installation.
 
-To create a Python3 virtual environment you must have a Python3 installation on your system. To test whether you have an existing installation you can use `$which python3`. If your system returns a path to an installation e.g. 
-```shell
-sp_user@local:~/path/to/SymPortal_framework$ which python3
-/usr/local/bin/python3
-```
-then you have an existing installation. If no path is returned on the command line you likely do not have an installation or it is not in your PATH.
+#### 3.1. Package and module prerequisites
 
-If you already have an existing installation skip to [3.3 Creating a Python3 virtual environment](#####3.3-Creating-a-Python3-virtual-environment)
- 
-<!---
-Include link to detailed list of prerequisites
--->
-
-##### 3.3 Creating a Python3 virtual environment
 
 #### 4. Creating the framework's database
 
