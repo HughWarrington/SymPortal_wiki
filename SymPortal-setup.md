@@ -15,9 +15,9 @@ Generate a bespoke secret key [here](https://www.miniwebtool.com/django-secret-k
 
 `SECRET_KEY = ''` 
 
-becomes 
+becomes (key only for example)
 
-`SECRET_KEY = '^3#q(9(ky$5#=tg$8m45k*5gh!==n&nh)5*8=hf0g)giob^mzd'` (key only for example)
+`SECRET_KEY = '^3#q(9(ky$5#=tg$8m45k*5gh!==n&nh)5*8=hf0g)giob^mzd'`
 
 Save the modified **settings.py**.
 
@@ -73,3 +73,6 @@ One key part of this standardisation is the naming of sequences. The same nucleo
 The SymPortal analysis run locally is not integrated with the remote SymPortal database. Whilst the local analysis could also generate alphanumeric identifiers, doing so would run the risk of assigning alphanumeric identifiers that were out of sync with the SymPortal database. I.e. more than one name could be associated to a single sequence or vice versa. To prevent this from happening, locally run instances of the SymPortal framework do not generate alphanumeric identifiers for sequences that are currently unnamed. For DIVs output from local analyses, the UID of the local database will be used in place of an alphanumeric identifier if one is not available.
 
 However, to aid in the identification of ITS2 type profiles and ITS2 sequences output from local analyses, all named sequences from the current SymPortal database have been provided as part of this repository. These can be found in the [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB) file.
+
+#### 3.1. Populating reference_sequences
+To make use of the sequences contained in the [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB) file, they must be input to the local database. A standalone script has been provided to do this: 
