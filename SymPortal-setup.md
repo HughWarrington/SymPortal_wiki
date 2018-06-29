@@ -75,4 +75,10 @@ The SymPortal analysis run locally is not integrated with the remote SymPortal d
 However, to aid in the identification of ITS2 type profiles and ITS2 sequences output from local analyses, all named sequences from the current SymPortal database have been provided as part of this repository. These can be found in the [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB) file.
 
 #### 3.1. Populating reference_sequences
-To make use of the sequences contained in the [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB) file, they must be input to the local database. A standalone script has been provided to do this: 
+To make use of the sequences contained in the [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB) file, they must be input to the local database. A standalone script has been provided to do this: [populate_db_ref_seqs.py](https://github.com/SymPortal/SymPortal_framework/tree/master/populate_db_ref_seqs.py).
+
+Simply run:
+```shell
+$ python3.6 populate_db_ref_seqs.py
+```
+
