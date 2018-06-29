@@ -27,12 +27,16 @@ The SymPortal framework is scripted in the [Python3](https://www.python.org/down
 
 **WARNING:** Please be aware that overwriting or replacing your system's current python installation can cause fatal instability. If you are unsure of what you are doing, please seek the advice of someone who is. 
 
-To run SymPortal you must have a python3 installation that satisfies all of SymPortal's [package and module prerequisites](#### 3.1. Package and module prerequisites). Irrespective of whether you already have a Python3 installation on your system, we recommend the [Miniconda](https://conda.io/docs/user-guide/install/download.html) or [Anaconda](https://conda.io/docs/user-guide/install/download.html) distributions. Please see the [docs](https://conda.io/docs/user-guide/install/download.html) for further information on which distribution suits your needs best. Both may be installed independent of root privileges.
+To run SymPortal you must have a python3 installation that satisfies all of SymPortal's [package and module prerequisites](####31-Package-and-module-prerequisites). Irrespective of whether you already have a Python3 installation on your system, we recommend the [Miniconda](https://conda.io/docs/user-guide/install/download.html) or [Anaconda](https://conda.io/docs/user-guide/install/download.html) distributions. Please see the [docs](https://conda.io/docs/user-guide/install/download.html) for further information on which distribution suits your needs best. Both may be installed independent of root privileges.
 
-We recommend running SymPortal via setting up a Python3 virtual environment ([conda](https://conda.io/docs/user-guide/tasks/manage-environments.html) or [standard](https://docs.python.org/3.6/library/venv.html)) containing all required [package and module prerequisites](#### 3.1. Package and module prerequisites). But SymPortal may be run using any Python3 installation.
+We recommend running SymPortal via setting up a Python3 virtual environment ([conda](https://conda.io/docs/user-guide/tasks/manage-environments.html) or [standard](https://docs.python.org/3.6/library/venv.html)) containing all required [package and module prerequisites](####31-Package-and-module-prerequisites). But SymPortal may be run using any Python3 installation.
 
 #### 3.1. Package and module prerequisites
-
+The Python3 installation used to run SymPortal must have the following packages and modules installed:
+* Django==1.11.4
+* numpy==1.13.1
+* matplotlib==2.0.2
+* 
 
 #### 4. Creating the framework's database
 
