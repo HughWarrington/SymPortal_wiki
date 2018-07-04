@@ -82,6 +82,30 @@ Simply run:
 $ python3.6 populate_db_ref_seqs.py
 ```
 
+#### 6 Third party dependencies
+To perform quality filtering, node identification and tree creation SymPortal relies on the following third party programmes:
+* [mothur](https://www.mothur.org/)(version=1.39.5)
+* [MED](http://merenlab.org/software/med/): o-pad-with-gaps; decompose (oligotyping pipeline version=2.1)
+* [SumTrees](https://www.dendropy.org/programs/sumtrees.html): sumtrees.py
+* [BLAST+ executables](): blastn; makeblastdb (version 2.6.0+)
+
+For SymPortal to run correctly, each of the above executables must be in your systems PATH.
+To test whether these executables are found in your PATH you can use the _which_ command.
+```console
+$ which mothur
+/usr/bin/mothur
+$ which o-pad-with-gaps
+/home/user/anaconda2/bin/o-pad-with-gaps
+$ which decompose
+/home/user/anaconda2/bin/decompose
+$ which sumtrees.py
+/home/user/miniconda3/bin/sumtrees.py
+$ which blastn
+/home/user/ncbi-blast-2.6.0+/bin/blastn
+$ which makeblastdb
+/home/user/ncbi-blast-2.6.0+/bin/makeblastdb
+```
+If the executable is installed and found in your PATH the path to the executable should be returned 
 ***
 
 #### To check that you have SymPortal setup correctly:
