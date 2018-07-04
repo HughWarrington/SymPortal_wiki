@@ -74,7 +74,7 @@ The SymPortal analysis run locally is not integrated with the remote SymPortal d
 
 However, to aid in the identification of ITS2 type profiles and ITS2 sequences output from local analyses, all named sequences from the current SymPortal database have been provided as part of this repository. These can be found in the [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB) file.
 
-#### 3.1. Populating reference_sequences
+#### 5.1. Populating reference_sequences
 To make use of the sequences contained in the [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB) file, they must be input to the local database. A standalone script has been provided to do this: [populate_db_ref_seqs.py](https://github.com/SymPortal/SymPortal_framework/tree/master/populate_db_ref_seqs.py).
 
 Simply run:
@@ -82,3 +82,21 @@ Simply run:
 $ python3.6 populate_db_ref_seqs.py
 ```
 
+***
+
+#### To check that you have SymPortal setup correctly:
+```console
+$ ./main.py
+```
+
+This command should produce an output similar to:
+
+```console
+/path/to/repo/SymPortal_framework/db.sqlite3
+usage: main.py [-h] [--submit path_to_dir] [--display_data_sets]
+               [--analyse data_set IDs]
+               [--print_output data_set IDs, analysis ID] [--display_analyses]
+               [--num_proc NUM_PROC] [--name NAME] [--description DESCRIPTION]
+               [--db_version DB_VERSION] [--vacuum_database]
+main.py: error: one of the arguments --submit --display_data_sets --analyse --print_output --display_analyses --vacuum_database is required
+```
