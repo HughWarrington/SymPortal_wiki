@@ -81,7 +81,7 @@ ITS2 type profile output files:
 /SymPortal_framework/outputs/1/1_1.profiles.absolute.txt
 /SymPortal_framework/outputs/1/1_1.profiles.relative.txt
 ```
-To a single set of count tables containing data for several data_set instances you may pass a comma separated str containing the IDs of the data_set instances to be output.
+To output a single set of count tables containing data for several data_set instances you may pass a comma separated str containing the IDs of the data_set instances to be output.
 ```console
 $ ./main.py --print_output '1,3,5' --data_analysis_id 1 --num_proc 3
 ```
