@@ -88,6 +88,7 @@ To perform quality filtering, node identification and tree creation SymPortal re
 * [MED](http://merenlab.org/software/med/): o-pad-with-gaps; decompose (oligotyping pipeline version=2.1)
 * [SumTrees](https://www.dendropy.org/programs/sumtrees.html): sumtrees.py
 * [BLAST+ executables](): blastn; makeblastdb (version 2.6.0+)
+* [MAFFT](https://mafft.cbrc.jp/alignment/software/)
 
 For SymPortal to run correctly, each of the above executables must be in your systems PATH.
 To test whether these executables are found in your PATH you can use the _which_ command.
@@ -104,6 +105,8 @@ $ which blastn
 /home/user/ncbi-blast-2.6.0+/bin/blastn
 $ which makeblastdb
 /home/user/ncbi-blast-2.6.0+/bin/makeblastdb
+$ which mafft
+/home/user/mafft/bin/mafft
 ```
 If the executable is installed and found in your PATH the path to the executable should be returned 
 ***
