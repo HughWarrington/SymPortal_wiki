@@ -69,4 +69,19 @@ Once an analysis has been completed count tables may be generated and output.
 
 Count tables for ITS2 sequence abundances and ITS2 type profiles will be output with the following command:
 ```console
-
+$ ./main.py --print_output 1 --data_analysis_id 1 --num_proc 3
+```
+The output files should be displayed on completion of table generation and output
+```console
+DIV table output files:
+/SymPortal_framework/outputs/1/1_1.DIVs.absolute.txt
+/SymPortal_framework/outputs/1/1_1.DIVs.relative.txt
+/SymPortal_framework/outputs/1/1_1.DIVs.fasta
+ITS2 type profile output files:
+/SymPortal_framework/outputs/1/1_1.profiles.absolute.txt
+/SymPortal_framework/outputs/1/1_1.profiles.relative.txt
+```
+To a single set of count tables containing data for several data_set instances you may pass a comma separated str containing the IDs of the data_set instances to be output.
+```console
+$ ./main.py --print_output '1,3,5' --data_analysis_id 1 --num_proc 3
+```
