@@ -1,7 +1,7 @@
 This section will guide you through the 3 main steps of running a SymPortal analysis:
-1. **Submitting data**
-2. **Starting an analysis**
-3. **Data output**
+* **Submitting data**
+* **Starting an analysis**
+* **Data output**
 
 This guide assumes you already have [SymPortal setup]() and uses the same example dataset that is used in the [SymPortal manuscript]. This dataset can be downloaded from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing).
 
@@ -32,4 +32,16 @@ The first step of analysing any dataset is to submit it to the SymPortal framewo
 
 To submit a dataset to the database:
 ```console
-$ 
+$ ./main.py --submit /path/to/example_data_location --name first_submission
+```
+By default the submission will be completed using one process however multiple processors may be utilised using the --num_proc argument.
+```console
+$ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3
+```
+#### Checking data_set submissions
+The ID, name and time stamp of submitted data_set instances can be output by running the following command:
+```console
+$ ./main.py --display_data_sets
+1: first_submission	2018-07-04 05:07:59.418975
+```
+
