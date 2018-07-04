@@ -45,3 +45,28 @@ $ ./main.py --display_data_sets
 1: first_submission	2018-07-04 05:07:59.418975
 ```
 
+#### 2. Running an analysis
+To run an analysis on one or more of the data_set instances that have been submitted to the database:
+```console
+$ ./main.py --analyse 1 --name first_analysis --num_proc 3
+```
+Not that when running an analysis containing only one data_set instance, an int can be passed to the --analyse flag. However, if you wish to run an analysis containing more than one data_set instance, a commar separted string may be passed.
+
+e.g.
+```console
+$ ./main.py --analyse '1,2,5' --name second_analysis --num_proc 3
+```
+
+#### Checking data_analysis instances
+The ID, name and time stamp of completed data_analysis instances can be output by running the following command:
+```console
+$ ./main.py --display_analyses
+1: first_analysis	2018-07-04 05:57:23.933207
+```
+
+#### 3. Data output
+Once an analysis has been completed count tables may be generated and output.
+
+Count tables for ITS2 sequence abundances and ITS2 type profiles will be output with the following command:
+```console
+
