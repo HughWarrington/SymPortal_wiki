@@ -118,7 +118,7 @@ Pairwise UniFrac distance for between either samples (independent of analysis) o
 $ ./main.py --between_sample_distances 5 --bootstrap 100 --num_proc 3
 /SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/PCoA_coords.csv
 /SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/consensus_tree_sumtrees.newick1.weighted.phylip.dist
-'''
+```
 ##### Between ITS2 type profiles
 ```console 
 $ ./main.py --between_type_distances 5 --data_analysis_id 2 --bootstrap 100 --num_proc 3
