@@ -1,5 +1,5 @@
 This section will guide you through the 3 main steps of running a SymPortal analysis:
-* **Submitting data**
+* **[Submitting data](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#submitting-data)**
 * **Starting an analysis**
 * **Data output**
     * from analysis
