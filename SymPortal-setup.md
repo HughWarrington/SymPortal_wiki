@@ -1,5 +1,7 @@
 To setup a local instance of the SymPortal analytical framework follow the directions below. SymPortal is designed to run using a MacOS or linux environment.
 
+#### 1. Download the [latest release](https://github.com/SymPortal/SymPortal_framework/releases/latest-release) and decompress in your chosen working directory.
+or
 #### 1. Clone the SymPortal repository into your chosen working directory.
 
 See GitHub's [online documentation](https://help.github.com/articles/cloning-a-repository/) for further details.
