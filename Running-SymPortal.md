@@ -1,14 +1,14 @@
 This section will guide you through the 3 main steps of running a SymPortal analysis:
 * **[Submitting data](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#submitting-data)**
-* **Starting an analysis**
-* **Data output**
-    * from analysis
-    * independent of analysis (environmental samples)
+* **[Running an analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#running-an-analysis)**
+* **[Data output](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#data-output)**
+    * [from analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#analysis-dependent-output)
+    * [independent of analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#analysis-independent-output) (environmental samples)
 
 It will also document some additional functionality of SymPortal:
-* **Generating within clade, pairwise UniFrac distances**
-    * between samples
-    * between ITS2 type profiles
+* **[Generating within clade, pairwise UniFrac distances](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#generating-within-clade-pairwise-UniFrac-distances-and-PCoA)**
+    * [between samples](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#between-samples)
+    * [between ITS2 type profiles](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#between-ITS2-type-profiles)
 
 This guide assumes you already have [SymPortal set up](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) and uses the same example dataset that is used in the [SymPortal manuscript](). This dataset can be downloaded from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing).
 
@@ -79,8 +79,10 @@ $ ./main.py --display_analyses
 ***
 
 #### Data output
-Once an analysis has been completed count tables may be generated and output.
-
+Data output may be performed in an analysis dependent or independent manner.
+When data output is performed in association with a data analysis, count tables for both ITS2 sequences and ITS2 type profiles will be produced.
+When output independent of a data analysis, only an ITS2 sequence count table will be produced. This data analysis independent output is especially useful when working with samples that are not from a host origin, i.e. free living samples.
+##### Analysis dependent output
 Count tables for ITS2 sequence abundances and ITS2 type profiles will be output with the following command:
 ```console
 $ ./main.py --print_output 1 --data_analysis_id 1 --num_proc 3
@@ -99,5 +101,28 @@ To output a single set of count tables containing data for several data_set inst
 ```console
 $ ./main.py --print_output '1,3,5' --data_analysis_id 1 --num_proc 3
 ```
-
+##### Analysis independent output
+```console
+$ ./main.py --print_output_no_types 1
+DIV table output files:
+./outputs/non_analysis/1.DIVs.absolute.txt
+./outputs/non_analysis/1.DIVs.relative.txt
+./outputs/non_analysis/1.DIVs.fasta
+```
 ***
+
+#### Generating within clade, pairwise UniFrac distances and PCoA
+Pairwise UniFrac distance for between either samples (independent of analysis) or ITS2 type profiles (from an analysis) may be generated. A PCoA is automatically run on these distances to facilitate ordination of data.
+##### Between samples
+```console
+$ ./main.py --between_sample_distances 5 --bootstrap 100 --num_proc 3
+/SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/PCoA_coords.csv
+/SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/consensus_tree_sumtrees.newick1.weighted.phylip.dist
+'''
+##### Between ITS2 type profiles
+```console 
+$ ./main.py --between_type_distances 5 --data_analysis_id 2 --bootstrap 100 --num_proc 3
+Output files:
+/SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/PCoA_coords.csv
+/SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/consensus_tree_sumtrees.newick1.weighted.phylip.dist
+```
