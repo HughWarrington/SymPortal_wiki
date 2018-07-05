@@ -48,6 +48,10 @@ By default the submission will be completed using one process however multiple p
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3
 ```
+##### A note on running SymPortal with multiple processors
+SymPortal has been designed to take advantage of multi-processor environments and is parallelised wherever possible. However, the somewhat simple SQLite database that the local framework comes setup with by default (for sake of simplicity) has limited support for handling simultaneous requests to write. As such, whilst all of the SymPortal functions may be run with multiple processors, when using the default SQLite database, the chances of a 'timeout' failure or conflict will increase with the number of processors used. In general a small degree of parallelisation, e.g. ```--num_proc 3```, should be very unlikely to cause any issue. To robustly run SymPortal in a highly parallelised manner, the SQLite database should be upgraded to a server based PostgreSQL database.
+
+There are multiple online resources that can be used to aid in setting up the [Django framework](https://www.djangoproject.com/) (the framework underlying SymPortal's interaction with the database) to run with a PostgreSQL, rather than a SQLite, database: [here](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04), [here](https://tutorial-extensions.djangogirls.org/en/optional_postgresql_installation/?q=) and [here](https://www.youtube.com/watch?v=Axh8rNKgvmk) for example.
 #### Checking data_set submissions
 The ID, name and time stamp of submitted data_set instances can be output by running the following command:
 ```console
