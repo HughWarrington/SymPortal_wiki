@@ -1,4 +1,4 @@
-To setup a local instance of the SymPortal analytical framework follow the directions below. The directions are aimed at getting SymPortal running using a MacOS or linux environment. However, these should be applicable to getting SymPortal running on a Windows OS with only minor modifications.
+To setup a local instance of the SymPortal analytical framework follow the directions below. SymPortal is designed to run using a MacOS or linux environment.
 
 #### 1. Clone the SymPortal repository into your chosen working directory.
 
@@ -68,7 +68,7 @@ You should see that a **db.sqlite3** file has been created in your working direc
 #### 5. Populating the local database with SymPortal's reference_sequences
 A key part of the SymPortal framework is its enforced standardisation of the data it works with. The quality controls built into the SymPortal framework ensures that all submitted sequence data goes from raw input to output following the same set of standards. 
 
-One key part of this standardisation is the naming of sequences. The same nucleotide sequence should always have the same name and these nucleotide sequences should always represent the same region of the rDNA. To ensure that SymPortal maintains good agreement with the important sequence names already existing in the literature, e.g. A1, D1, D4, D6, C1, C3, C15 and C21 to name just a few, the SymPortal database was initialised using a carefully curated collection of > 350 commonly found sequences. However, ITS2 sequence diversity is immensely large and many thousands of sequences have already been submitted to the SymPortal database (maintained remotely). To assign identities to these sequences when run via SymPortal.org the SymPortal framework generates systematic alphanumeric identifiers e.g. C3ac or D1cd. However, given the immensity of the ITS2 sequence diversity, not all sequences are given names. Only those sequences defined as DIVs and used to define ITS2 type profiles are named. I.e. only sequences used to characterise putative _Symbiodinium_ taxa are named.
+One key part of this standardisation is the naming of sequences. The same nucleotide sequence should always have the same name and these nucleotide sequences should always represent the same region of the rDNA. To ensure that SymPortal maintains good agreement with the important sequence names already existing in the literature, e.g. A1, D1, D4, D6, C1, C3, C15 and C21 to name just a few, the SymPortal database was initialised using a carefully curated collection of > 350 commonly found sequences. However, ITS2 sequence diversity is immensely large and many thousands of sequences have already been submitted to the SymPortal database (maintained remotely). To assign identities to these sequences when run via SymPortal.org the SymPortal framework generates systematic alphanumeric identifiers e.g. C3ac or D1cd. However, given the immensity of ITS2 sequence diversity, not all sequences are given names. Only those sequences defined as DIVs and used to define ITS2 type profiles are named. I.e. only sequences used to characterise putative _Symbiodinium_ taxa are named.
 
 The SymPortal analysis run locally is not integrated with the remote SymPortal database. Whilst the local analysis could also generate alphanumeric identifiers, doing so would run the risk of assigning alphanumeric identifiers that were out of sync with the SymPortal database. I.e. more than one name could be associated to a single sequence or vice versa. To prevent this from happening, locally run instances of the SymPortal framework do not generate alphanumeric identifiers for sequences that are currently unnamed. For DIVs output from local analyses, the UID of the local database will be used in place of an alphanumeric identifier if one is not available.
 
@@ -108,7 +108,7 @@ $ which makeblastdb
 $ which mafft
 /home/user/mafft/bin/mafft
 ```
-If the executable is installed and found in your PATH the path to the executable should be returned 
+If the executable is installed and found in your PATH, the path to the executable should be returned 
 ***
 
 #### To check that you have SymPortal setup correctly:
