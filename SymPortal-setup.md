@@ -51,6 +51,8 @@ The SymPortal analysis is integrated with a mySQL database. This database can be
 
 The cloned SymPortal repository is currently setup to create a [SQLite](https://www.sqlite.org) database. This database is a much lighter database than the [PostgreSQL](https://www.postgresql.org/) and is file-based rather than server-based.
 
+Please see [](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal/)
+
 To create the SQLite database (that will be named **db.sqlite3** by default) and automatically populate it with the tables defined in the **dbApp/models.py** file we will use the `makemigrations` and `migrate` commands from the [Django API](https://www.djangoproject.com/) via the **manage.py** file.
 
 From within the SymPortal_framework directory (using the Python3.6 installation meeting the package and module requirements):
