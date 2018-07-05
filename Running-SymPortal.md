@@ -2,8 +2,15 @@ This section will guide you through the 3 main steps of running a SymPortal anal
 * **Submitting data**
 * **Starting an analysis**
 * **Data output**
+    * from analysis
+    * independent of analysis (environmental samples)
 
-This guide assumes you already have [SymPortal setup]() and uses the same example dataset that is used in the [SymPortal manuscript]. This dataset can be downloaded from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing).
+It will also document some additional functionality of SymPortal:
+* **Generating within clade, pairwise UniFrac distances**
+    * between samples
+    * between ITS2 type profiles
+
+This guide assumes you already have [SymPortal set up](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) and uses the same example dataset that is used in the [SymPortal manuscript](). This dataset can be downloaded from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing).
 
 To check that you have SymPortal setup correctly:
 ```console
@@ -27,7 +34,10 @@ main.py: error: one of the arguments --submit --display_data_sets --analyse --pr
 #### i. Download data
 Download the dataset from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing). Note the directory in which the dataset is saved. This will be used as an input in the following steps.
 
-#### 1. Submitting data
+
+***
+
+#### Submitting data
 The first step of analysing any dataset is to submit it to the SymPortal framework's database. In this step, SymPortal will perform all quality control filtering of the sequence data and convert the raw sequence data into database objects such as **data_set**, **data_set_sample**, **clade_collection**, **data_set_sample_sequence** and **reference_sequence**.
 
 To submit a dataset to the database:
@@ -45,7 +55,9 @@ $ ./main.py --display_data_sets
 1: first_submission	2018-07-04 05:07:59.418975
 ```
 
-#### 2. Running an analysis
+***
+
+#### Running an analysis
 To run an analysis on one or more of the data_set instances that have been submitted to the database:
 ```console
 $ ./main.py --analyse 1 --name first_analysis --num_proc 3
@@ -64,7 +76,9 @@ $ ./main.py --display_analyses
 1: first_analysis	2018-07-04 05:57:23.933207
 ```
 
-#### 3. Data output
+***
+
+#### Data output
 Once an analysis has been completed count tables may be generated and output.
 
 Count tables for ITS2 sequence abundances and ITS2 type profiles will be output with the following command:
@@ -85,3 +99,5 @@ To output a single set of count tables containing data for several data_set inst
 ```console
 $ ./main.py --print_output '1,3,5' --data_analysis_id 1 --num_proc 3
 ```
+
+***
