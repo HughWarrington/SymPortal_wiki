@@ -94,7 +94,7 @@ $ python3.6 populate_db_ref_seqs.py
 ```
 
 #### 6. Third party dependencies
-To perform quality filtering, node identification and tree creation SymPortal relies on the following third party programmes:
+To perform quality filtering, node identification and tree creation SymPortal relies on the following third party programmes (please visit the links for information on how to install them):
 * [mothur](https://www.mothur.org/)(version=1.39.5)
 * [MED](http://merenlab.org/software/med/): o-pad-with-gaps; decompose (oligotyping pipeline version=2.1)
 * [SumTrees](https://www.dendropy.org/programs/sumtrees.html): sumtrees.py
