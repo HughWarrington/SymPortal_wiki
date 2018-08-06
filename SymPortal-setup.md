@@ -47,10 +47,12 @@ The Python3.6 installation used to run SymPortal must have the following package
 * biopython==1.71
 * scikit-bio==0.5.2
 
-__N.B. some of the above package versions are not maintained in the conda repositories. As such, please install the packages using pip.__ E.g (making sure you are installing to the correct python version):
-'''console 
+__N.B. some of the above package versions are not maintained in the conda repositories. As such, please install the packages using pip.__ 
+
+E.g (making sure you are installing to the correct python version):
+```console 
 (sp_venv)$ pip install sklearn==0.0
-'''
+```
 
 #### 4. Creating the framework's database
 
