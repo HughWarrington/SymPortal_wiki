@@ -120,6 +120,10 @@ $ which mafft
 /home/user/mafft/bin/mafft
 ```
 If the executable is installed and found in your PATH, the path to the executable should be returned 
+
+#### Additional (optional) third party dependencies
+In order to be able to run the 
+
 ***
 
 #### To check that you have SymPortal setup correctly:
