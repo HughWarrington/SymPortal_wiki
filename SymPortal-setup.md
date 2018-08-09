@@ -167,10 +167,13 @@ v7.402 (2018/May/23)
 __Issues installing the oligotyping pipeline (decompose)__
 The oligotyping pipeline can be difficult to install. The online instructions will simply point you towards installing it using pip. An install using conda will also not break, unitl you try to run it. In my experience, the best way to install the oiligotyping pipeline is as follows:
 * create a virtual python2.7 (not 3.6) environment: ```$ conda create -n med_install python=2.7```
-* downgrade the pip version ```python -m pip install pip==9.0.3
+* activate new environment ```$ source activate med_install```
+* downgrade the pip version ```(med_install)$ pip install pip==9.0.3```
+* install ```(med_install)$ pip install oligotyping```
+* deactivate med_install venv ```source deactivate```
 
 #### Additional (optional) third party dependencies
-In order to be able to run the ```--between_sample_distances``` and ```--between_type_distances``` commands that are used for creating UniFrac-based distance matrices and PCoA ordinations between sample and ITS2 type profiles, respectively, some further packages are required. These packages are all contained in the PHYLIPNEW package which is part of the [EMBOSS](http://emboss.sourceforge.net/) project. The PHYLIPNEW tar.gz can be downloaded from [here](ftp://emboss.open-bio.org/pub/EMBOSS/). There is a bit of knack to getting the PHYLIPNEW packages installed on a system. I recommend reading the answer to this question: [Can you give an example of how to install an EMBASSY package](http://emboss.sourceforge.net/docs/faq.html). In short, the successful installation of PHYLIPNEW relies on the installation of EMBOSS. 
+In order to be able to run the ```--between_sample_distances``` and ```--between_type_distances``` commands that are used for creating UniFrac-based distance matrices and PCoA ordinations between sample and ITS2 type profiles, respectively, some further packages are required. These packages are all contained in the PHYLIPNEW package which is part of the [EMBOSS](http://emboss.sourceforge.net/) project. The PHYLIPNEW tar.gz can be downloaded from [here](ftp://emboss.open-bio.org/pub/EMBOSS/). There is a bit of knack to getting the PHYLIPNEW packages installed on a system. I recommend reading the answer to this question: [Can you give an example of how to install an EMBASSY package](http://emboss.sourceforge.net/docs/faq.html).
 
 ***
 
