@@ -121,6 +121,50 @@ $ which mafft
 ```
 If the executable is installed and found in your PATH, the path to the executable should be returned 
 
+Please also ensure that the programmes are working correctly:
+```console
+$ mothur -v
+Mothur version=1.39.5
+Release Date=3/20/2017
+$ decompose -v
+Oligotyping Pipeline Version .....................................: 2.1
+$ sumtrees.py --version
+/==========================================================================\
+|                                 SumTrees                                 |
+|                     Phylogenetic Tree Summarization                      |
+|                              Version 4.4.0                               |
+|                   By Jeet Sukumaran and Mark T. Holder                   |
+|                          Using: DendroPy 4.4.0                           |
++--------------------------------------------------------------------------+
+|                                 Citation                                 |
+|                                 ~~~~~~~~                                 |
+| If any stage of your work or analyses relies on code or programs from    |
+| this library, either directly or indirectly (e.g., through usage of your |
+| own or third-party programs, pipelines, or toolkits which use, rely on,  |
+| incorporate, or are otherwise primarily derivative of code/programs in   |
+| this library), please cite:                                              |
+|                                                                          |
+|   Sukumaran, J and MT Holder. 2010. DendroPy: a Python library for       |
+|     phylogenetic computing. Bioinformatics 26: 1569-1571.                |
+|                                                                          |
+|   Sukumaran, J and MT Holder. SumTrees: Phylogenetic Tree Summarization. |
+|     4.4.0. Available at https://github.com/jeetsukumaran/DendroPy.       |
+|                                                                          |
+| Note that, in the interests of scientific reproducibility, you should    |
+| describe in the text of your publications not only the specific          |
+| version of the SumTrees program, but also the DendroPy library used in   |
+| your analysis. For your information, you are running DendroPy 4.4.0.     |
+\==========================================================================/
+$ blastn -version
+blastn: 2.2.31+
+Package: blast 2.2.31, build Jan  7 2016 23:17:17
+$ makeblastdb -version
+makeblastdb: 2.2.31+
+Package: blast 2.2.31, build Jan  7 2016 23:17:17
+$ mafft --version
+v7.402 (2018/May/23)
+```
+
 #### Additional (optional) third party dependencies
 In order to be able to run the ```--between_sample_distances``` and ```--between_type_distances``` commands that are used for creating UniFrac-based distance matrices and PCoA ordinations between sample and ITS2 type profiles, respectively, some further packages are required. These packages are all contained in the PHYLIPNEW package which is part of the [EMBOSS](http://emboss.sourceforge.net/) project. The PHYLIPNEW tar.gz can be downloaded from [here](ftp://emboss.open-bio.org/pub/EMBOSS/). There is a bit of knack to getting the PHYLIPNEW packages installed on a system. I recommend reading the answer to this question: [Can you give an example of how to install an EMBASSY package](http://emboss.sourceforge.net/docs/faq.html). In short, the successful installation of PHYLIPNEW relies on the installation of EMBOSS. 
 
