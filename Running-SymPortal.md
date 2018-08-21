@@ -48,6 +48,11 @@ By default the submission will be completed using one process however multiple p
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3
 ```
+The ```--data_sheet``` flag may also be applied for submissions. By applying this flag and passing the full path to a data_sheet (see the smith_et_al_meta_data_input file in the [example dataset google drive folder](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing) for a template) meta information may be associated to the data_set_sample held in the SymPortal database.
+```console
+$ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location smith_et_al_meta_input.xlxs
+```
+Passing a data_sheet at submission also allows for custom sample names to be associated to each of the fastq.gz pairs. If no data_sheet is submitted, sample names will automatically be generated from the name of the respective fastq.gz pair.
 ##### A note on running SymPortal with multiple processors
 SymPortal has been designed to take advantage of multi-processor environments and is parallelised wherever possible. However, the somewhat simple SQLite database that the local framework comes setup with by default (for sake of simplicity) has limited support for handling simultaneous requests to write. As such, whilst all of the SymPortal functions may be run with multiple processors, when using the default SQLite database, the chances of a 'timeout' failure or conflict will increase with the number of processors used. In general a small degree of parallelisation, e.g. ```--num_proc 3```, should be very unlikely to cause any issue. To robustly run SymPortal in a highly parallelised manner, the SQLite database should be upgraded to a server based PostgreSQL database.
 
