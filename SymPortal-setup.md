@@ -46,6 +46,7 @@ The Python3.6 installation used to run SymPortal must have the following package
 * plumbum==1.6.6
 * biopython==1.71
 * scikit-bio==0.5.2
+* xlrd==1.1.0
 
 __N.B. some of the above package versions are not maintained in the conda repositories. As such, please install the packages using pip.__ 
 
