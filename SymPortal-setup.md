@@ -23,13 +23,14 @@ becomes (key only for example)
 
 Save the modified **settings.py**.
 
-#### 2a. Configure sp_config
+#### 2b. Configure sp_config
 
-Replace the value for the ```user_name``` and ```user_email``` keys in the **sp_congig** file.
+Replace the value for the ```user_name``` and ```user_email``` keys in the **sp_config** file.
 
 e.g. 
 
 ```"user_name"   :   "undefined"``` --> ```"user_name"   :   "bcchume"```
+
 ```"user_email"   :   "undefined"``` --> ```"user_name"   :   "bcchume@symportal.com"```
 
 You will not be contacted on this email, it will only be used to log your details with the data_set and data_analysis objects. It will also be appended to output results.
