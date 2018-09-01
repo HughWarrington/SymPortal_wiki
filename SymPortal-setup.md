@@ -23,7 +23,7 @@ becomes (key only for example)
 
 Save the modified **settings.py**.
 
-#### 2b. Configure sp_config
+#### 2b. Configure sp_config (optional)
 
 Replace the value for the ```user_name``` and ```user_email``` keys in the **sp_config** file.
 
