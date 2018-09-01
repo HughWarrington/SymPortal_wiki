@@ -7,7 +7,7 @@ or
 See GitHub's [online documentation](https://help.github.com/articles/cloning-a-repository/) for further details.
 
 
-#### 2. Configure settings.py
+#### 2a. Configure settings.py
 
 You will find a file in your chosen directory named: **settings_blank.py**.
 
@@ -22,6 +22,18 @@ becomes (key only for example)
 `SECRET_KEY = '^3#q(9(ky$5#=tg$8m45k*5gh!==n&nh)5*8=hf0g)giob^mzd'`
 
 Save the modified **settings.py**.
+
+#### 2a. Configure sp_config
+
+Replace the value for the ```user_name``` and ```user_email``` keys in the **sp_congig** file.
+
+e.g. 
+
+```"user_name"   :   "undefined"``` --> ```"user_name"   :   "bcchume"```
+```"user_email"   :   "undefined"``` --> ```"user_name"   :   "bcchume@symportal.com"```
+
+You will not be contacted on this email, it will only be used to log your details with the data_set and data_analysis objects. It will also be appended to output results.
+
 
 #### 3. Setting up the Python3.6 environment
 
