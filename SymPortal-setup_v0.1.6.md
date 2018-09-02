@@ -108,12 +108,18 @@ $ python3.6 populate_db_ref_seqs.py
 ```
 
 #### 6. Third party dependencies
-To perform quality filtering, node identification and tree creation SymPortal relies on the following third party programmes (please visit the links for information on how to install them):
+SymPortal relies on a number of third party programmes that can be divided into essential (required for the core SymPortal analysis) and optional (required only for ordination functions). It is recommended to install all of the below dependencies.
+
+__Core dependencies__ (required)
+To perform quality filtering and MED node identification SymPortal relies on the following core third party programmes (please visit the links for information on how to install them):
 * [mothur](https://www.mothur.org/)(version=1.39.5)
 * [MED](http://merenlab.org/software/med/): o-pad-with-gaps; decompose (oligotyping pipeline version=2.1) __(please see the note on installing the oligotyping pipeline below)__
-* [SumTrees](https://www.dendropy.org/programs/sumtrees.html): sumtrees.py
 * [BLAST+ executables](): blastn; makeblastdb (version 2.6.0+)
+
+__Additional dependencies__ (only required for ordination analyses) 
+* [SumTrees](https://www.dendropy.org/programs/sumtrees.html): sumtrees.py
 * [MAFFT](https://mafft.cbrc.jp/alignment/software/)
+* [PHYLIPNEW](http://emboss.sourceforge.net/) __(please see the note on installing PHYLIPNEW below)__
 
 For SymPortal to run correctly, each of the above executables must be in your systems PATH.
 To test whether these executables are found in your PATH you can use the _which_ command.
@@ -177,6 +183,8 @@ makeblastdb: 2.2.31+
 Package: blast 2.2.31, build Jan  7 2016 23:17:17
 $ mafft --version
 v7.402 (2018/May/23)
+$ fseqboot -version
+EMBOSS:6.6.0.0 PHYLIPNEW:3.69.650
 ```
 __Issues installing the oligotyping pipeline (decompose)__
 The oligotyping pipeline can be difficult to install. The online instructions will simply point you towards installing it using pip. An install using conda will also not break, unitl you try to run it. In my experience, the best way to install the oiligotyping pipeline is as follows:
@@ -186,9 +194,8 @@ The oligotyping pipeline can be difficult to install. The online instructions wi
 * install ```(med_install)$ pip install oligotyping```
 * deactivate med_install venv ```source deactivate```
 
-#### Additional (optional) third party dependencies
-In order to be able to run the ```--between_sample_distances``` and ```--between_type_distances``` commands that are used for creating UniFrac-based distance matrices and PCoA ordinations between sample and ITS2 type profiles, respectively, some further packages are required. These packages are all contained in the PHYLIPNEW package which is part of the [EMBOSS](http://emboss.sourceforge.net/) project. The PHYLIPNEW tar.gz can be downloaded from [here](ftp://emboss.open-bio.org/pub/EMBOSS/). There is a bit of knack to getting the PHYLIPNEW packages installed on a system. I recommend reading the answer to this question: [Can you give an example of how to install an EMBASSY package](http://emboss.sourceforge.net/docs/faq.html).
-
+__Installing the PHYLIPNEW collection of commands__
+In order to be able to compute UniFrac-based distance matrices and PCoA ordinations between sample and ITS2 type profiles, respectively, some further packages are required. These packages are all contained in the PHYLIPNEW package which is part of the [EMBOSS](http://emboss.sourceforge.net/) project. The PHYLIPNEW tar.gz can be downloaded from [here](ftp://emboss.open-bio.org/pub/EMBOSS/). There is a bit of knack to getting the PHYLIPNEW packages installed on a system. I recommend reading the answer to this question: [Can you give an example of how to install an EMBASSY package](http://emboss.sourceforge.net/docs/faq.html).
 ***
 
 #### To check that you have SymPortal setup correctly:
