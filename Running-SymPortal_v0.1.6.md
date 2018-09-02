@@ -29,7 +29,7 @@ Download the dataset from [here](https://drive.google.com/drive/folders/1qOZy7jb
 
 ***
 
-#### Submitting data
+### Submitting data
 The first step of analysing any dataset is to submit it to the SymPortal framework's database. In this step, SymPortal will perform all quality control filtering of the sequence data and convert the raw sequence data into database objects such as **data_set**, **data_set_sample**, **clade_collection**, **data_set_sample_sequence** and **reference_sequence**. As part of a data_set submission SymPortal will output a count table of the ITS2 sequences returned from each of the **data_set_sample**s in the **data_set**. In addition, SymPortal will generate clade separated, between sample pairwise distance matrices. By default SymPortal will also run a principal coordinate analysis (PCoA) on this distance matrix and return the coordinates of the principal components for each **data_set_sample**. 
 
 To submit a dataset to the database:
@@ -69,7 +69,7 @@ $ ./main.py --display_data_sets
 
 ***
 
-#### Running an analysis
+### Running an analysis
 Running a SymPortal analysis will programmatically search for recurring sets of ITS2 sequences in the **data_set_sample**s of the **data_set** objects submitted to the analysis. The output of an analysis is a count table of predicted ITS2 type profiles (representative of putative taxa). By default a graphical representation of this count table is output. A clade separated, between ITS2 type profile pairwise similarity distance matrices are also output. As are the coordinates of the PCoA run on each of these matrices.
 
 To run an analysis on one of the data_set instances that have been submitted to the database:
