@@ -54,7 +54,7 @@ To switch off the ordination component of the data_submission the ```--noOrd``` 
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noOrd
 ```
-Both the ```--noFig``` and ```--noOrd``` may be passed simultaneously.
+Both the ```--noFig``` and ```--noOrd``` flags may be passed simultaneously.
 
 ##### A note on running SymPortal with multiple processors
 SymPortal has been designed to take advantage of multi-processor environments and is parallelised wherever possible. However, the somewhat simple SQLite database that the local framework comes setup with by default (for sake of simplicity) has limited support for handling simultaneous requests to write. As such, whilst all of the SymPortal functions may be run with multiple processors, when using the default SQLite database, the chances of a 'timeout' failure or conflict will increase with the number of processors used. In general a small degree of parallelisation, e.g. ```--num_proc 3```, should be very unlikely to cause any issue. To robustly run SymPortal in a highly parallelised manner, the SQLite database should be upgraded to a server based PostgreSQL database.
@@ -70,16 +70,22 @@ $ ./main.py --display_data_sets
 ***
 
 #### Running an analysis
-To run an analysis on one or more of the data_set instances that have been submitted to the database:
+Running a SymPortal analysis will programmatically search for recurring sets of ITS2 sequences in the **data_set_sample**s of the **data_set** objects submitted to the analysis. The output of an analysis is a count table of predicted ITS2 type profiles (representative of putative taxa). By default a graphical representation of this count table is output. A clade separated, between ITS2 type profile pairwise similarity distance matrices are also output. As are the coordinates of the PCoA run on each of these matrices.
+
+To run an analysis on one of the data_set instances that have been submitted to the database:
 ```console
 $ ./main.py --analyse 1 --name first_analysis --num_proc 3
 ```
-Not that when running an analysis containing only one data_set instance, an int can be passed to the --analyse flag. However, if you wish to run an analysis containing more than one data_set instance, a commar separted string may be passed.
+Where 1 is the ID of the data_set to analyse.
+
+Note that when running an analysis containing only one data_set instance, an int can be passed to the --analyse flag. However, if you wish to run an analysis containing more than one data_set instance, a comma separated string may be passed.
 
 e.g.
 ```console
 $ ./main.py --analyse '1,2,5' --name second_analysis --num_proc 3
 ```
+
+Similar to running a data_set submission, the ```--noFig``` and ```--noOrd``` flags may be passed (no figure output; no ordination or similarity calculations).
 
 #### Checking data_analysis instances
 The ID, name and time stamp of completed data_analysis instances can be output by running the following command:
