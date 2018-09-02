@@ -46,7 +46,7 @@ $ ./main.py --submit /path/to/example_data_location --name first_submission --nu
 ```
 Passing a data_sheet at submission also allows for custom sample names to be associated to each of the fastq.gz pairs. If no data_sheet is submitted, sample names will be generated automatically from the name of the respective fastq.gz pairs.
 
-To switch off the automatic generation of plots (stacked bar charts for the count tables and scatter plots of the clade separated PCoA coordinates), the ```--noFig`` flag can be passed as an argument.
+To switch off the automatic generation of plots (stacked bar charts for the count tables and scatter plots of the clade separated PCoA coordinates), the ```--noFig``` flag can be passed as an argument.
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noFig
 ```
@@ -54,7 +54,7 @@ To switch off the ordination component of the data_submission the ```--noOrd``` 
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noOrd
 ```
-Both the ```--noFig`` and ```--noOrd``` may be passed simultaneously.
+Both the ```--noFig``` and ```--noOrd``` may be passed simultaneously.
 
 ##### A note on running SymPortal with multiple processors
 SymPortal has been designed to take advantage of multi-processor environments and is parallelised wherever possible. However, the somewhat simple SQLite database that the local framework comes setup with by default (for sake of simplicity) has limited support for handling simultaneous requests to write. As such, whilst all of the SymPortal functions may be run with multiple processors, when using the default SQLite database, the chances of a 'timeout' failure or conflict will increase with the number of processors used. In general a small degree of parallelisation, e.g. ```--num_proc 3```, should be very unlikely to cause any issue. To robustly run SymPortal in a highly parallelised manner, the SQLite database should be upgraded to a server based PostgreSQL database.
