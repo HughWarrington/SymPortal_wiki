@@ -53,7 +53,7 @@ To switch off the automatic generation of plots (stacked bar charts for the coun
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noFig
 ```
-To switch off the ordination component of the data_submission the ```--noOrd``` flag may be passed. This may be useful if any of the [Additional dependencies](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup_v0.1.6#6-third-party-dependencies) are unavailable.
+To switch off the ordination component of the data_submission the ```--noOrd``` flag may be passed. This may be useful if any of the [Additional dependencies](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies) are unavailable.
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noOrd
 ```
