@@ -2,6 +2,9 @@ This section will guide you through the 2 main steps of running a SymPortal anal
 * **[Submitting data](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#submitting-data)**
 * **[Running an analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#running-an-analysis)**
 
+It will also cover some lower level functionality including:
+* **
+
 This guide assumes you already have [SymPortal set up](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) and uses the same example dataset that is used in the [SymPortal manuscript](). This dataset can be downloaded from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing).
 
 To check that you have SymPortal setup correctly:
@@ -30,7 +33,7 @@ Download the dataset from [here](https://drive.google.com/drive/folders/1qOZy7jb
 ***
 
 ### Submitting data
-The first step of analysing any dataset is to submit it to the SymPortal framework's database. In this step, SymPortal will perform all quality control filtering of the sequence data and convert the raw sequence data into database objects such as **data_set**, **data_set_sample**, **clade_collection**, **data_set_sample_sequence** and **reference_sequence**. As part of a data_set submission SymPortal will output a count table of the ITS2 sequences returned from each of the **data_set_sample**s in the **data_set**. In addition, SymPortal will generate clade separated, between sample pairwise distance matrices. By default SymPortal will also run a principal coordinate analysis (PCoA) on this distance matrix and return the coordinates of the principal components for each **data_set_sample**. 
+The first step of analysing any dataset is to submit it to the SymPortal framework's database. In this step, SymPortal will perform all quality control filtering of the sequence data and convert the raw sequence data into database objects such as **data_set**, **data_set_sample**, **clade_collection**, **data_set_sample_sequence** and **reference_sequence**. As part of a data_set submission SymPortal will output a count table of the ITS2 sequences returned from each of the **data_set_sample**s in the **data_set**. In addition, SymPortal will generate clade separated, between sample pairwise distance matrices. By default SymPortal will also run a principal coordinate analysis (PCoA) on these distance matrices and return the coordinates of the principal components for each **data_set_sample**. 
 
 To submit a dataset to the database:
 ```console
