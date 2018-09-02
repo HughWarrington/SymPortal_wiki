@@ -99,17 +99,24 @@ $ ./main.py --display_analyses
 
 ***
 
-#### Data output
-Data output may be performed in an analysis dependent or independent manner.
-When data output is performed in association with a data analysis, count tables for both ITS2 sequences and ITS2 type profiles will be produced.
-When output independent of a data analysis, only an ITS2 sequence count table will be produced. This data analysis independent output is especially useful when working with samples that are not from a host origin, i.e. free living samples.
-##### Analysis dependent output
-Count tables for ITS2 sequence abundances and ITS2 type profiles will be output with the following command:
-```console
-$ ./main.py --print_output 1 --data_analysis_id 1 --num_proc 3
-```
+#### Data output - independent of submission or analysis
+Count tables for ITS2 sequence and ITS2 type profile abundances are output automatically during data submission and analyses, respectively. However, these count tables may also be output independent of a submission or analysis.
+
+To output only the ITS2 sequence count table (i.e. equivalent to the count table output after a data_set submission):
+
 The output files should be displayed on completion of table generation and output
 ```console
+$ ./main.py --print_output_no_types 1
+DIV table output files:
+./outputs/non_analysis/1.DIVs.absolute.txt
+./outputs/non_analysis/1.DIVs.relative.txt
+./outputs/non_analysis/1.DIVs.fasta
+```
+
+To output both ITS2 sequence and ITS2 type profile count tables (i.e. equivalent to the count tables output during an analysis):
+
+```console
+$ ./main.py --print_output 1 --data_analysis_id 1 --num_proc 3
 DIV table output files:
 /SymPortal_framework/outputs/1/1_1.DIVs.absolute.txt
 /SymPortal_framework/outputs/1/1_1.DIVs.relative.txt
@@ -118,22 +125,17 @@ ITS2 type profile output files:
 /SymPortal_framework/outputs/1/1_1.profiles.absolute.txt
 /SymPortal_framework/outputs/1/1_1.profiles.relative.txt
 ```
-To output a single set of count tables containing data for several data_set instances you may pass a comma separated str containing the IDs of the data_set instances to be output.
+For either output type, multiple data_set IDs may be passed:
+
 ```console
 $ ./main.py --print_output '1,3,5' --data_analysis_id 1 --num_proc 3
 ```
-##### Analysis independent output
-```console
-$ ./main.py --print_output_no_types 1
-DIV table output files:
-./outputs/non_analysis/1.DIVs.absolute.txt
-./outputs/non_analysis/1.DIVs.relative.txt
-./outputs/non_analysis/1.DIVs.fasta
-```
+
+This may be useful when only wanting to output a subset of the data_set objects that were input to an analysis.
 ***
 
 #### Generating within clade, pairwise UniFrac distances and PCoA
-N.B. in order for these commands to be run the additional third party dependencies must be met. Please see [this](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#additional-optional-third-party-dependencies) section in the wiki.
+N.B. in order for these commands to be run the additional third party dependencies must be met. Please see [this](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup_v0.1.6#6-third-party-dependencies) section in the wiki.
 
 Pairwise UniFrac distance for between either samples (independent of analysis) or ITS2 type profiles (from an analysis) may be generated. A PCoA is automatically run on these distances to facilitate ordination of data.
 ##### Between samples
