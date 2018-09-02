@@ -1,3 +1,3 @@
-### *[Home]()
-### *[SymPortal setup]()
-### *[Running SymPortal]()
+* #### [Home]()
+* #### [SymPortal setup]()
+* #### [Running SymPortal]()
