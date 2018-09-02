@@ -1,14 +1,6 @@
-This section will guide you through the 3 main steps of running a SymPortal analysis:
+This section will guide you through the 2 main steps of running a SymPortal analysis:
 * **[Submitting data](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#submitting-data)**
 * **[Running an analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#running-an-analysis)**
-* **[Data output](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#data-output)**
-    * [from analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#analysis-dependent-output)
-    * [independent of analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#analysis-independent-output) (environmental samples)
-
-It will also document some additional functionality of SymPortal:
-* **[Generating within clade, pairwise UniFrac distances](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#generating-within-clade-pairwise-UniFrac-distances-and-PCoA)**
-    * [between samples](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#between-samples)
-    * [between ITS2 type profiles](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#between-ITS2-type-profiles)
 
 This guide assumes you already have [SymPortal set up](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) and uses the same example dataset that is used in the [SymPortal manuscript](). This dataset can be downloaded from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing).
 
@@ -38,7 +30,7 @@ Download the dataset from [here](https://drive.google.com/drive/folders/1qOZy7jb
 ***
 
 #### Submitting data
-The first step of analysing any dataset is to submit it to the SymPortal framework's database. In this step, SymPortal will perform all quality control filtering of the sequence data and convert the raw sequence data into database objects such as **data_set**, **data_set_sample**, **clade_collection**, **data_set_sample_sequence** and **reference_sequence**.
+The first step of analysing any dataset is to submit it to the SymPortal framework's database. In this step, SymPortal will perform all quality control filtering of the sequence data and convert the raw sequence data into database objects such as **data_set**, **data_set_sample**, **clade_collection**, **data_set_sample_sequence** and **reference_sequence**. As part of a data_set submission SymPortal will output a count table of the ITS2 sequences returned from each of the **data_set_sample**s in the **data_set**. In addition, SymPortal will generate clade separated, between sample pairwise distance matrices. By default SymPortal will also run a principal coordinate analysis (PCoA) on this distance matrix and return the coordinates of the principal components for each **data_set_sample**. 
 
 To submit a dataset to the database:
 ```console
@@ -48,11 +40,22 @@ By default the submission will be completed using one process however multiple p
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3
 ```
-The ```--data_sheet``` flag may also be applied for submissions. By applying this flag and passing the full path to a data_sheet (see the smith_et_al_meta_data_input file in the [example dataset google drive folder](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing) for a template) meta information may be associated to the data_set_sample held in the SymPortal database.
+The ```--data_sheet``` flag may also be applied for submissions (recommended). By applying this flag and passing the full path to a data_sheet (see the smith_et_al_meta_data_input file in the [example dataset google drive folder](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing) for a template) meta information may be associated to the **data_set_sample** objects held in the SymPortal database.
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs
 ```
 Passing a data_sheet at submission also allows for custom sample names to be associated to each of the fastq.gz pairs. If no data_sheet is submitted, sample names will be generated automatically from the name of the respective fastq.gz pairs.
+
+To switch off the automatic generation of plots (stacked bar charts for the count tables and scatter plots of the clade separated PCoA coordinates), the ```--noFig`` flag can be passed as an argument.
+```console
+$ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noFig
+```
+To switch off the ordination component of the data_submission the ```--noOrd``` flag may be passed. This may be useful if any of the [Additional dependencies](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) are unavailable.
+```console
+$ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noOrd
+```
+Both the ```--noFig`` and ```--noOrd``` may be passed simultaneously.
+
 ##### A note on running SymPortal with multiple processors
 SymPortal has been designed to take advantage of multi-processor environments and is parallelised wherever possible. However, the somewhat simple SQLite database that the local framework comes setup with by default (for sake of simplicity) has limited support for handling simultaneous requests to write. As such, whilst all of the SymPortal functions may be run with multiple processors, when using the default SQLite database, the chances of a 'timeout' failure or conflict will increase with the number of processors used. In general a small degree of parallelisation, e.g. ```--num_proc 3```, should be very unlikely to cause any issue. To robustly run SymPortal in a highly parallelised manner, the SQLite database should be upgraded to a server based PostgreSQL database.
 
