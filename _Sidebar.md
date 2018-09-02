@@ -9,5 +9,5 @@
     * **[Third party dependencies](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies)**
 
 * #### [Running SymPortal](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal)
-    * **[Submitting data](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#submitting-data)
-    * **[Running an analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#running-an-analysis)
+    * **[Submitting data](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#submitting-data)**
+    * **[Running an analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#running-an-analysis)**
