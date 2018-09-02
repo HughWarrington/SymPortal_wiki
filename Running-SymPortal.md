@@ -4,7 +4,7 @@ This section will guide you through the 2 main steps of running a SymPortal anal
 
 It will also cover some lower level functionality including:
 * **[Data output - independent of submission or analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#data-output---independent-of-submission-or-analysis)**
-* **[Generating within clade, pairwise UniFrac distances and PCoA]()**
+* **[Generating within clade, pairwise UniFrac distances and PCoA](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#generating-within-clade-pairwise-unifrac-distances-and-pcoa)**
 
 This guide assumes you already have [SymPortal set up](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) and uses the same example dataset that is used in the [SymPortal manuscript] (coming soon). This dataset can be downloaded from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing).
 
