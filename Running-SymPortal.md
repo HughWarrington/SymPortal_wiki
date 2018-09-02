@@ -100,7 +100,7 @@ $ ./main.py --display_analyses
 
 ***
 
-#### Data output - independent of submission or analysis
+### Data output - independent of submission or analysis
 Count tables for ITS2 sequence and ITS2 type profile abundances are output automatically during data submission and analyses, respectively. However, these count tables may also be output independent of a submission or analysis.
 
 To output only the ITS2 sequence count table (i.e. equivalent to the count table output after a data_set submission):
@@ -135,7 +135,7 @@ $ ./main.py --print_output '1,3,5' --data_analysis_id 1 --num_proc 3
 This may be useful when only wanting to output a subset of the data_set objects that were input to an analysis.
 ***
 
-#### Generating within clade, pairwise UniFrac distances and PCoA
+### Generating within clade, pairwise UniFrac distances and PCoA
 N.B. in order for these commands to be run the additional third party dependencies must be met. Please see [this](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies) section in the wiki.
 
 Pairwise UniFrac distance for between either samples (independent of analysis) or ITS2 type profiles (from an analysis) may be generated. A PCoA is automatically run on these distances to facilitate ordination of data.
