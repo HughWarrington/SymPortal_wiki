@@ -11,3 +11,5 @@
 * #### [Running SymPortal](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal)
     * **[Submitting data](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#submitting-data)**
     * **[Running an analysis](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#running-an-analysis)**
+    * **[Data output](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#data-output---independent-of-submission-or-analysis)**
+    * **[Distances & Ordinations](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#generating-within-clade-pairwise-unifrac-distances-and-pcoa)**
