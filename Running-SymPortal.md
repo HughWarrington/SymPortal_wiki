@@ -5,7 +5,7 @@ This section will guide you through the 2 main steps of running a SymPortal anal
 It will also cover some lower level functionality including:
 * **
 
-This guide assumes you already have [SymPortal set up](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) and uses the same example dataset that is used in the [SymPortal manuscript](). This dataset can be downloaded from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing).
+This guide assumes you already have [SymPortal set up](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) and uses the same example dataset that is used in the [SymPortal manuscript] (coming soon). This dataset can be downloaded from [here](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing).
 
 To check that you have SymPortal setup correctly:
 ```console
