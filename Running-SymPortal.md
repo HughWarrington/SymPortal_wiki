@@ -135,7 +135,7 @@ This may be useful when only wanting to output a subset of the data_set objects 
 ***
 
 #### Generating within clade, pairwise UniFrac distances and PCoA
-N.B. in order for these commands to be run the additional third party dependencies must be met. Please see [this](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup_v0.1.6#6-third-party-dependencies) section in the wiki.
+N.B. in order for these commands to be run the additional third party dependencies must be met. Please see [this](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies) section in the wiki.
 
 Pairwise UniFrac distance for between either samples (independent of analysis) or ITS2 type profiles (from an analysis) may be generated. A PCoA is automatically run on these distances to facilitate ordination of data.
 ##### Between samples
