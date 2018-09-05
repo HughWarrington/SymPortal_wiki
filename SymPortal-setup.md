@@ -53,8 +53,6 @@ The Python3.6 installation used to run SymPortal must have the following package
 * matplotlib==2.0.2
 * scipy==0.19.1
 * sklearn==0.0
-* texttable==0.9.1
-* colorama==0.3.9
 * pandas==0.23.1
 * plumbum==1.6.6
 * biopython==1.71
