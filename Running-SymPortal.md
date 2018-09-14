@@ -19,10 +19,10 @@ This command should produce an output similar to:
 /path/to/repo/SymPortal_framework/db.sqlite3
 usage: main.py [-h] [--submit path_to_dir] [--display_data_sets]
                [--analyse data_set IDs]
-               [--print_output data_set IDs, analysis ID] [--display_analyses]
+               [--print_output_types data_set IDs, analysis ID] [--display_analyses]
                [--num_proc NUM_PROC] [--name NAME] [--description DESCRIPTION]
                [--db_version DB_VERSION] [--vacuum_database]
-main.py: error: one of the arguments --submit --display_data_sets --analyse --print_output --display_analyses --vacuum_database is required
+main.py: error: one of the arguments --submit --display_data_sets --analyse --print_output_types --display_analyses --vacuum_database is required
 ```
 
 ***
@@ -107,7 +107,7 @@ To output only the ITS2 sequence count table (i.e. equivalent to the count table
 
 The output files should be displayed on completion of table generation and output
 ```console
-$ ./main.py --print_output_no_types 1
+$ ./main.py --print_output_seqs 1
 DIV table output files:
 ./outputs/non_analysis/1.DIVs.absolute.txt
 ./outputs/non_analysis/1.DIVs.relative.txt
@@ -117,7 +117,7 @@ DIV table output files:
 To output both ITS2 sequence and ITS2 type profile count tables (i.e. equivalent to the count tables output during an analysis):
 
 ```console
-$ ./main.py --print_output 1 --data_analysis_id 1 --num_proc 3
+$ ./main.py --print_output_types 1 --data_analysis_id 1 --num_proc 3
 DIV table output files:
 /SymPortal_framework/outputs/1/1_1.DIVs.absolute.txt
 /SymPortal_framework/outputs/1/1_1.DIVs.relative.txt
@@ -129,7 +129,7 @@ ITS2 type profile output files:
 For either output type, multiple data_set IDs may be passed:
 
 ```console
-$ ./main.py --print_output '1,3,5' --data_analysis_id 1 --num_proc 3
+$ ./main.py --print_output_types '1,3,5' --data_analysis_id 1 --num_proc 3
 ```
 
 This may be useful when only wanting to output a subset of the data_set objects that were input to an analysis.
