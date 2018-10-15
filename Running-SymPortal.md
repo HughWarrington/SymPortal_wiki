@@ -101,7 +101,7 @@ $ ./main.py --display_analyses
 ***
 
 ### Data output - independent of submission or analysis
-Count tables for ITS2 sequence and ITS2 type profile abundances are output automatically during data submission and analyses, respectively. However, these count tables may also be output independent of a submission or analysis.
+Count tables for ITS2 sequence and ITS2 type profile abundances are output automatically during data submission and analyses, respectively. However, these count tables may also be output independent of a submission or analysis. Corresponding plots will also be output.
 
 To output only the ITS2 sequence count table (i.e. equivalent to the count table output after a data_set submission):
 
