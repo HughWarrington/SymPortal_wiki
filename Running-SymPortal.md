@@ -10,7 +10,7 @@ This guide assumes you already have [SymPortal set up](https://github.com/SymPor
 
 To check that you have SymPortal setup correctly:
 ```console
-$ python3.6 main.py
+$ ./main.py
 ```
 
 This command should produce an output similar to:
@@ -38,25 +38,25 @@ The first step of analysing any dataset is to submit it to the SymPortal framewo
 
 To submit a dataset to the database:
 ```console
-$ python3.6 main.py --submit /path/to/example_data_location --name first_submission
+$ ./main.py --submit /path/to/example_data_location --name first_submission
 ```
 By default the submission will be completed using one process however multiple processors may be utilised using the --num_proc argument.
 ```console
-$ python3.6 main.py --submit /path/to/example_data_location --name first_submission --num_proc 3
+$ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3
 ```
 The ```--data_sheet``` flag may also be applied for submissions (recommended). By applying this flag and passing the full path to a data_sheet (see the smith_et_al_meta_data_input file in the [example dataset google drive folder](https://drive.google.com/drive/folders/1qOZy7jb3leU_y4MtXFXxy-j1vOr1U-86?usp=sharing) for a template) meta information may be associated to the **data_set_sample** objects held in the SymPortal database.
 ```console
-$ python3.6 main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs
+$ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs
 ```
 Passing a data_sheet at submission also allows for custom sample names to be associated to each of the fastq.gz pairs. If no data_sheet is submitted, sample names will be generated automatically from the name of the respective fastq.gz pairs.
 
 To switch off the automatic generation of plots (stacked bar charts for the count tables and scatter plots of the clade separated PCoA coordinates), the ```--noFig``` flag can be passed as an argument.
 ```console
-$ python3.6 main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noFig
+$ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noFig
 ```
 To switch off the ordination component of the data_submission the ```--noOrd``` flag may be passed. This may be useful if any of the [Additional dependencies](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies) are unavailable.
 ```console
-$ python3.6 main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noOrd
+$ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noOrd
 ```
 Both the ```--noFig``` and ```--noOrd``` flags may be passed simultaneously.
 
@@ -78,7 +78,7 @@ Running a SymPortal analysis will programmatically search for recurring sets of 
 
 To run an analysis on one of the data_set instances that have been submitted to the database:
 ```console
-$ python3.6 main.py --analyse 1 --name first_analysis --num_proc 3
+$ ./main.py --analyse 1 --name first_analysis --num_proc 3
 ```
 Where 1 is the ID of the data_set to analyse.
 
@@ -86,7 +86,7 @@ Note that when running an analysis containing only one data_set instance, an int
 
 e.g.
 ```console
-$ python3.6 main.py --analyse '1,2,5' --name second_analysis --num_proc 3
+$ ./main.py --analyse '1,2,5' --name second_analysis --num_proc 3
 ```
 
 Similar to running a data_set submission, the ```--noFig``` and ```--noOrd``` flags may be passed (no figure output; no ordination or similarity calculations).
@@ -94,7 +94,7 @@ Similar to running a data_set submission, the ```--noFig``` and ```--noOrd``` fl
 #### Checking data_analysis instances
 The ID, name and time stamp of completed data_analysis instances can be output by running the following command:
 ```console
-$ python3.6 main.py --display_analyses
+$ ./main.py --display_analyses
 1: first_analysis	2018-07-04 05:57:23.933207
 ```
 
@@ -107,7 +107,7 @@ To output only the ITS2 sequence count table (i.e. equivalent to the count table
 
 The output files should be displayed on completion of table generation and output
 ```console
-$ python3.6 main.py --print_output_seqs 1
+$ ./main.py --print_output_seqs 1
 DIV table output files:
 ./outputs/non_analysis/1.DIVs.absolute.txt
 ./outputs/non_analysis/1.DIVs.relative.txt
@@ -117,7 +117,7 @@ DIV table output files:
 To output both ITS2 sequence and ITS2 type profile count tables (i.e. equivalent to the count tables output during an analysis):
 
 ```console
-$ python3.6 main.py --print_output_types 1 --data_analysis_id 1 --num_proc 3
+$ ./main.py --print_output_types 1 --data_analysis_id 1 --num_proc 3
 DIV table output files:
 /SymPortal_framework/outputs/1/1_1.DIVs.absolute.txt
 /SymPortal_framework/outputs/1/1_1.DIVs.relative.txt
@@ -129,7 +129,7 @@ ITS2 type profile output files:
 For either output type, multiple data_set IDs may be passed:
 
 ```console
-$ python3.6 main.py --print_output_types '1,3,5' --data_analysis_id 1 --num_proc 3
+$ ./main.py --print_output_types '1,3,5' --data_analysis_id 1 --num_proc 3
 ```
 
 This may be useful when only wanting to output a subset of the data_set objects that were input to an analysis.
@@ -141,13 +141,13 @@ N.B. in order for these commands to be run the additional third party dependenci
 Pairwise UniFrac distance for between either samples (independent of analysis) or ITS2 type profiles (from an analysis) may be generated. A PCoA is automatically run on these distances to facilitate ordination of data.
 ##### Between samples
 ```console
-$ python3.6 main.py --between_sample_distances 5 --bootstrap 100 --num_proc 3
+$ ./main.py --between_sample_distances 5 --bootstrap 100 --num_proc 3
 /SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/PCoA_coords.csv
 /SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/consensus_tree_sumtrees.newick1.weighted.phylip.dist
 ```
 ##### Between ITS2 type profiles
 ```console 
-$ python3.6 main.py --between_type_distances 5 --data_analysis_id 2 --bootstrap 100 --num_proc 3
+$ ./main.py --between_type_distances 5 --data_analysis_id 2 --bootstrap 100 --num_proc 3
 Output files:
 /SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/PCoA_coords.csv
 /SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/consensus_tree_sumtrees.newick1.weighted.phylip.dist
