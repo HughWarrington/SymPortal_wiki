@@ -198,7 +198,7 @@ In order to be able to compute UniFrac-based distance matrices and PCoA ordinati
 
 #### To check that you have SymPortal setup correctly:
 ```console
-$ python3.6 main.py
+$ ./main.py
 ```
 
 This command should produce an output similar to:
