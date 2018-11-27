@@ -106,15 +106,14 @@ $ python3.6 populate_db_ref_seqs.py
 ```
 
 #### 6. Third party dependencies
-SymPortal relies on a number of third party programmes that can be divided into core dependencies (required for the core SymPortal analysis) and additional dependencies (required only for ordination functions). It is recommended to install all of the below dependencies.
-
+SymPortal relies on a number of third party programmes that can be divided into core dependencies (required for the core SymPortal analysis) and additional dependencies (required only for the UniFrac-based ordination functions; no additional dependencies are required for the BrayCurtis-based ordinations that are run as default).
 __Core dependencies__ (required)
 To perform quality filtering and MED node identification SymPortal relies on the following core third party programmes (please visit the links for information on how to install them):
 * [mothur](https://www.mothur.org/)(version=1.39.5)
 * [MED](http://merenlab.org/software/med/): o-pad-with-gaps; decompose (oligotyping pipeline version=2.1) __(please see the note on installing the oligotyping pipeline below)__
 * [BLAST+ executables](): blastn; makeblastdb (version 2.6.0+)
 
-__Additional dependencies__ (only required for ordination analyses) 
+__Additional dependencies__ (only required for UniFrac-based ordination analyses) 
 * [SumTrees](https://www.dendropy.org/programs/sumtrees.html): sumtrees.py
 * [MAFFT](https://mafft.cbrc.jp/alignment/software/)
 * [PHYLIPNEW](http://emboss.sourceforge.net/) __(please see the note on installing PHYLIPNEW below)__
