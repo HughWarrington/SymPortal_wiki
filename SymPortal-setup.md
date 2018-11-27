@@ -107,6 +107,7 @@ $ python3.6 populate_db_ref_seqs.py
 
 #### 6. Third party dependencies
 SymPortal relies on a number of third party programmes that can be divided into core dependencies (required for the core SymPortal analysis) and additional dependencies (required only for the UniFrac-based ordination functions; no additional dependencies are required for the BrayCurtis-based ordinations that are run as default).
+
 __Core dependencies__ (required)
 To perform quality filtering and MED node identification SymPortal relies on the following core third party programmes (please visit the links for information on how to install them):
 * [mothur](https://www.mothur.org/)(version=1.39.5)
