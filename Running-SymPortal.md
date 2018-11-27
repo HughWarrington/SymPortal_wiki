@@ -71,6 +71,9 @@ $ python3.6 main.py --display_data_sets
 1: first_submission	2018-07-04 05:07:59.418975
 ```
 
+#### Debug mode
+The ```--debug``` flag can be passed when submitting data. When this flag is passed the output to stdout will be significantly more verbose. This is useful in identifying where errors may be occurring.
+
 ***
 
 ### Running an analysis
