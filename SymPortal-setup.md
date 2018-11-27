@@ -119,6 +119,8 @@ __Additional dependencies__ (only required for UniFrac-based ordination analyses
 * [MAFFT](https://mafft.cbrc.jp/alignment/software/)
 * [PHYLIPNEW](http://emboss.sourceforge.net/) __(please see the note on installing PHYLIPNEW below)__
 
+__Additional dependencies__
+
 For SymPortal to run correctly, each of the above executables must be in your systems PATH.
 To test whether these executables are found in your PATH you can use the _which_ command.
 ```console
