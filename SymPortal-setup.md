@@ -109,9 +109,8 @@ $ python3.6 populate_db_ref_seqs.py
 SymPortal relies on a number of third party programmes that can be divided into core dependencies (required for the core SymPortal analysis) and additional dependencies (required only for the UniFrac-based ordination functions; no additional dependencies are required for the BrayCurtis-based ordinations that are run as default).
 
 __Core dependencies__ (required)
-To perform quality filtering and MED node identification SymPortal relies on the following core third party programmes (please visit the links for information on how to install them):
+To perform quality filtering SymPortal relies on the following core third party programmes (please visit the links for information on how to install them):
 * [mothur](https://www.mothur.org/)(version=1.39.5)
-* [MED](http://merenlab.org/software/med/): o-pad-with-gaps; decompose (oligotyping pipeline version=2.1) __(please see the note on installing the oligotyping pipeline below)__
 * [BLAST+ executables](): blastn; makeblastdb (version 2.6.0+)
 
 __Additional dependencies__ (only required for UniFrac-based ordination analyses) 
@@ -128,8 +127,6 @@ $ which mothur
 /usr/bin/mothur
 $ which o-pad-with-gaps
 /home/user/anaconda2/bin/o-pad-with-gaps
-$ which decompose
-/home/user/anaconda2/bin/decompose
 $ which sumtrees.py
 /home/user/miniconda3/bin/sumtrees.py
 $ which blastn
@@ -146,8 +143,6 @@ Please also ensure that the programmes are working correctly:
 $ mothur -v
 Mothur version=1.39.5
 Release Date=3/20/2017
-$ decompose -v
-Oligotyping Pipeline Version .....................................: 2.1
 $ sumtrees.py --version
 /==========================================================================\
 |                                 SumTrees                                 |
@@ -186,13 +181,6 @@ v7.402 (2018/May/23)
 $ fseqboot -version
 EMBOSS:6.6.0.0 PHYLIPNEW:3.69.650
 ```
-__Issues installing the oligotyping pipeline (decompose)__
-The oligotyping pipeline can be difficult to install. The online instructions will simply point you towards installing it using pip. An install using conda will also not break, unitl you try to run it. In my experience, the best way to install the oiligotyping pipeline is as follows:
-* create a virtual python2.7 (not 3.6) environment: ```$ conda create -n med_install python=2.7```
-* activate new environment ```$ source activate med_install```
-* downgrade the pip version ```(med_install)$ pip install pip==9.0.3```
-* install ```(med_install)$ pip install oligotyping```
-* deactivate med_install venv ```source deactivate```
 
 __Installing the PHYLIPNEW collection of commands__
 In order to be able to compute UniFrac-based distance matrices and PCoA ordinations between sample and ITS2 type profiles, respectively, some further packages are required. These packages are all contained in the PHYLIPNEW package which is part of the [EMBOSS](http://emboss.sourceforge.net/) project. The PHYLIPNEW tar.gz can be downloaded from [here](ftp://emboss.open-bio.org/pub/EMBOSS/). There is a bit of knack to getting the PHYLIPNEW packages installed on a system. I recommend reading the answer to this question: [Can you give an example of how to install an EMBASSY package](http://emboss.sourceforge.net/docs/faq.html).
