@@ -4,6 +4,7 @@ SymPortal uses an [API provided as part of the Django module](https://docs.djang
 To start a Python3 shell and connect to your database using Django, you can run the following command from within your SymPortal_framework base directory:
 ```console
 (sp_venv) $ python3 manage.py shell
+
 Python 3.6.5 |Anaconda, Inc.| (default, Apr 26 2018, 08:42:37) 
 Type 'copyright', 'credits' or 'license' for more information
 IPython 6.4.0 -- An enhanced Interactive Python. Type '?' for help.
@@ -22,8 +23,9 @@ For a thorough introduction into how to work with these database objects using t
 
 ```console
 # display the id and name of each of the data_set objects in your database
->>>for ds in data_set.objects.all():
->>>    print('{}:{}'.format(ds.id, ds.name))
+In [1]: for ds in data_set.objects.all():
+   ...:    print('{}:{}'.format(ds.id, ds.name))
+
 1 first_data_set_submission
 2 second_data_set_submission
 3 third_data_set_submission
