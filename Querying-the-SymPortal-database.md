@@ -22,8 +22,9 @@ Eventually, an in depth introduction to the database schematic, its objects, the
 For a thorough introduction into how to work with these database objects using the Django API you can visit the following [link](https://docs.djangoproject.com/en/2.1/intro/tutorial02/#playing-with-the-api). In this part of the wiki we will cover some of the basics. All of the below commands will assume that you have already imported the database objects.
 
 
-_display the id and name of each of the data_set objects in your database_
-```console
+
+```python
+#display the id and name of each of the data_set objects in your database
 In [1]: for ds in data_set.objects.all():
    ...:    print('{}:{}'.format(ds.id, ds.name))
 
