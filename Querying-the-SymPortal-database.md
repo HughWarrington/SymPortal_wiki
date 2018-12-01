@@ -3,3 +3,4 @@ SymPortal uses an [API provided as part of the Django module](https://docs.djang
 
 To start a Python3 shell and connect to your database using Django, you can run the following command from within your SymPortal_framework base directory:
 ```console
+(symportal_python_env) $ 
