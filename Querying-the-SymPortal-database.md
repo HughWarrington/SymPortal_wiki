@@ -31,5 +31,38 @@ In [1]: for ds in data_set.objects.all():
 1 first_data_set_submission
 2 second_data_set_submission
 3 third_data_set_submission
+4 fourth_data_set_submission
 
+# delete a data_set object
+In [2]:data_set.objects.get(id=3).delete()
+Out[3]: 
+(43,
+ {'dbApp.data_set_sample_sequence': 0,
+  'dbApp.data_set': 1,
+  'dbApp.data_set_sample': 42})
+
+In [3]: for ds in data_set.objects.all():
+   ...:    print('{}:{}'.format(ds.id, ds.name))
+
+1 first_data_set_submission
+2 second_data_set_submission
+4 fourth_data_set_submission
+
+# delete several data_set objects at once
+In [4]:data_set.objects.filter(id__in=[2,4]).delete()
+Out[4]: 
+(234,
+ {'dbApp.clade_collection_type': 0,
+  'dbApp.data_set_sample_sequence': 196,
+  'dbApp.data_set': 2,
+  'dbApp.data_set_sample': 16,
+  'dbApp.clade_collection': 20})
+
+In [5]: for ds in data_set.objects.all():
+   ...:    print('{}:{}'.format(ds.id, ds.name))
+
+1 first_data_set_submission
 ```
+
+The below example will give you an introduction into the structure of the database, the objects it holds, and their inter relations.
+
