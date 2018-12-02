@@ -297,8 +297,31 @@ Out[33]: 'AATGGCCTCTTGAACGTGCATTGCGCTCTTGGGATATGCCTGAGAGCATGTCTGCTTCAGTGCTTCTACT
 ## Data analysis-based objects
 The data submission-based objects are:
 * _**data_analysis**_ - An analysis that was run on a collection of **_data_set_** objects
-* _**analysis_type**_ - An ITS2 type profile found in one or more data_set_sample
-* _**clade_collection_type**_ - An abstract object used to link the analysis_type and clade_collection objects. This object therefore represents the link between data submission-based and data analysis-based objects
+* _**analysis_type**_ - An ITS2 type profile found in one or more _**data_set_sample**_
+* _**clade_collection_type**_ - An abstract object used to link the _**analysis_type**_ and _**clade_collection**_ objects. This object therefore represents the link between data submission-based and data analysis-based objects
+
+```python
+In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, data_set_sample, data_analysis, clade_collection, clade_collection_type
+```
+### The _**data_analysis**_ object
+The data_analysis object represents an analysis that was run on a collection of data_set objects. It is run from the command line using the ```--analysis``` flag.
+
+```python
+In [2]: for da in data_analysis.objects.all():
+    ...:     print(da.id, da.name)
+1 first_analysis
+2 second_analysis
+3 third_analysis
+4 fourth_analysis
+```
+**Some useful attributes:**
+_* name_
+_* description_
+_* listOfDataSubmissions - a commar delimited list of the IDs of the data_set objects included in the analysis_
+_* timeStamp_
+
+
+
 
 
 
