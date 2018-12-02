@@ -13,9 +13,7 @@ This page will cover how to access the database objects that are stored in your 
     * [**Data analysis-based objects**](#data-analysis-based-objects)
         * [The _**data_analysis**_ object](#the-data_analysis-object)
         * [The _**analysis_type**_ object](#the-analysis_type-object)
-        * [The _**clade_collection_type**_ object](#the-clade_collection-type)
-
-## THIS PAGE IS UNDER DEVELOPMENT
+        * [The _**clade_collection_type**_ object](#the-clade_collection_type-object)
 
 # The Django interface
 SymPortal uses an [API provided as part of the Django module](https://docs.djangoproject.com/en/2.1/intro/tutorial02/#playing-with-the-api) to interact with the SymPortal database. By using the Django API, the database is queried using Python3 language rather than SQL through an interactive Python shell.
