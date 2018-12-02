@@ -27,8 +27,8 @@ Eventually, an in depth introduction to the database schematic, its objects, the
 
 For a thorough introduction into how to work with these database objects using the Django API you can visit the following [link](https://docs.djangoproject.com/en/2.1/intro/tutorial02/#playing-with-the-api). In this part of the wiki we will cover some of the basics.
 
-#### Deleting database objects
-The below example uses the data_set object however this code can be applied to any of the imported database objects.
+#### Deleting and renaming objects
+The below example uses the __data_set__ object however this code can be applied to any of the imported database objects.
 ```python
 #display the id and name of each of the data_set objects in your database
 In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, analysis_group, data_set_sample, data_analysis, clade_collection, clade_collection_type
@@ -70,6 +70,17 @@ In [5]: for ds in data_set.objects.all():
    ...:    print('{}:{}'.format(ds.id, ds.name))
 
 1 first_data_set_submission
+
+# change the name of an object
+In [6]: ds = data_set.objects.get(id=1)
+
+In [7]: ds.name = 'ADifferentName'
+
+# remember to call the save method
+In [8]: ds.save()
+
+In [9]: ds
+out[9]: <data_set: ADifferentName>
 ```
 ### An exploration of your database objects
 The below example will give you an introduction into the structure of the database, the objects it holds, and their inter-relations through some code examples.
