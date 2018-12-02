@@ -23,12 +23,12 @@ To work with any database objects in this interactive shell you will first need 
 In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, analysis_group, data_set_sample, data_analysis, clade_collection, clade_collection_type
 ```
 
-#### Interacting with your database
+## Interacting with your database
 Eventually, an in depth introduction to the database schematic, its objects, their relationships, and their attributes will be provided as part of this wiki. For the time being, if more details are required, the [models.py](https://github.com/SymPortal/SymPortal_framework/blob/master/dbApp/models.py) file should be fairly comprehensible. However, for basic functions such as querying and deleting objects, the below code examples should be a sufficient primer.
 
 For a thorough introduction into how to work with these database objects using the Django API you can visit the following [link](https://docs.djangoproject.com/en/2.1/intro/tutorial02/#playing-with-the-api). In this part of the wiki we will cover some of the basics.
 
-#### Deleting and renaming objects
+### Deleting and renaming objects
 The below example uses the _**data_set**_ object however this code can be applied to any of the imported database objects.
 ```python
 #display the id and name of each of the data_set objects in your database
