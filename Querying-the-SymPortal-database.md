@@ -1,6 +1,19 @@
 This page will cover how to access the database objects that are stored in your database. It is structured as follow:
-The Djano interface
-
+* [The Django interface]()
+    * Starting a Python interactive shell and using the Django API to interact with your database
+    * Importing database objects
+* [Interacting with your database]()
+    * Deleting and renaming objects
+* [The database objects]()
+    * Data submission-based objects
+        * The _**data_set**_ object
+        * The _**data_set_sample**_ object
+        * The _**clade_collection**_ and _**data_set_sample_sequence**_ objects
+        * The _**reference_sequence**_ object
+    * Data analysis-based objects
+        * The _**data_analysis**_ object
+        * The _**analysis_type**_ object
+        * The _**clade_collection_type**_ object
 
 ## THIS PAGE IS UNDER DEVELOPMENT
 
