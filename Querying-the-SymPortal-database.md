@@ -365,7 +365,7 @@ Out[9]: <analysis_type: C3-C3gulf-C3c-C3aq>
 * _name_
 * _dataAnalysisFrom_ - the _**data_analysis**_ object to which the _**analysis_type**_ is associated to
 * _clade_ - the taxonomic clade
-* _coDom_ - boolean; whether there is more than one sequence found as the most abundant sequence in this analysis_type
+* _coDom_ - boolean; whether there is more than one sequence found as the most abundant sequence in this _**analysis_type**_
 * _orderedFootprintList_ - a comma separated list of the IDs of the _**reference_sequence**_ objects that make up the DIVs of the _**analysis_type**_ in question
 
 ### The _**clade_collection_type**_ object
