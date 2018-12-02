@@ -1,5 +1,5 @@
 ## THIS PAGE IS UNDER DEVELOPMENT
-# Interacting with your SymPortal database
+
 ## The Django interface
 SymPortal uses an [API provided as part of the Django module](https://docs.djangoproject.com/en/2.1/intro/tutorial02/#playing-with-the-api) to interact with the SymPortal database. By using the Django API, the database is queried using Python3 language rather than SQL through an interactive Python shell.
 
