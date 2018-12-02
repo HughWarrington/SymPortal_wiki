@@ -1,5 +1,5 @@
 This page will cover how to access the database objects that are stored in your database. It is structured as follows:
-* [The Django interface](https://github.com/SymPortal/SymPortal_framework/wiki/Querying-the-SymPortal-database#the-django-interface)
+* [The Django interface](#the-django-interface)
     * [Starting a Python interactive shell and using the Django API to interact with your database]()
     * [Importing database objects]()
 * [Interacting with your database]()
