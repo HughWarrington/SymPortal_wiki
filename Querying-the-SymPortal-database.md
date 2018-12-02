@@ -322,7 +322,7 @@ Out[4]: <data_analysis: data_analysis object>
 **Some useful attributes:**
 * _name_
 * _description_
-* _listOfDataSubmissions_ - a comma delimited list of the IDs of the data_set objects included in the analysis
+* _listOfDataSubmissions_ - a comma delimited list of the IDs of the _**data_set**_ objects included in the analysis
 * _timeStamp_
 
 ### The _**analysis_type**_ object
@@ -348,16 +348,46 @@ Out[9]: <analysis_type: C3-C3gulf-C3c-C3aq>
 
 **Some useful attributes:**
 * _name_
-* _dataAnalysisFrom_
-* _clade_
-* _coDom_
-* _orderedFootprintList_
+* _dataAnalysisFrom_ - the _**data_analysis**_ object to which the _**analysis_type**_ is associated to
+* _clade_ - the taxonomic clade
+* _coDom_ - boolean; whether there is more than one sequence found as the most abundant sequence in this analysis_type
+* _orderedFootprintList_ - a comma separated list of the IDs of the _**reference_sequence**_ objects that make up the DIVs of the _**analysis_type**_ in question
 
+### The _**clade_collection_type**_ object
+The _**clade_collection_type**_ object links the data analysis-based objects to the data submission-based objects. I.e. it allows us to answer questions like, which _**data_set_sample**_ objects contained a given _**analysis_type**_ object? There is one _**clade_collection_type**_ object for every _**clade_collection**_ that was found to contain a given _**analysis_type**_ (e.g. see below).
 
+```python
+# if we start with a single instance of an analysis_type object (like we currently have asigned
+# to the at_var variable) we can ask the question, which samples contained this analysis_type?
 
+# get a QuerySet of the clade_collection_type objects that associate with this analysis_type
+In [10]: cct_objects_var = clade_collection_type.objects.filter(analysisTypeOf=at_var)
 
+In [11]: cct_objects_var
+Out[11]: <QuerySet [<clade_collection_type: C3-C3gulf-C3c-C3aq>, <clade_collection_type: C3-C3gulf-C3c-C3aq>, <clade_collection_type: C3-C3gulf-C3c-C3aq>, <clade_collection_type: C3-C3gulf-C3c-C3aq>]>
 
+# get a QuerySet of the clade_collection objects that associate with any one 
+# of the clade_collection_type objects found in this cct_objects_var QuerySet
+In [12]: cc_objects_var = clade_collection.objects.filter(clade_collection_type__in=cct_objects_var)
 
+In [13]: cc_objects_var
+Out[13]: <QuerySet [<clade_collection: A01>, <clade_collection: A04>, <clade_collection: A02>, <clade_collection: A03>]>
 
+# get a QuerySet of the data_sample objects that these clade_collection_objects come from
+In [14]: dss_objects_var = data_set_sample.objects.filter(clade_collection__in=cc_objects_var)
 
+In [15]: dss_objects_var
+Out[15]: <QuerySet [<data_set_sample: A03>, <data_set_sample: A02>, <data_set_sample: A01>, <data_set_sample: A04>]>
 
+# finally, let's see which data_set objects these samples come from
+In [16]: ds_objects_var = data_set.objects.filter(data_set_sample__in=dss_objects_var)
+
+In [17]: ds_objects_var
+Out[17]: <QuerySet [<data_set: Smith_testing>, <data_set: Smith_testing>, <data_set: Smith_testing>, <data_set: Smith_testing>]>
+
+# alternatively we can call the distinct() method to remove duplicates from the QuerySet
+In [18]: ds_objects_var = data_set.objects.filter(data_set_sample__in=dss_objects_var).distinct()
+
+In [19]: ds_objects_var
+Out[19]: <QuerySet [<data_set: Smith_testing>]>
+```
