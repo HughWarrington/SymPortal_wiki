@@ -87,8 +87,15 @@ out[9]: <data_set: ADifferentName>
 ## Data submission-based objects
 The below example will give you an introduction into the structure of the database, the objects it holds, and their inter-relations through some code examples.
 
+The data submission-based objects are:
+* _**data_set**_ - collection of samples usually from the same study
+* _**data_set_sample**_ - representative of a single sample
+* _**clade_collection**_ - collection of sequences of the same clade from a given sample
+* _**data_set_sample_sequence**_ - an ITS2 sequence found in a single sample
+* _**reference_sequence**_ - an ITS2 sequence that may be found in multiple samples
+
 ```python
-In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, analysis_group, data_set_sample, data_analysis, clade_collection, clade_collection_type
+In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, data_set_sample, data_analysis, clade_collection, clade_collection_type
 ```
 ### The _**data_set**_ object
 ```python
@@ -288,7 +295,10 @@ In [33]: ref_seq_of_dsss.sequence
 Out[33]: 'AATGGCCTCTTGAACGTGCATTGCGCTCTTGGGATATGCCTGAGAGCATGTCTGCTTCAGTGCTTCTACTTTCTTTTCTGCTGCTCTTGTTATCAGGAGCAGTGCTGCTGCATGCTTCTGCAATTGGCACTGGCATGCTAAGTACCAAGTTTCGCTTGCTGTTGTGACTGATCAACATCTCATGTCGTTTCAGTTGGCGAAACAAAGGCTTGTGTGTTCCAACACTTCCTA'
 ```
 ## Data analysis-based objects
-
+The data submission-based objects are:
+* _**data_analysis**_ - An analysis that was run on a collection of **_data_set_** objects
+* _**analysis_type**_ - An ITS2 type profile found in one or more data_set_sample
+* _**clade_collection_type**_ - An abstract object used to link the analysis_type and clade_collection objects. This object therefore represents the link between data submission-based and data analysis-based objects
 
 
 
