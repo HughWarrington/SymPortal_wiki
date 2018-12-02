@@ -304,7 +304,7 @@ The data submission-based objects are:
 In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, data_set_sample, data_analysis, clade_collection, clade_collection_type
 ```
 ### The _**data_analysis**_ object
-The data_analysis object represents an analysis that was run on a collection of data_set objects. It is run from the command line using the ```--analysis``` flag.
+The _**data_analysis**_ object represents an analysis that was run on a collection of _**data_set**_ objects. It is run from the command line using the ```--analysis``` flag.
 
 ```python
 In [2]: for da in data_analysis.objects.all():
@@ -313,14 +313,45 @@ In [2]: for da in data_analysis.objects.all():
 2 second_analysis
 3 third_analysis
 4 fourth_analysis
+
+In [3]: da_var = data_analysis.objects.get(id=13)
+
+In [4]: da_var
+Out[4]: <data_analysis: data_analysis object>
 ```
 **Some useful attributes:**
-_* name_
-_* description_
-_* listOfDataSubmissions - a commar delimited list of the IDs of the data_set objects included in the analysis_
-_* timeStamp_
+* _name_
+* _description_
+* _listOfDataSubmissions_ - a comma delimited list of the IDs of the data_set objects included in the analysis
+* _timeStamp_
 
+### The _**analysis_type**_ object
+The _**analysis_type**_ object is the database's proxy for the ITS2 type profile. Each ITS2 type profile predicted/found in an analysis has a corresponding _**analysis_type**_ object.
 
+```python
+In [5]: at_objects_var = analysis_type.objects.filter(dataAnalysisFrom=da_var)
+
+In [6]: at_objects_var
+Out[6]: <QuerySet [<analysis_type: C3-C3gulf-C3c-C3aq>, <analysis_type: C3-C3gulf-C3d-C3i-C115c>]>
+
+In [7]: for at in at_objects_var:
+    ...:     print(at.id, at.name)
+    ...:     
+81 C3-C3gulf-C3c-C3aq
+82 C3-C3gulf-C3d-C3i-C115c
+
+In [8]: at_var = analysis_type.objects.get(id=81)
+
+In [9]: at_var
+Out[9]: <analysis_type: C3-C3gulf-C3c-C3aq>
+```
+
+**Some useful attributes:**
+* _name_
+* _dataAnalysisFrom_
+* _clade_
+* _coDom_
+* _orderedFootprintList_
 
 
 
