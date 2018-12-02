@@ -71,13 +71,13 @@ In [5]: for ds in data_set.objects.all():
 
 1 first_data_set_submission
 ```
-#### An exploration of your database objects
+### An exploration of your database objects
 The below example will give you an introduction into the structure of the database, the objects it holds, and their inter-relations through some code examples.
 
 ```python
 In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, analysis_group, data_set_sample, data_analysis, clade_collection, clade_collection_type
 ```
-####The __data_set__ object
+#### The __data_set__ object
 ```python
 In [2]: for ds in data_set.objects.all():
    ...:    print('{}:{}'.format(ds.id, ds.name))
@@ -88,7 +88,7 @@ In [2]: for ds in data_set.objects.all():
 4 fourth_data_set_submission
 ```
 
-data_set objects represent a set of samples usually part of a single study
+__data_set__ objects represent a set of samples that are usually part of a single study
 ```python
 # create a variable 'first_data_set_var' and assign a data_set object to it
 In [2]: first_data_set_var = data_set.objects.get(id=1)
@@ -97,7 +97,7 @@ In [3]: first_data_set_var
 Out[3]: <data_set: first_data_set_submission>
 ```
 
-All of the database objects have a range of attributes. The full list can be seen in the ./dbApp.models.py file
+All of the database objects have attributes. The full list can be seen in the [models.py](https://github.com/SymPortal/SymPortal_framework/blob/master/dbApp/models.py) file
 We'll take a look at a couple of useful ones here:
 ```python
 In [4]: first_data_set_var.name
@@ -113,9 +113,8 @@ In [6]: first_data_set_var.timeStamp
 Out[6]: '2018-10-18 06:49:43.750268'
 ```
 #### The __data_set_sample__ object
-# All of the database objects are related to at least one other database object.
-# Database objects can be queried according to these relationships
-# The data_set object has data_set_sample objects associated to it
+All of the database objects are related to at least one other database object. Database objects can be queried according to these relationships. The __data_set__ object has __data_set_sample__ objects associated to it
+```python
 In [7]: dss_objects_var = data_set_sample.objects.filter(dataSubmissionFrom=first_data_set_var)
 
 In [8]: dss_objects_var
@@ -129,33 +128,89 @@ In [9]: for dss_object in dss_objects_var:
 747 AW0000136_BG8KK_12BA166
 748 AW0000120_BG8KK_12BA182
 
-'''data_set_sample objects are associated with clade_collection objects.
-A clade_collection object hold all of the sequences of a given clade from a given sample IF the
-total abundance of those sequences is greater than 200. If less then 200 then SymPortal seems this collection 
-of sequences to be too small to attempt to predict ITS2 type profiles (the probability 
-of encountering sequencing depth artefacts is too high) and no clade_collection object will be created.
-To ensure that all sequences are still associated with every data_set_sample, data_set_sample_sequence objects
-are associated directly to each data_set_sample object and to a clade_collection.
-'''
 In [10]: dss_object = data_set_sample.objects.get(id=745)
 
-In [10]: dss_object
+In [11]: dss_object
 Out[11]: <data_set_sample: AW0000216_BG8KK_12BA102>
-
-# some attributes of data_set_sample objects
+```
+__Some attributes of data_set_sample objects:__
 name
-initialTotSeqNum
-post_seq_qc_absolute_num_seqs
-initialUniqueSeqNum
-finalTotSeqNum
-finalUniqueSeqNum
-non_sym_absolute_num_seqs
-nonSymSeqsNum
-size_violation_absolute
-size_violation_unique
-post_med_absolute
-post_med_unique
-cladalSeqTotals
+initialTotSeqNum - the number of sequences after contig construction, before QC
+
+post_seq_qc_absolute_num_seqs - absolute number of sequences after initial QC but before taxonomic QC (contains non-Symbiodiniaceae sequences)
+initialUniqueSeqNum - the number of unique (distinct) sequences at same stage as above
+
+finalTotSeqNum - absolute number of sequences after all QC including taxonomic QC (contains only Symbiodiniaceae sequences)
+finalUniqueSeqNum  - the number of unique (distinct) sequences at same stage as above
+
+non_sym_absolute_num_seqs - absolute number of non-Symbiodiniaceae sequences
+nonSymSeqsNum - the number of unique (distinct) sequences at the same stage as above
+
+size_violation_absolute - absolute number of sequences thrown out due to size violations (too large or too small)
+size_violation_unique - the number of unique (distinct) sequences at same stage as above
+
+post_med_absolute - absolute number of sequences after all QC and Minimum Entropy Decomposition
+post_med_unique - - the number of unique (distinct) sequences at same stage as above
+
+cladalSeqTotals - A comma separated list of the number of sequences from each of the Symbiodiniaceae clades
+
+__meta-data attributes (these will be expanded in the future)__
+sample_type
+host_phylum
+host_class
+host_order
+host_family
+host_genus
+host_species
+collection_latitude
+collection_longitude
+collection_date
+collection_depth
+
+#### The __clade_collection__ and __data_set_sample_sequence__ objects
+__data_set_sample__ objects are associated with __clade_collection__ objects. A __clade_collection__ object holds all of the sequences (__data_set_sample_sequence__ objects) of a given clade from a given sample IF the total abundance of those sequences is greater than 200. If less then 200 then SymPortal deems this collection of sequences to be too small to attempt to predict ITS2 type profiles robustly (the probability of encountering sequencing depth artefacts is too high) and no __clade_collection__ object will be created. To ensure that all sequences are still associated with every __data_set_sample__ (even if there are <200 sequences of a given clade), __data_set_sample_sequence__ objects are associated directly to each __data_set_sample__ object and to a __clade_collection__.
+
+```python
+# get a QuerySet of the clade_collection objects associated to the data_set_sample assigned to the dss variable
+In [12]: cc_objects_var = clade_collection.objects.filter(dataSetSampleFrom=dss_object)
+
+In [13]: cc_objects_var
+Out[13]: <QuerySet [<clade_collection: AW0000216_BG8KK_12BA102>, <clade_collection: AW0000216_BG8KK_12BA102>]>
+
+# display the IDs of the clade_collection objects associated with the data_set_sample object
+In [14]: for cc in cc_objects_var:
+    ...:     print(cc.id, cc.dataSetSampleFrom.name)
+722 AW0000216_BG8KK_12BA102
+723 AW0000216_BG8KK_12BA102
+
+In [15]: cc_object_var = clade_collection.objects.get(id=722)
+
+In [16]: cc_object_var
+Out[16]: <clade_collection: AW0000216_BG8KK_12BA102>
+
+# see what clade the clade_collection object is
+In [17]: cc_object_var.clade
+Out[17]: 'D'
+
+# get a QuerySet of the data_set_sample_sequence objects associated to the clade_collection assigned to the cc_object_var variable
+In [18]: dsss_objects_var = data_set_sample_sequence.objects.filter(cladeCollectionTwoFoundIn=cc_object_var)
+
+In [19]: dsss_objects_var
+Out[19]: <QuerySet [<data_set_sample_sequence: D1>, <data_set_sample_sequence: D4>, <data_set_sample_sequence: ID=17148>, <data_set_sample_sequence: D2>, <data_set_sample_sequence: ID=17150>, <data_set_sample_sequence: ID=17151>, <data_set_sample_sequence: ID=17152>, <data_set_sample_sequence: D1m>, <data_set_sample_sequence: ID=17154>, <data_set_sample_sequence: ID=17155>, <data_set_sample_sequence: D2.2>, <data_set_sample_sequence: ID=17157>, <data_set_sample_sequence: ID=17158>, <data_set_sample_sequence: ID=17159>, <data_set_sample_sequence: D17d>, <data_set_sample_sequence: D1r>, <data_set_sample_sequence: ID=17162>, <data_set_sample_sequence: D17e>, <data_set_sample_sequence: D17c>, <data_set_sample_sequence: ID=17165>]>
+
+# remember that data_set_sample_sequence objects are also associated directly to the data_set_sample object:
+In [20]: dss_object
+Out[20]: <data_set_sample: AW0000216_BG8KK_12BA102>
+
+In [21]: dsss_objects_directly_from_dss = data_set_sample_sequence.objects.filter(data_set_sample_from=dss_object)
+
+In [22]: dsss_objects_directly_from_dss
+Out[22]: <QuerySet [<data_set_sample_sequence: A3>, <data_set_sample_sequence: ID=17140>, <data_set_sample_sequence: ID=17141>, <data_set_sample_sequence: A1>, <data_set_sample_sequence: ID=17143>, <data_set_sample_sequence: ID=17144>, <data_set_sample_sequence: ID=17145>, <data_set_sample_sequence: D1>, <data_set_sample_sequence: D4>, <data_set_sample_sequence: ID=17148>, <data_set_sample_sequence: D2>, <data_set_sample_sequence: ID=17150>, <data_set_sample_sequence: ID=17151>, <data_set_sample_sequence: ID=17152>, <data_set_sample_sequence: D1m>, <data_set_sample_sequence: ID=17154>, <data_set_sample_sequence: ID=17155>, <data_set_sample_sequence: D2.2>, <data_set_sample_sequence: ID=17157>, <data_set_sample_sequence: ID=17158>, '...(remaining elements truncated)...']>
+
+```
+
+
+
 
 
 
