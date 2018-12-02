@@ -1,3 +1,7 @@
+This page will cover how to access the database objects that are stored in your database. It is structured as follow:
+The Djano interface
+
+
 ## THIS PAGE IS UNDER DEVELOPMENT
 
 # The Django interface
