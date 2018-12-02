@@ -134,38 +134,40 @@ In [11]: dss_object
 Out[11]: <data_set_sample: AW0000216_BG8KK_12BA102>
 ```
 __Some attributes of data_set_sample objects:__
-name
-initialTotSeqNum - the number of sequences after contig construction, before QC
 
-post_seq_qc_absolute_num_seqs - absolute number of sequences after initial QC but before taxonomic QC (contains non-Symbiodiniaceae sequences)
-initialUniqueSeqNum - the number of unique (distinct) sequences at same stage as above
+_name_
+_initialTotSeqNum_ - the number of sequences after contig construction, before QC
 
-finalTotSeqNum - absolute number of sequences after all QC including taxonomic QC (contains only Symbiodiniaceae sequences)
-finalUniqueSeqNum  - the number of unique (distinct) sequences at same stage as above
+_post_seq_qc_absolute_num_seqs_ - absolute number of sequences after initial QC but before taxonomic QC (contains non-Symbiodiniaceae sequences)
+_initialUniqueSeqNum_ - the number of unique (distinct) sequences at same stage as above
 
-non_sym_absolute_num_seqs - absolute number of non-Symbiodiniaceae sequences
-nonSymSeqsNum - the number of unique (distinct) sequences at the same stage as above
+_finalTotSeqNum_ - absolute number of sequences after all QC including taxonomic QC (contains only Symbiodiniaceae sequences)
+_finalUniqueSeqNum_  - the number of unique (distinct) sequences at same stage as above
 
-size_violation_absolute - absolute number of sequences thrown out due to size violations (too large or too small)
-size_violation_unique - the number of unique (distinct) sequences at same stage as above
+_non_sym_absolute_num_seqs_ - absolute number of non-Symbiodiniaceae sequences
+_nonSymSeqsNum_ - the number of unique (distinct) sequences at the same stage as above
 
-post_med_absolute - absolute number of sequences after all QC and Minimum Entropy Decomposition
-post_med_unique - - the number of unique (distinct) sequences at same stage as above
+_size_violation_absolute_ - absolute number of sequences thrown out due to size violations (too large or too small)
+_size_violation_unique_ - the number of unique (distinct) sequences at same stage as above
 
-cladalSeqTotals - A comma separated list of the number of sequences from each of the Symbiodiniaceae clades
+_post_med_absolute_ - absolute number of sequences after all QC and Minimum Entropy Decomposition
+_post_med_unique_ - - the number of unique (distinct) sequences at same stage as above
+
+_cladalSeqTotals_ - A comma separated list of the number of sequences from each of the Symbiodiniaceae clades
 
 __meta-data attributes (these will be expanded in the future)__
-sample_type
-host_phylum
-host_class
-host_order
-host_family
-host_genus
-host_species
-collection_latitude
-collection_longitude
-collection_date
-collection_depth
+
+_sample_type_
+_host_phylum_
+_host_class_
+_host_order_
+_host_family_
+_host_genus_
+_host_species_
+_collection_latitude_
+_collection_longitude_
+_collection_date_
+_collection_depth_
 
 #### The __clade_collection__ and __data_set_sample_sequence__ objects
 __data_set_sample__ objects are associated with __clade_collection__ objects. A __clade_collection__ object holds all of the sequences (__data_set_sample_sequence__ objects) of a given clade from a given sample IF the total abundance of those sequences is greater than 200. If less then 200 then SymPortal deems this collection of sequences to be too small to attempt to predict ITS2 type profiles robustly (the probability of encountering sequencing depth artefacts is too high) and no __clade_collection__ object will be created. To ensure that all sequences are still associated with every __data_set_sample__ (even if there are <200 sequences of a given clade), __data_set_sample_sequence__ objects are associated directly to each __data_set_sample__ object and to a __clade_collection__.
