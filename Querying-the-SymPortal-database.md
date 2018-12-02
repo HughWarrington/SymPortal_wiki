@@ -221,6 +221,68 @@ In [22]: dsss_objects_directly_from_dss
 Out[22]: <QuerySet [<data_set_sample_sequence: A3>, <data_set_sample_sequence: ID=17140>, <data_set_sample_sequence: ID=17141>, <data_set_sample_sequence: A1>, <data_set_sample_sequence: ID=17143>, <data_set_sample_sequence: ID=17144>, <data_set_sample_sequence: ID=17145>, <data_set_sample_sequence: D1>, <data_set_sample_sequence: D4>, <data_set_sample_sequence: ID=17148>, <data_set_sample_sequence: D2>, <data_set_sample_sequence: ID=17150>, <data_set_sample_sequence: ID=17151>, <data_set_sample_sequence: ID=17152>, <data_set_sample_sequence: D1m>, <data_set_sample_sequence: ID=17154>, <data_set_sample_sequence: ID=17155>, <data_set_sample_sequence: D2.2>, <data_set_sample_sequence: ID=17157>, <data_set_sample_sequence: ID=17158>, '...(remaining elements truncated)...']>
 
 ```
+__Attributes of the data_set_sample_sequence object__
+The only attribute associated to the data_set_sample_sequence objects, that isn't a relation to another database object is _abundance_. This attribute holds the absolute abundance that this data_set_sample_sequence was found at in the data_set_sample.
+
+Obviously it would be useful to know the name of the sequence (if it has one), its clade and its actual nucleic sequence (i.e. all those lovely AGCTs). Given that the same sequence may be found in multiple samples (think about the D1 or C3 sequence), this information (name, clade and sequence) is not stored with the **_data_set_sample_sequence_** object. Rather it is stored with the **_reference_sequence_** object. In this way, if two _**data_set_sample**_ objects both contain the C3 sequence, each sample can have a unique _**data_set_sample_sequence**_ object associated to it that will store the information on its abundance. But both of the **_data_set_sample_sequence_** objects will have the same _referenceSequenceOf_ attribute that will point to the 'C3' _**reference_sequence**_ object. In this way, the name, clade and sequence information for the C3 sequence need only be stored once, rather than storing it for every occurrence of the sequence. This offers a dramatic saving of space and speedup for the SymPortal implementation. Therefore, to get the name, clade and sequence of a given **_data_set_sample_sequence_**, we must examine the associated **_reference_sequence_** object.
+
+```python
+In [23]: for dsss in dsss_objects_directly_from_dss:
+    ...:     print(dsss.id, dsss.referenceSequenceOf.name)
+17139 A3
+17140 4670
+17141 4671
+17142 A1
+17146 D1
+17147 D4
+17148 4675
+
+In [24]: dsss_var = data_set_sample_sequence.objects.get(id=17139)
+
+In [25]: dsss_var
+Out[25]: <data_set_sample_sequence: A3>
+
+# will NOT work
+In [26]: dsss_var.name
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-36-6a8b9711c4d6> in <module>()
+----> 1 dsss_var.name
+
+AttributeError: 'data_set_sample_sequence' object has no attribute 'name'
+
+In [27]: dsss_var.sequence
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-37-08231c9b607d> in <module>()
+----> 1 dsss_var.sequence
+
+AttributeError: 'data_set_sample_sequence' object has no attribute 'sequence'
+
+In [28]: dsss_var.clade
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-39-9a1828fd0519> in <module>()
+----> 1 dsss.clade
+
+AttributeError: 'data_set_sample_sequence' object has no attribute 'clade'
+
+
+# now with accessing the reference_sequence object
+In [29]: dsss_var.referenceSequenceOf
+Out[29]: <reference_sequence: A3>
+
+In [30]: ref_seq_of_dsss = dsss_var.referenceSequenceOf
+
+In [31]: ref_seq_of_dsss.name
+Out[31]: 'A3'
+
+In [32]: ref_seq_of_dsss.clade
+Out[32]: 'A'
+
+In [33]: ref_seq_of_dsss.sequence
+Out[33]: 'AATGGCCTCTTGAACGTGCATTGCGCTCTTGGGATATGCCTGAGAGCATGTCTGCTTCAGTGCTTCTACTTTCTTTTCTGCTGCTCTTGTTATCAGGAGCAGTGCTGCTGCATGCTTCTGCAATTGGCACTGGCATGCTAAGTACCAAGTTTCGCTTGCTGTTGTGACTGATCAACATCTCATGTCGTTTCAGTTGGCGAAACAAAGGCTTGTGTGTTCCAACACTTCCTA'
+```
 
 
 
