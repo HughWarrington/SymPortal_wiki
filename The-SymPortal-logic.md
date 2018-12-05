@@ -75,7 +75,7 @@ In this process, the binned sequences are run against the [NCBI’s ‘nt’ dat
 
 Importantly, all sequences identified as Symbiodiniaceae in origin at this stage are added to [the symClade.fa fasta](https://github.com/SymPortal/SymPortal_framework/blob/master/symbiodiniumDB/symClade.fa) and the related database objects are remade. The screening of the sequences is then repeated iteratively until no new Symbiodiniaceae sequences are found. Sequences deemed to be Symbiodiniaceae in origin are carried forwards in the analysis. Those sequences deemed to be non-Symbiodiniaceae in origin are written to disk (in the directory of the paired fastq.gz files) for access by the user.
 
-### size screening
+### Size screening
 After taxonomic screening Symbiodiniaceae sequences are size screened. This is done with hard cut-offs that were determined empirically as 50 bp +- the average size of the smallest and largest clades (clade A 234 bp, cladeB 266). These cutoffs are max=310, min=184. At this stage, the Symbiodiniaceae sequences are written to disk separated by taxonomic clade (A-I) in preparation for MED analysis.
 
 ### MED decomposition
@@ -87,7 +87,7 @@ Broadly speaking, in the field of Symbiodiniaceae taxonomy (specifically Symbiod
 An instance of a _**clade_collection**_ will contain a number of ITS2 amplicon sequences. To reduce information redundancy, multiple occurrences of the same sequence associated with a _**clade_collection**_ are stored in a single object. For example, 100 C3 sequences found in a _**clade_collection**_ will be represented as a single sequence instance found 100 times rather than 100 sequence instances. As well as being found multiple times within the same sample, sequences will be found in common between many different samples. For example, the previously mentioned C3 sequence is found globally. To minimise information redundancy, information specific to an instance of a sequence, e.g. which _**clade_collection**_ it was found in and at what abundance it was found at, is stored separately from the sequence information e.g. the nucleotide sequence, the clade, and the sequence name. The _**clade_collection**_-specific object is the _**data_set_sample_sequence**_ whilst the general sequence information is the _**reference_sequence**_ object. This concept is illustrated in figure 2.
 
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/sequenceNaming_noCC.png" width="70%" height="70%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/sequenceNaming_noCC.png" width="50%" height="50%">
 </p>
 
 **Figure 2.** Schematic representation of the relationship between the _**data_set_sample**_, _**clade_collection**_, _**data_set_sample_sequence**_ and _**reference_sequence**_ objects within the context of minimising redundancy when storing sequence information.
