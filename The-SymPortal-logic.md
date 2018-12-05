@@ -87,10 +87,10 @@ Broadly speaking, in the field of Symbiodiniaceae taxonomy (specifically Symbiod
 An instance of a _**clade_collection**_ will contain a number of ITS2 amplicon sequences. To reduce information redundancy, multiple occurrences of the same sequence associated with a _**clade_collection**_ are stored in a single object. For example, 100 C3 sequences found in a _**clade_collection**_ will be represented as a single sequence instance found 100 times rather than 100 sequence instances. As well as being found multiple times within the same sample, sequences will be found in common between many different samples. For example, the previously mentioned C3 sequence is found globally. To minimise information redundancy, information specific to an instance of a sequence, e.g. which _**clade_collection**_ it was found in and at what abundance it was found at, is stored separately from the sequence information e.g. the nucleotide sequence, the clade, and the sequence name. The _**clade_collection**_-specific object is the _**data_set_sample_sequence**_ whilst the general sequence information is the _**reference_sequence**_ object. This concept is illustrated in figure 2.
 
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.png" width="70%" height="70%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/sequenceNaming_noCC.png" width="70%" height="70%">
 </p>
 
-**Figure 1.** Schematic representation of the database objects (tables; bold and italicized) and the attributes used to define relations to other objects of the database (plain text associated with objects). Arrows indicate relations between objects. The objects within the database can be separated into two groups, those concerned with submission of data to the SymPortal database (data submission objects), and those associated with performing data analyses (data analysis objects).
+**Figure 2.** Schematic representation of the relationship between the _**data_set_sample**_, _**clade_collection**_, _**data_set_sample_sequence**_ and _**reference_sequence**_ objects within the context of minimising redundancy when storing sequence information.
 
 
 
