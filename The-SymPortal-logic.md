@@ -17,11 +17,12 @@ To enable this functionality the SymPortal analysis integrates with a SQL databa
 
 # The SymPortal relational database
 ## Overview
-The following schematic gives an overview of the database objects and their relations.
+Figure 1, gives an overview of the database objects and their relations.
 
 <p align="center">
 <img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.png" width="70%" height="70%">
 </p>
+**Figure 1** Schematic representation of the database objects (tables; bold and italicized) and the attributes used to define relations to other objects of the database (plain text associated with objects). Arrows indicate relations between objects. The objects within the database can be separated into two groups, those concerned with submission of data to the SymPortal database (data submission objects), and those associated with performing data analyses (data analysis objects).
 
 All of the database objects have attributes. The full list can be seen in the [models.py](https://github.com/SymPortal/SymPortal_framework/blob/master/dbApp/models.py) file.
 
