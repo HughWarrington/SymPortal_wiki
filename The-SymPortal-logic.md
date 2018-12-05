@@ -16,3 +16,31 @@ Because SymPortal relies on finding set of sequences in multiple samples, SymPor
 To enable this functionality the SymPortal analysis integrates with a SQL database referred to as the SymPortal database. This database is used to store the sequencing information from every previously submitted data set, and the results of analyses that have been run on these datasets. In order to cover the details of how data is submitted to the SymPortal database and how analyses are run an understanding of the structure of this relational database, and the objects (tables) that it holds is critical.
 
 # The SymPortal relational database
+## Overview
+The following schematic gives an overview of the database objects and their relations.
+
+All of the database objects have attributes. The full list can be seen in the [models.py](https://github.com/SymPortal/SymPortal_framework/blob/master/dbApp/models.py) file.
+
+Objects (tables) within the SymPortal database can be separated into two groups, those concerned with submission of data to the SymPortal database, and those associated with performing data analyses.
+
+All of the database objects are related to at least one other database object. Database objects can be queried according to these relationships. 
+
+## Data submission-based objects
+The data submission-based objects are:
+* _**data_set**_ - collection of samples usually from the same study
+* _**data_set_sample**_ - representative of a single sample
+* _**clade_collection**_ - collection of sequences of the same clade from a given sample
+* _**data_set_sample_sequence**_ - an ITS2 sequence found in a single sample
+* _**reference_sequence**_ - an ITS2 sequence that may be found in multiple samples
+
+### _**data_set**_
+_**data_set**_ objects represent a set of samples that are usually part of a single study.
+
+### _**data_set_sample**_
+
+### _**clade_collection**_
+
+### _**data_set_sample_sequence**_
+
+### _**reference_sequence**_
+
