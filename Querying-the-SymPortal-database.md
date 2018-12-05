@@ -310,7 +310,7 @@ In [33]: ref_seq_of_dsss.sequence
 Out[33]: 'AATGGCCTCTTGAACGTGCATTGCGCTCTTGGGATATGCCTGAGAGCATGTCTGCTTCAGTGCTTCTACTTTCTTTTCTGCTGCTCTTGTTATCAGGAGCAGTGCTGCTGCATGCTTCTGCAATTGGCACTGGCATGCTAAGTACCAAGTTTCGCTTGCTGTTGTGACTGATCAACATCTCATGTCGTTTCAGTTGGCGAAACAAAGGCTTGTGTGTTCCAACACTTCCTA'
 ```
 ## Data analysis-based objects
-The data submission-based objects are:
+The data analysis-based objects are:
 * _**data_analysis**_ - An analysis that was run on a collection of **_data_set_** objects
 * _**analysis_type**_ - An ITS2 type profile found in one or more _**data_set_sample**_
 * _**clade_collection_type**_ - An abstract object used to link the _**analysis_type**_ and _**clade_collection**_ objects. This object therefore represents the link between data submission-based and data analysis-based objects
