@@ -38,4 +38,53 @@ The data submission-based objects are:
 * _**data_set_sample_sequence**_ - a distinct ITS2 sequence found in a single sample. E.g. if the C3 sequence is returned from a sample 232 times, one data_set_sample sequence object will exist, rather than 232 separate objects. One data_set_sample_sequence object will exist for every distinct ITS2 sequence for every sample.
 * _**reference_sequence**_ - an ITS2 sequence that may be found in multiple samples. The same single _**reference_sequence**_ object will represent both of two different C3 _**data_set_sample_sequence**_ objects each found in a separate sample. For example, if one sample 'A345' and a second sample 'A346' both returned the C3 sequence (abundances of 232 and 16890, respectively for each sample), the will be a _**data_set_sample_sequence**_ object for each of these sequence occurrences. However, each of these _**data_set_sample_sequence**_ objects will associate with the same single _**reference_sequence**_ object.
 
+## Data analysis-based objects
+The data analysis-based objects are:
+* _**data_analysis**_ - An analysis that was run on a collection of **_data_set_** objects
+* _**analysis_type**_ - An ITS2 type profile found in one or more _**clade_collection**_
+* _**clade_collection_type**_ - An abstract object used to link the _**analysis_type**_ and _**clade_collection**_ objects. This object therefore represents the link between data submission-based and data analysis-based objects
+
+# Data submission
+Before any analyses are performed on samples, these samples must be converted from raw, demultiplexed illumina reads to SymPortal database objects. Once this conversion is complete, this set of objects may be used in multiple SymPortal analyses but will remain unmodified. As such the inputted data/samples can be viewed separately from the analyses that are conducted on them. This section concerns this conversion from raw data to SymPortal database objects.
+
+### Data input format
+SymPortal takes sets of demultiplexed, paired fastq.gz files as input with a forward and reverse read file for every sample. This set of submitted files will be represented in the SymPortal database as an instance of a _**data_set**_ object. 
+
+## Sequence quality control.
+Quality control (QC) of these paired files is performed on a sample by sample basis rather than working on all sequences of all samples together. Each sample contained within the data_set object is represented in the SymPortal database as a data_set_sample object. Quality control of the sequences contained in each of the samples is performed using [mothur](https://www.mothur.org/), the [blast+ suite of executables](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download) and [minimum entropy decomposition](http://merenlab.org/software/med/) (MED). 
+
+### mothur QC
+The following steps are taken during the mothur-based processing:
+* contiguous sequences are generated (make.contigs); 
+* sequences are screened with maximum ambiguities allowed set to 0 and maximum homopolymer set to 5;
+* sequences are ‘uniqued’ (distinct sequences identified); 
+* singletons and doublets are removed;
+* amplicons are _in silico_ PCRed using the SymVar primer pair (Hume, et al. 2018) allowing 2 forward differences and 2 reverse differences to the primers; 
+* sequence direction is assessed and sequences are reverse complimented as necessary.
+
+### blastn
+#### Primary screening
+The blastn programme from the blast+ suite of executables is used to identify sequence as Symbiodiniaceae or non-Symbiodiniaceae. On a sample by sample basis every sequence of the sample is run against the [symClade.fa](https://github.com/SymPortal/SymPortal_framework/blob/master/symbiodiniumDB/symClade.fa)-based blast database. 
+
+If a sequence has an identity greater than 80% and a coverage greater than 95% to any sequence in the reference database, it is assumed to be Symbiodiniaceae in origin. 
+
+#### Secondary screening (remote SymPortal only)
+Sequences that fall below either of these thresholds are put into a bin for further taxonomic identification (this only happens on the remote instance of the SymPortal framework as access to the entire NCBI ‘nt’ database is required; as are the computational resources required to load the ‘nt’ database into memory). 
+
+In this process, the binned sequences are run against the [NCBI’s ‘nt’ database](ftp://ftp.ncbi.nlm.nih.gov/blast/db/). The 10 closest matches are identified. If 4 or more of the matches are taxonomically annotated as either Symbiodinium or Symbiodiniaceae, the percentage coverage is above 95%, and the percentage identity match is above 60%, then this sequence is considered Symbiodiniaceae in origin (sequences must also be between 184 and 310bp in length; more below).
+
+Importantly, all sequences identified as Symbiodiniaceae in origin at this stage are added to [the symClade.fa fasta](https://github.com/SymPortal/SymPortal_framework/blob/master/symbiodiniumDB/symClade.fa) and the related database objects are remade. The screening of the sequences is then repeated iteratively until no new Symbiodiniaceae sequences are found. Sequences deemed to be Symbiodiniaceae in origin are carried forwards in the analysis. Those sequences deemed to be non-Symbiodiniaceae in origin are written to disk (in the directory of the paired fastq.gz files) for access by the user.
+
+### size screening
+After taxonomic screening Symbiodiniaceae sequences are size screened. This is done with hard cut-offs that were determined empirically as 50 bp +- the average size of the smallest and largest clades (clade A 234 bp, cladeB 266). These cutoffs are max=310, min=184. At this stage, the Symbiodiniaceae sequences are written to disk separated by taxonomic clade (A-I) in preparation for MED analysis.
+
+### MED decomposition
+A [MED decomposition is run](https://www.nature.com/articles/ismej2014195) using a dynamic M value set as the largest of 4 or 0.004 * the number of sequences being decomposed. MED nodes are read in from the analysis output and are eventually used to create the _**data_set_sample_sequence**_ and _**reference_sequence**_ objects of the database. However, before we take a closer look at these two objects we must first take a closer look at the _**clade_collection**_ object.
+
+### An introduction to the _**clade_collection**_, _**data_set_sample_sequence**_ and _**reference_sequence**_ objects
+Broadly speaking, in the field of Symbiodiniaceae taxonomy (specifically Symbiodiniaceae phylogenetics) all Symbiodiniaceae taxa defined using the ITS2 marker are resolved at, or below, the clade level. Therefore, no Symbiodiniaceae taxa defined with the ITS2 markers may contain intragenomic variants from multiple clades (although multiple Symbiodiniaceae taxa from different clades may reside in a single host). As such, SymPortal subdivides the ITS2 amplicon sequences found in every sample into clade groupings. SymPortal will only attempt to discover ITS2 type profiles (the taxonomic unit of resolution outputted from SymPortal analyses) from any such sample's clade grouping if it contains more than 200 sequences. Any cut-off lower than this may lead to an inability to detect defining intragenomic variants due to insufficient sequencing depth rather than true biological absence . Each collection of these clade grouped sequences from a given sample is represented in the SymPortal database as a _**clade_collection**_. Given that an analysis will not attempt to search a clade group where the total abundance of the constituent sequences is not above 200, per sample, _**clade_collection**_ objects will only be made for clade-separated groups of sequences above this threshold. E.g. if a sample contains 1980 clade C sequences, 42192 clade D sequences and 124 clade A sequences, it will have a _**clade_collection**_ object for each of the clade C and clade D sequences but there will not be a _**clade_collection**_ object representing the clade A sequences. The sample, will contain two clade collections, despite harbouring representative sequences from three of the Symbiodiniaceae clades.
+
+An instance of a _**clade_collection**_ will contain a number of ITS2 amplicon sequences. To reduce information redundancy, multiple occurrences of each sequence associated with a _**clade_collection**_ are stored as unique representative sequence together with their abundance information rather than as repeats of the same sequence. For example, 100 C3 sequences found in a _**clade_collection**_ will be represented as a single sequence instance found 100 times rather than 100 sequence instances. As well as being found multiple times within the same sample, sequences will be found in common between many different samples. For example, the previously mentioned C3 sequence is found globally. To minimise information redundancy, information specific to an instance of a sequence, e.g. which _**clade_collection**_ it was found in and at what abundance it was found at, is stored separately from the sequence information e.g. the nucleotide sequence, the clade, and the sequence name. The _**clade_collection**_-specific object is the _**data_set_sample_sequence**_ whilst the general sequence information is the _**reference_sequence**_ object. 
+
+
 
