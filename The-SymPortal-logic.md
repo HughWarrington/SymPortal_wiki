@@ -38,15 +38,4 @@ The data submission-based objects are:
 * _**data_set_sample_sequence**_ - a distinct ITS2 sequence found in a single sample. E.g. if the C3 sequence is returned from a sample 232 times, one data_set_sample sequence object will exist, rather than 232 separate objects. One data_set_sample_sequence object will exist for every distinct ITS2 sequence for every sample.
 * _**reference_sequence**_ - an ITS2 sequence that may be found in multiple samples. The same single _**reference_sequence**_ object will represent both of two different C3 _**data_set_sample_sequence**_ objects each found in a separate sample. For example, if one sample 'A345' and a second sample 'A346' both returned the C3 sequence (abundances of 232 and 16890, respectively for each sample), the will be a _**data_set_sample_sequence**_ object for each of these sequence occurrences. However, each of these _**data_set_sample_sequence**_ objects will associate with the same single _**reference_sequence**_ object.
 
-### _**data_set**_
-_**data_set**_ objects represent a set of samples that are usually part of a single study.
-
-
-### _**data_set_sample**_
-
-### _**clade_collection**_
-
-### _**data_set_sample_sequence**_
-
-### _**reference_sequence**_
 
