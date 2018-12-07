@@ -121,3 +121,22 @@ Once a list of supported profiles has been generated, these profiles are represe
 
 Each _**analysis_type**_ has a name that is made up of the defining intragenomic variants. How each of these DIVs is named will be covered later, but the format of the _**analysis_type**_ name will be explained here. The DIVs in a _**analysis_type**_ name are listed in order of total abundance across all the _**clade_collection**_ objects the _**analysis_type**_ was found in. For example, a typical _**analysis_type**_ name might look like, C3-C3a-C3cc, where C3 is the most abundant sequence found and C3cc the least. In this example, C3 was the most abundant sequence (majSeq) of the three DIVs in each of the _**clade_collection**_ objects the _**analysis_type**_ was found in. In some cases, the most abundant DIV of a type might vary from _**clade_collection**_ to _**clade_collection**_. For example, let’s examine the _**analysis_type**_ C3/C3c-C3cc. This _**analysis_type**_ was found in 10 _**clade_collection**_ objects. In 7 of the _**clade_collection**_ objects, C3 was the most abundant sequence (majSeq) of the three DIVs. However, in 3 of the _**clade_collection**_ objects, C3c was the most abundant. This so-called co-dominance is denoted by the ‘/’. Co-dominant DIVs are always listed in the order of the number of _**clade_collection**_ objects they are the majSeq in. After the co-dominant sequences have been listed in a name, the other DIVs are listed in order of total abundance as described in the first naming example.
 
+# Appendix
+## A.1 Determining supported profiles
+Initial profiles are processed in order of length (the number of sequences they contain). Each unique profile is firstly checked to see how many _**clade_collection**_ objects it was found in. If it was found in >=4 _**clade_collection**_ objects, it is deemed supported. It is added to a list of supported profiles, each of which will become an instance of an _**analysis_type**_ (ITS2 type profile). If for all of the clade_collections in the analysis, all profiles of this length (n) are supported then the process continues with the next smallest profile (n-1).
+
+e.g. if initial profile C3-C3ab-C1c-C1cc-C3dv is found in 6 clade_collection objects, this profile will become an analysis_type.
+
+However, if there are profiles of length n, that have not been identified in a sufficient number of _**clade_collection**_ objects, profile collapse begins. Firstly, profiles of length n-1, where n is the current length of profile we are assessing, are tested to see if they contain the same sequences as the profiles of length n. If they do, and the majority sequences (most abundant sequence of the _**clade_collection**_ object) of the length n profiles are found in the n-1 profiles, the n profile is collapsed to the n-1 profile. _**clade_collection**_ objects associated with the the length n profiles are transferred to the n-1 profile. Essentially the length n profiles ceases to exist. 
+
+e.g. if initial profiles C3-C3ab-C1c-C1cc-C3fg (found in 2 _**clade_collection**_ objects) and C3-C3ab-C1c-C1cc (found in 1 _**clade_collection**_ object) exist, the first profile, will be collapsed into the second.   C3‑C3ab-C1c-C1cc-C3fg will cease to exist and C3-C3ab-C1c-C1cc will now be associated to 3 clade_collection objects.
+
+If after this process there are still length n profiles remaining that have not been associated to n-1 profiles, SymPortal will attempt to collapse these n length profiles into novel n-1 length profiles that can be derived from the subsets of the length n profiles themselves (the subset collapsed to must contain the majority sequence of the initial length n profile; the novel subsets must be found in at least two of the uncollapse length n profiles).
+
+
+
+
+
+
+
+
