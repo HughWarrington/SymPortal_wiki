@@ -115,25 +115,71 @@ For each _**clade_collection**_ in the analysis, an initial profile is identifie
 ### Searching for supported type profiles
 The above process generates a list of initial type profiles, one for each _**clade_collection**_. For each putative type profile the number of _**clade_collection**_ it was found in and the most abundant sequence of each _**clade_collection**_ it was found in (referred to as the majority sequence or majSeq) are kept track of. Two initial profiles are considered identical if they contain the same set of DIVs, i.e. the abundance of DIVs is not taken into account at this point.
 
-Searching for support for the above list of initial profiles is done clade by clade, i.e. supported types from clade A are determined first, then clade B etc. You might imagine that determining support for the list of profiles above is simple and would follow the following logic: for every putative type profile found, see how many _**clade_collection**_ it was found in, if enough, consider this type profile supported. However, a large number of initial profiles will not gain support from this method alone, let’s call these profiles ‘unsupported’. SymPortal works with these ‘unsupported’ profiles by evaluating permutations of shorter subsets of the profiles’ sequences (essentially collapsing them) until additional support is found. See section [A.1 Determining supported profiles]() for further detail.
+Searching for support for the above list of initial profiles is done clade by clade, i.e. supported types from clade A are determined first, then clade B etc. You might imagine that determining support for the list of profiles above is simple and would follow the following logic: for every putative type profile found, see how many _**clade_collection**_ it was found in, if enough, consider this type profile supported. However, a large number of initial profiles will not gain support from this method alone, let’s call these profiles ‘unsupported’. SymPortal works with these ‘unsupported’ profiles by evaluating permutations of shorter subsets of the profiles’ sequences (essentially collapsing them) until additional support is found. See section [A.1 Determining supported profiles](#A1-determining-supported-profiles) for further detail.
 
 Once a list of supported profiles has been generated, these profiles are represented by _**analysis_type**_ objects in the database.
 
 Each _**analysis_type**_ has a name that is made up of the defining intragenomic variants. How each of these DIVs is named will be covered later, but the format of the _**analysis_type**_ name will be explained here. The DIVs in a _**analysis_type**_ name are listed in order of total abundance across all the _**clade_collection**_ objects the _**analysis_type**_ was found in. For example, a typical _**analysis_type**_ name might look like, C3-C3a-C3cc, where C3 is the most abundant sequence found and C3cc the least. In this example, C3 was the most abundant sequence (majSeq) of the three DIVs in each of the _**clade_collection**_ objects the _**analysis_type**_ was found in. In some cases, the most abundant DIV of a type might vary from _**clade_collection**_ to _**clade_collection**_. For example, let’s examine the _**analysis_type**_ C3/C3c-C3cc. This _**analysis_type**_ was found in 10 _**clade_collection**_ objects. In 7 of the _**clade_collection**_ objects, C3 was the most abundant sequence (majSeq) of the three DIVs. However, in 3 of the _**clade_collection**_ objects, C3c was the most abundant. This so-called co-dominance is denoted by the ‘/’. Co-dominant DIVs are always listed in the order of the number of _**clade_collection**_ objects they are the majSeq in. After the co-dominant sequences have been listed in a name, the other DIVs are listed in order of total abundance as described in the first naming example.
 
+### Artefact resolutions caused by the withinCladeCutoff
+As discussed [above](#creation-of-initial-profiles-for-testing), implementing a withinCladeCutoff has many benefits however, it can also introduce resolution artefacts (the presence or absence of ITS2 type profiles caused solely by the use of the withinCladeCutoff). These artefacts may happen either during [ITS2 type profile discovery](#ITS2-type-profile-discovery) or [ITS2 type profile assignment](#ITS2-type-profile-assignment). SymPortal implements logic specifically designed to mitigate these artefact resolutions at two points: directly after the ITS2 type profile discovery phase and during ITS2 type profile assignment. For further detail, please see [A.2 Mitigating withinCladeCutoff artefact resolutions](#A2-mitigating-withincladecutoff-artefact-resolutions).
+
+
 # Appendix
 ## A.1 Determining supported profiles
+back to [searching for supported type profiles](#searching-for-supported-type-profiles)
 Initial profiles are processed in order of length (the number of sequences they contain). Each unique profile is firstly checked to see how many _**clade_collection**_ objects it was found in. If it was found in >=4 _**clade_collection**_ objects, it is deemed supported. It is added to a list of supported profiles, each of which will become an instance of an _**analysis_type**_ (ITS2 type profile). If for all of the clade_collections in the analysis, all profiles of this length (n) are supported then the process continues with the next smallest profile (n-1).
 
-e.g. if initial profile C3-C3ab-C1c-C1cc-C3dv is found in 6 clade_collection objects, this profile will become an analysis_type.
+> e.g. if initial profile C3-C3ab-C1c-C1cc-C3dv is found in 6 clade_collection objects, this profile will become an analysis_type.
 
 However, if there are profiles of length n, that have not been identified in a sufficient number of _**clade_collection**_ objects, profile collapse begins. Firstly, profiles of length n-1, where n is the current length of profile we are assessing, are tested to see if they contain the same sequences as the profiles of length n. If they do, and the majority sequences (most abundant sequence of the _**clade_collection**_ object) of the length n profiles are found in the n-1 profiles, the n profile is collapsed to the n-1 profile. _**clade_collection**_ objects associated with the the length n profiles are transferred to the n-1 profile. Essentially the length n profiles ceases to exist. 
 
-e.g. if initial profiles C3-C3ab-C1c-C1cc-C3fg (found in 2 _**clade_collection**_ objects) and C3-C3ab-C1c-C1cc (found in 1 _**clade_collection**_ object) exist, the first profile, will be collapsed into the second.   C3‑C3ab-C1c-C1cc-C3fg will cease to exist and C3-C3ab-C1c-C1cc will now be associated to 3 clade_collection objects.
+> e.g. if initial profiles C3-C3ab-C1c-C1cc-C3fg (found in 2 _**clade_collection**_ objects) and C3-C3ab-C1c-C1cc (found in 1 _**clade_collection**_ object) exist, the first profile, will be collapsed into the second.   C3‑C3ab-C1c-C1cc-C3fg will cease to exist and C3-C3ab-C1c-C1cc will now be associated to 3 clade_collection objects.
 
 If after this process there are still length n profiles remaining that have not been associated to n-1 profiles, SymPortal will attempt to collapse these n length profiles into novel n-1 length profiles that can be derived from the subsets of the length n profiles themselves (the subset collapsed to must contain the majority sequence of the initial length n profile; the novel subsets must be found in at least two of the uncollapse length n profiles).
 
+> e.g. if the following length n initial profiles exist (number of _**clade_collection**_ objects found in shown in parentheses) that have not been associated with any other n-1 profiles yet:
+> * C3-C3ab-C1c-C1cd-C3fg (1),  
+> * C3-C3ab-C1c-C1cg-C3fg (2),
+> * C3-C3ab-C1c-C1p-C3fg (1),
+> * C3-C3ab-C1c-C1f-C3fg (1)
+> All four initial profiles will be collapsed to the novel n-1 length profile C3-C3ab-C1c-C3fg. Incidentally, this profile will be supported (by 5 _**clade_collection**_ objects) and will eventually become an _**analysis_type**_.
 
+If all profiles of length n have been collapsed to n-1 length profiles the entire profile support process restarts with the next smallest profiles. If there are profiles remaining that were unable to be collapsed, these profiles remain and are reconsidered in the next iteration where they will be attempted to be collapsed to profiles that are n-2 in length. This entire process continues until n=2. Profiles of length 2 and profiles that have not been able to be collapsed of length > 2 will be collapsed to their majority sequence.
+
+> e.g. if profiles:
+> * C8-C9-C8b-C8dc-C8sc (2)
+> * C8-C6 (1)
+> have not been collapsed, the profile C8 will eventually become an analysis_type.
+
+back to [searching for supported type profiles](#searching-for-supported-type-profiles)
+
+##A.2 Mitigating withinCladeCutoff artefact resolutions
+back to [Artefact resolutions caused by the withinCladeCutoff](#artefact-resolutions-caused-by-the-withincladecutoff)
+
+Artefacts resolutions due to the withinCladeCutoff may occur either in type profile assignment or during type profile discovery. To introduce the theory behind the generation of artefact ITS2 type profiles we will first discuss the type profile assignment cases. 
+
+Consider an ITS2 type profile of C3a-C3ab-C3ac-C3d. Let’s consider that this type profile has been found in 6 corals, and that we know the true relative abundances of each of the DIVs in these corals, by some means other than SymPortal. In all of the corals each of the DIVs has a relative abundance above 5% (i.e. 2% clear of the required 3% withinCladeCutoff), except for the C3d DIV. Its relative abundances are 0.06, 0.05, 0.04, 0.038, 0.028, 0.025. In this instance, the relative abundances of the DIV spans the 0.03 (3%) withinCladeCutoff. 
+
+Following the type profile discovery logic, C3a-C3ab-C3ac-C3d is a supported profile and thus becomes a typeProfile object. However, in our above example, 2 out of the 6 coral samples will not have gone towards supporting this typeProfile due to their C3d sequence relative abundances being below the 0.03 threshold. In type profile assignment (see section XXX) typeProfiles are found in cladeCollections only if the DIVs of the typeProfile are present, and at relative abundances within the range of those found in the initial supporting cladeCollections. For example, the C3a-C3ab-C3ac-C3d was created, and was supported by four cladeColections where the C3d DIV relative abundances were 0.06, 0.05, 0.04, 0.038. Therefore, in type profile assignment, as well as meeting all other requirements, a cladeCollection must contain the C3d DIV at a relative abundance of between 0.038 and 0.06. As such the cladeCollections that contained this DIV at 0.028 and 0.025 will not be assigned this typeProfile. 
+
+The purpose of the withinCladeCutoff is to identify which sequences (e.g. C3, C3ab, C3ac, C3d) become DIVs for ITS2 type profiles, and not to affect which instances of sequences (e.g. a C3d at 0.038 or 0.028) are included. Such exclusion cases thus represent an artefact. To prevent such artefacts, the lower relative abundance limits are lowered to 0.005 (0.5%) for any DIV that has been found at below 0.05 (5%) and is therefore likely symptomatic of there being further DIVs below the 3% cutoff that would otherwise be excluded. Any DIV that has instances below the 5% relative abundance is referred to as an ‘unlocked’ DIV. 
+
+To continue our example, considering specifically the C3d DIV of the ITS2 profile C3a-C3ab-C3ac-C3d, the relative abundance of this DIV in the four supporting cladeCollections was 0.06, 0.05, 0.04, 0.038. Because at least one of these is at or below 0.05, a lowered relative abundance limit of 0.005 is used for the C3d DIV; it is unlocked. 
+
+The maximum and minimum allowable abundance at which each typeProfile’s DIV must be found at in order for that typeProfile to be found in a given cladeCollection is set by the initial cladeCollections (see section 3.1.3 Type profile assignment – Logic). Therefore, after initial supported types have been discovered, each cladeCollection from the analysis is checked against each typeProfile again, this time allowing DIV withinCladeCutoffs of 0.005 for DIVs that have been ‘unlocked’. In this way, some initial types will gain cladeCollection support, whilst others may lose support. The support of some types will remain unchanged.
+
+To complete our example, the cladeCollection’s that contained the C3d DIV at 0.028 and 0.025 would not have originally supported the C3a-C3ab-C3ac-C3d typeProfile. However, after the checking of all cladeCollection against each typeProfile again, taking into account the unlocked DIVs’ lower withinCladeCutoffs, these cladeCollections would move from supporting whichever typeProfile they had been associated with to the C3a-C3ab-C3ac-C3d typeProfile. The unlocked DIVs and associated 0.005 cut-off are also used in type profile assignment. The corals that contained the C3d DIV at 0.028 and 0.025 will therefore have this type assigned to them.
+
+As well as creating artefacts at the type profile assignment stage, the withinCladeCutoff can also cause artefacts in type discovery. In a small number of cases, two typeProfiles will be created to represent sequence sets that would best be represented by a single typeProfile due to DIVs occurring across the withinCladeCutoff boundary. 
+
+For example, types D1-D17-D6-D17b and D1-D17-D6-D2 may exist. In the cladeCollections initially supporting the D17b profile the D2 DIV may exist at > 0.03 in some cladeCollections and at abundances <0.03 and > 0.005 in all other cladeCollections. Equally, in the D2 profile the D17b DIV may exist at > 0.03 in some cladeCollections and at abundances <0.03 and > 0.005 in all other cladeColllections. See example below.
+
+
+
+
+
+back to [Artefact resolutions caused by the withinCladeCutoff](#artefact-resolutions-caused-by-the-withincladecutoff)
 
 
 
