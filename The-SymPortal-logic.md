@@ -21,7 +21,7 @@ For additional general information on the SymPortal database as well as instruct
 Figure 1, gives an overview of the database objects and their relations.
 
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.png" width="70%" height="70%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.svg" width="70%" height="70%">
 </p>
 
 **Figure 1.** Schematic representation of the database objects (tables; bold and italicized) and the attributes used to define relations to other objects of the database (plain text associated with objects). Arrows indicate relations between objects. The objects within the database can be separated into two groups, those concerned with submission of data to the SymPortal database (data submission objects), and those associated with performing data analyses (data analysis objects).
@@ -87,7 +87,7 @@ Broadly speaking, in the field of Symbiodiniaceae taxonomy (specifically Symbiod
 An instance of a _**clade_collection**_ will contain a number of ITS2 amplicon sequences. To reduce information redundancy, multiple occurrences of the same sequence associated with a _**clade_collection**_ are stored in a single object. For example, 100 C3 sequences found in a _**clade_collection**_ will be represented as a single sequence instance found 100 times rather than 100 sequence instances. As well as being found multiple times within the same sample, sequences will be found in common between many different samples. For example, the previously mentioned C3 sequence is found globally. To minimise information redundancy, information specific to an instance of a sequence, e.g. which _**clade_collection**_ it was found in and at what abundance it was found at, is stored separately from the sequence information e.g. the nucleotide sequence, the clade, and the sequence name. The _**clade_collection**_-specific object is the _**data_set_sample_sequence**_ whilst the general sequence information is the _**reference_sequence**_ object. This concept is illustrated in figure 2.
 
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/sequenceNaming_noCC.png" width="50%" height="50%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/sequenceNaming_noCC.svg" width="50%" height="50%">
 </p>
 
 **Figure 2.** Schematic representation of the relationship between the _**data_set_sample**_, _**clade_collection**_, _**data_set_sample_sequence**_ and _**reference_sequence**_ objects within the context of minimising redundancy when storing sequence information.
@@ -179,7 +179,7 @@ For example, types D1-D17-D6-D17b and D1-D17-D6-D2 may exist. In the _**clade_co
 
 
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/typeDiscoArtefact.png" width="80%" height="80%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/typeDiscoArtefact.svg" width="80%" height="80%">
 </p>
 
 Without correction for the effects of the _withinCladeCutoff_, these _**clade_collection**_ objects will be represented as the two ITS2 type profiles shown above (in the scenario where fewer than 4 of the supporting _**clade_collection**_ objects contain both the D17b and D2 DIV > 0.03). Again, the _withinCladeCutoff_ is affecting which instances of sequences rather than just which sequences, are being incorporated into an ITS2 type profile and thus creating an artefact. In this scenario, the super-profile of D1-D17-D6-D2-D17b would be a better match. To mitigate this artefact, closely related types are compared in a pairwise manner to see whether their combined _**clade_collection**_ objects would be better represented by their super-type (combination of DIVs). In this comparison any unlocked DIVs are only required to be found at a relative abundance of 0.005 (0.5%) in the supporting _**clade_collection**_ objects. If the super-type is found to be a better match, for a subset of the _**clade_collection**_ objects (>= 4 cladeCollections for support) a new _**analysis_type**_ is created and _**clade_collection**_ support is redistributed. If the original _**analysis_type**_ objects being compared no longer have the required support, due to their supporting _**clade_collection**_ objects now supporting the new super-type, they are deleted, else, they remain. Any _**clade_collection**_ object(s) that are not associated with the new super-type, but were associated to one of the original _**analysis_type**_ objects that no longer has support, are re-associated to an existing or new analysis_type.
