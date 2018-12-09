@@ -98,6 +98,19 @@ Due to the massive diversity of ITS2 sequences that have already been submitted 
 ### Data submission conclusion and output
 Once MED nodes have been used to generate the _**data_set_sample_sequence**_ objects, that are in turn associated to the _**reference_sequence**_, _**clade_collection**_, and _**data_set_sample**_ objects, that are all associated to a single _**data_set**_ object, data submission is complete.
 
+The items of a standard output of a data submission are:
+* count table of the _**data_set_sample_sequence**_ objects as relative abundances of each _**data_set_sample**_ object
+* count table of the _**data_set_sample_sequence**_ objects as absolute counts
+* .fasta file containing the sequences of each of the _**reference_sequence**_ objects associated to each _**data_set_sample**_ object reported in the above count tables
+* .png stacked bar plot of the _**data_set_sample_sequence**_ objects found in each of the _**data_set_sample**_ objects in the data submission
+* .svg stacked bar plot of the _**data_set_sample_sequence**_ objects found in each of the _**data_set_sample**_ objects in the data submission
+* pre-MED Symbiodiniaceae sequence split by clade and _**data_set_sample**_
+* non-Symbiodiniaceae sequences split by _**data_set_sample**_
+* Bray-curtis or Unifrac calculated between sample distances separated by clade
+* principal coordinate analysis (PCoA) coordinates of the calculated distances for all samples
+* .png ordination plot of the PCoA coordinates
+* .svg ordination plot of the PCoA coordinates
+
 # Data analysis
 ## Overview
 A SymPortal data analysis is the process in which ITS2 type profiles are predicted for a selection of _**data_set**_ objects and their associated samples and sequences. A SymPortal data analysis can be divided into two phases: ITS2 type profile discovery and ITS2 type profile assignment. 
@@ -124,7 +137,7 @@ Each _**analysis_type**_ has a name that is made up of the defining intragenomic
 ### Artefact resolutions caused by the withinCladeCutoff
 As discussed [above](#creation-of-initial-profiles-for-testing), implementing a withinCladeCutoff has many benefits however, it can also introduce resolution artefacts (the presence or absence of ITS2 type profiles caused solely by the use of the withinCladeCutoff). These artefacts may happen either during [ITS2 type profile discovery](#ITS2-type-profile-discovery) or [ITS2 type profile assignment](#ITS2-type-profile-assignment). SymPortal implements logic specifically designed to mitigate these artefact resolutions at two points: directly after the ITS2 type profile discovery phase and during ITS2 type profile assignment. For further detail, please see [A.2 Mitigating withinCladeCutoff artefact resolutions](#A2-mitigating-withincladecutoff-artefact-resolutions).
 
-## ITS2 type profile discovery
+## ITS2 type profile assignment
 In ITS2 type profile assignment each of the discovered analysis_type objects is searched for within the _**clade_collection**_ objects. Each _**clade_collection**_ may contain more than one _**analysis_type**_ so long as the _**analysis_type**_ objects in question do not have DIVs in common.
 
 ### Type profile assignment - Logic
@@ -219,6 +232,26 @@ SymPortal gives an alpha-numeric name to every _**reference_sequence**_ object t
 
 ## Identifying relations between Symbiodiniaceae taxonomic descriptions and ITS2 type profiles
 The degree to which formal Symbiodiniaceae species descriptions utilise ITS2 sequence information varies, from multiple species sharing the same single majority ITS2 sequence (e.g. _S. natans_ & _S. tridacnorum_ with A3, _B. minutum_ & _B. antillogorgium_ & _B. pseudominutum_ with B1) to species-specific intragenomic sequence identifiers, e.g. the C3gulf intragenomic variant that identifies _C. thermophilum_. Given that SymPortal’s approach offers superior taxonomic resolution and sequence identification to previous approaches it is able to further resolve previous ITS2 profiles, e.g. D1-4, D1-D4-D6, C3-C3gulf, to a greater resolution. As such, the new, higher resolution ITS2 type profiles cannot strictly be associated to specific formal definitions that were undertaken using lower resolution approaches. However, it is useful to be able to correlate which species descriptions correlate to which of SymPortal’s outputted ITS2 type profiles. If a SymPortal profile contains all the DIVs that were used in a formal Symbiodiniaceae species description, SymPortal will associate this species to the outputted profile. This is for purposes of convenience and the responsibility of assessing whether the profile is likely representative of a formally described species lies with the researcher.
+
+## Data analysis conclusion and output
+The end result of a SymPortal analysis will be the creation of a set of SymPortal database sequences that represent the prediction of ITS2 type profiles within a collection of data_set objects. This will contain at least one data_analysis object to which an analysis_type object will be associated for every ITS2 type profile detected. A clade_collection_type object will be generated for every instance of an analysis_type identified in a clade_collection and represents the link between the data analysis and data submission objects.
+
+The items of a standard output from a data analysis are:
+* count table of the _**data_set_sample_sequence**_ objects as relative abundances of each _**data_set_sample**_
+* count table of the _**data_set_sample_sequence**_ objects as absolute counts
+* count table of the predicted _**analysis_type**_ objects as relative abundances of each _**data_set_sample**_
+* count table of the predicted _**analysis_type**_ objects as absolute counts
+* .fasta file containing the sequences of each of the _**reference_sequence**_ objects associated to each _**data_set_sample**_ object reported in the above count tables
+* .png stacked bar plot of the _**data_set_sample_sequence**_ objects found in each of the _**data_set_sample**_ objects in the data analysis
+* .svg stacked bar plot of the _**data_set_sample_sequence**_ objects found in each of the _**data_set_sample**_ objects in the data analysis
+* .png stacked bar plot of the _**analysis_type**_ objects found in each of the _**data_set_sample**_ objects in the data analysis
+* .svg stacked bar plot of the _**analysis_type**_ objects found in each of the _**data_set_sample**_ objects in the data analysis
+* Bray-curtis or Unifrac calculated between sample distances separated by clade
+* Bray-curtis or Unifrac calculated between ITS2 type profile distances separated by clade
+* principal coordinate analysis (PCoA) coordinates of the calculated distances for all samples
+* principal coordinate analysis (PCoA) coordinates of the calculated distances for all ITS2 type profiles
+* .png ordination plot of the PCoA coordinates (samples and ITS2 type profiles)
+* .svg ordination plot of the PCoA coordinates(samples and ITS2 type profiles)
 
 # Appendix
 ## A.1 Determining supported profiles
