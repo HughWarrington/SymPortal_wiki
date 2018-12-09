@@ -192,11 +192,11 @@ The sequencing depth and coverage of next-generation amplicon sequencing allows 
 ### Multi-modal detection - Logic
 For each DIV within each _**analysis_type**_ a histogram of the relative abundance for each occurrence of the DIV in question is plotted (relative abundance bins on the x axis, frequency on the y axis). It is then smoothed using kernel density estimation (kde) and multimodal character is searched for. If multimodal character is found, and there is sufficient difference between the relative abundance modes (x axis difference) and mode frequencies are not too dissimilar (sufficient similarity in the y axis of modes) the single _**analysis_type**_ will be divided into two separate types (sorted by the _**clade_collection**_ objects found in each mode). Both the required difference between the x axis values of the modes (xmax - xmin must be > 0.7), and the similarity in the y value of the modes (ymin/ymax must be > 0.85) have been empirically determined to be conservative, i.e. to minimise _**analysis_type**_ splitting.
 
-e.g. when assessing DIV D1 in analysis_type D1/D4-D6-D5 for multimodal properties:
-1. Plot relative abundance of DIV D1 in each of the supporting clade_collection objects of D1/D4-D6-D5
+e.g. when assessing DIV D1 in _**analysis_type**_ D1/D4-D6-D5 for multimodal properties:
+1. Plot relative abundance of DIV D1 in each of the supporting _**clade_collection**_ objects of D1/D4-D6-D5
 
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.svg" width="70%" height="70%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/multi_modal_detection_1.svg" width="50%" height="50%">
 </p>
 
 2a. Smooth histogram using kernel density estimation
@@ -205,15 +205,20 @@ e.g. when assessing DIV D1 in analysis_type D1/D4-D6-D5 for multimodal propertie
 2d. Identify sufficient similarity of mode frequencies (y axis)
 
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.svg" width="70%" height="70%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/multi_modal_detection_2.svg" width="50%" height="50%">
 </p>
 
-3. Split analysis_type to create two new analysis_type objects which are supported by clade_collection objects belonging to each of the respective modes
+3. Split analysis_type to create two new _**analysis_type**_ objects which are supported by _**clade_collection**_ objects belonging to each of the respective modes
 
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.svg" width="70%" height="70%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/multi_modal_detection_3.svg" width="50%" height="50%">
 </p>
 
+## Naming DIV _**reference_sequence**_ objects
+SymPortal gives an alpha-numeric name to every _**reference_sequence**_ object that is used in an _**analysis_type**_, i.e. for each DIV. In this naming scheme, the first letter is determined by the Symbiodiniaceae clade (A-I) followed by further alphanumeric identifiers, for example C3a, D1ab, D5ca. SymPortal maintains agreement with common previously identified sequences from the literature, e.g. D1, D4, C3, C15 etc. SymPortal does not aim to maintain agreement with all Symbiodiniaceae ITS2 sequences present in GenBank due to complications caused by: a lack of standardised Symbiodiniaceae ITS2 sequence nomenclature system (e.g. C15a C15b... vs. C15.1, C15.2...), variation in the size of the ITS2 region analysed in phylogenetic analyses (often including parts of the 5.8S and 28S), and a confusion between sequences being named after the ‘types’ they define rather than their specific intragenomic variants’ names (D1 and D1a[D4] sequences making up the D1a[D1-4] type, now formally, _D. trenchii_). If a _**reference_sequence**_ being named by SymPortal is not found in the list of common sequences, it is named according to its closest phylogenetically basal relative, with an appended unique alpha combination. E.g a novel sequence with closest match to sequence C15, would be named C15b if C15a had already been used by SymPortal in its naming system or if C15a was in the list of commonly found sequences.
+
+## Identifying relations between Symbiodiniaceae taxonomic descriptions and ITS2 type profiles
+The degree to which formal Symbiodiniaceae species descriptions utilise ITS2 sequence information varies, from multiple species sharing the same single majority ITS2 sequence (e.g. _S. natans_ & _S. tridacnorum_ with A3, _B. minutum_ & _B. antillogorgium_ & _B. pseudominutum_ with B1) to species-specific intragenomic sequence identifiers, e.g. the C3gulf intragenomic variant that identifies _C. thermophilum_. Given that SymPortal’s approach offers superior taxonomic resolution and sequence identification to previous approaches it is able to further resolve previous ITS2 profiles, e.g. D1-4, D1-D4-D6, C3-C3gulf, to a greater resolution. As such, the new, higher resolution ITS2 type profiles cannot strictly be associated to specific formal definitions that were undertaken using lower resolution approaches. However, it is useful to be able to correlate which species descriptions correlate to which of SymPortal’s outputted ITS2 type profiles. If a SymPortal profile contains all the DIVs that were used in a formal Symbiodiniaceae species description, SymPortal will associate this species to the outputted profile. This is for purposes of convenience and the responsibility of assessing whether the profile is likely representative of a formally described species lies with the researcher.
 
 # Appendix
 ## A.1 Determining supported profiles
