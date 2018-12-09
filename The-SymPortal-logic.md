@@ -124,6 +124,16 @@ Each _**analysis_type**_ has a name that is made up of the defining intragenomic
 ### Artefact resolutions caused by the withinCladeCutoff
 As discussed [above](#creation-of-initial-profiles-for-testing), implementing a withinCladeCutoff has many benefits however, it can also introduce resolution artefacts (the presence or absence of ITS2 type profiles caused solely by the use of the withinCladeCutoff). These artefacts may happen either during [ITS2 type profile discovery](#ITS2-type-profile-discovery) or [ITS2 type profile assignment](#ITS2-type-profile-assignment). SymPortal implements logic specifically designed to mitigate these artefact resolutions at two points: directly after the ITS2 type profile discovery phase and during ITS2 type profile assignment. For further detail, please see [A.2 Mitigating withinCladeCutoff artefact resolutions](#A2-mitigating-withincladecutoff-artefact-resolutions).
 
+## ITS2 type profile discovery
+In ITS2 type profile assignment each of the discovered analysis_type objects is searched for within the _**clade_collection**_ objects. Each _**clade_collection**_ may contain more than one _**analysis_type**_ so long as the _**analysis_type**_ objects in question do not have DIVs in common.
+
+### Type profile assignment - Logic
+Within each _**clade_collection**_, every _**analysis_type**_ of the corresponding clade is searched for. An _**analysis_type**_ is found within a _**clade_collection**_ if the _**clade_collection**_ contains the DIVs that define the _**analysis_type**_ within the relative abundance ranges defined for that _**analysis_type**_ during the ITS2 type profile discovery phase (explained below; except for the relaxed lower limits implemented due to artefact mitigation in unlocked DIVs; see [A.2 Mitigating _withinCladeCutoff_ artefact resolutions](#A2-mitigating-withincladecutoff-artefact-resolutions)). For each DIV within each typeProfile this relative abundance range is simply the max and min relative abundance that the DIVs were found at in the initial supporting _**clade_collection**_ objects.
+
+e.g. when searching for analysis_type C3-C3a-C3cc in clade_collection 'Example1':
+<p align="center">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/sequenceNaming_noCC.svg" width="50%" height="50%">
+</p>
 
 # Appendix
 ## A.1 Determining supported profiles
