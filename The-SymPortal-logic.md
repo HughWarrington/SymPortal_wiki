@@ -139,7 +139,7 @@ Following the above logic several _**analysis_type**_ objects that share the sam
 
 e.g. when checking whether the analysis_type objects, C3-C3a-C3cc, C3-C3a-C3dd or C3-C3a should be associated to _**clade_collection**_ 'Example1':
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment1.svg" width="80%" height="80%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment2.svg" width="80%" height="80%">
 </p>
 
 # Appendix
