@@ -131,6 +131,21 @@ In ITS2 type profile assignment each of the discovered analysis_type objects is 
 Within each _**clade_collection**_, every _**analysis_type**_ of the corresponding clade is searched for. An _**analysis_type**_ is found within a _**clade_collection**_ if the _**clade_collection**_ contains the DIVs that define the _**analysis_type**_ within the relative abundance ranges defined for that _**analysis_type**_ during the ITS2 type profile discovery phase (explained below; except for the relaxed lower limits implemented due to artefact mitigation in unlocked DIVs; see [A.2 Mitigating _withinCladeCutoff_ artefact resolutions](#A2-mitigating-withincladecutoff-artefact-resolutions)). For each DIV within each typeProfile this relative abundance range is simply the max and min relative abundance that the DIVs were found at in the initial supporting _**clade_collection**_ objects.
 
 e.g. when searching for analysis_type C3-C3a-C3cc in clade_collection 'Example1':
+* 1. Determing maximum and minimum relative abundances for each DIV in the analysis_type by examining supporting clade_collection onjects.
+    * a) the abundances of the _**analysis_type**_ object's DIVs are summed
+
+
+|  | C3 | C3a | C3cc | C3ab | C3d | C3t | C3z | Total seqs | DIV seqs |
+| --- | --- | --- | --- |--- | --- |--- | --- |--- | --- |
+| supporting _**clade_collection**_ 1 | **1002** | **220** | **198** | 0 | 9 |23 | 0 | 1453 | 1221 |
+| supporting _**clade_collection**_ 2 | **989** | **228** | **192** | 9 | 8 |0 | 12 | 1438 | 1209 |
+| supporting _**clade_collection**_ 3 | **999** | **213** | **178** | 21 | 0 |7 | 8 | 1426 | 1190 |
+| supporting _**clade_collection**_ 4 | **1023** | **198** | **199** | 0 | 4 |0 | 2 | 1426 | 1220 |
+| supporting _**clade_collection**_ 5 | **1333** | **190** | **191** | 4 | 0 |6 | 5 | 1729 | 1514 |
+| supporting _**clade_collection**_ 6 | **829** | **170** | **193** | 0 | 18 |23 | 0 | 1210 | 992 |
+
+    * b) the relative abundances are calculated as: the DIV abundances / DIV seqs total (NOT the total seqs of the _**clade_collection**_).
+
 <p align="center">
 <img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment1.svg" width="80%" height="80%">
 </p>
