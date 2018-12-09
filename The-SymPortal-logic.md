@@ -132,7 +132,7 @@ Within each _**clade_collection**_, every _**analysis_type**_ of the correspondi
 
 e.g. when searching for analysis_type C3-C3a-C3cc in clade_collection 'Example1':
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/sequenceNaming_noCC.svg" width="50%" height="50%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment1.svg" width="50%" height="50%">
 </p>
 
 # Appendix
