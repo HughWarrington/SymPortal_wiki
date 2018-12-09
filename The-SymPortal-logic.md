@@ -186,6 +186,34 @@ Following the above logic several _**analysis_type**_ objects that share the sam
 > 
 > _**analysis_type**_ C3-C3a-C3cc represents the largest proportion of _**clade_collection**_ 'Example1's sequences and is associated to the _**clade_collection**_. The other two _**analysis_type**_ objects are not.
 
+## Multi-modal detection
+The sequencing depth and coverage of next-generation amplicon sequencing allows for ITS2 type profiles that have identical profiles to be differentiated according to differences in the relative abundances of their DIVs.
+
+### Multi-modal detection - Logic
+For each DIV within each _**analysis_type**_ a histogram of the relative abundance for each occurrence of the DIV in question is plotted (relative abundance bins on the x axis, frequency on the y axis). It is then smoothed using kernel density estimation (kde) and multimodal character is searched for. If multimodal character is found, and there is sufficient difference between the relative abundance modes (x axis difference) and mode frequencies are not too dissimilar (sufficient similarity in the y axis of modes) the single _**analysis_type**_ will be divided into two separate types (sorted by the _**clade_collection**_ objects found in each mode). Both the required difference between the x axis values of the modes (xmax - xmin must be > 0.7), and the similarity in the y value of the modes (ymin/ymax must be > 0.85) have been empirically determined to be conservative, i.e. to minimise _**analysis_type**_ splitting.
+
+e.g. when assessing DIV D1 in analysis_type D1/D4-D6-D5 for multimodal properties:
+1. Plot relative abundance of DIV D1 in each of the supporting clade_collection objects of D1/D4-D6-D5
+
+<p align="center">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.svg" width="70%" height="70%">
+</p>
+
+2a. Smooth histogram using kernel density estimation
+2b. Detect presence of modes
+2c. Identify sufficient separation between nodes (x axis)
+2d. Identify sufficient similarity of mode frequencies (y axis)
+
+<p align="center">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.svg" width="70%" height="70%">
+</p>
+
+3. Split analysis_type to create two new analysis_type objects which are supported by clade_collection objects belonging to each of the respective modes
+
+<p align="center">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/db_schematic.svg" width="70%" height="70%">
+</p>
+
 
 # Appendix
 ## A.1 Determining supported profiles
