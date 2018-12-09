@@ -131,8 +131,8 @@ In ITS2 type profile assignment each of the discovered analysis_type objects is 
 Within each _**clade_collection**_, every _**analysis_type**_ of the corresponding clade is searched for. An _**analysis_type**_ is found within a _**clade_collection**_ if the _**clade_collection**_ contains the DIVs that define the _**analysis_type**_ within the relative abundance ranges defined for that _**analysis_type**_ during the ITS2 type profile discovery phase (explained below; except for the relaxed lower limits implemented due to artefact mitigation in unlocked DIVs; see [A.2 Mitigating _withinCladeCutoff_ artefact resolutions](#A2-mitigating-withincladecutoff-artefact-resolutions)). For each DIV within each typeProfile this relative abundance range is simply the max and min relative abundance that the DIVs were found at in the initial supporting _**clade_collection**_ objects.
 
 e.g. when searching for analysis_type C3-C3a-C3cc in clade_collection 'Example1':
-* 1. Determing maximum and minimum relative abundances for each DIV in the analysis_type by examining supporting clade_collection onjects.
-    * a) the abundances of the _**analysis_type**_ object's DIVs are summed
+1. Determing maximum and minimum relative abundances for each DIV in the analysis_type by examining supporting clade_collection onjects.
+* a) the abundances of the _**analysis_type**_ object's DIVs are summed
 
 
 |  | C3 | C3a | C3cc | C3ab | C3d | C3t | C3z | Total seqs | DIV seqs |
@@ -144,11 +144,32 @@ e.g. when searching for analysis_type C3-C3a-C3cc in clade_collection 'Example1'
 | supporting _**clade_collection**_ 5 | **1333** | **190** | **191** | 4 | 0 |6 | 5 | 1729 | 1514 |
 | supporting _**clade_collection**_ 6 | **829** | **170** | **193** | 0 | 18 |23 | 0 | 1210 | 992 |
 
-    * b) the relative abundances are calculated as: the DIV abundances / DIV seqs total (NOT the total seqs of the _**clade_collection**_).
+* b) the relative abundances are calculated as: the DIV abundances / DIV seqs total (NOT the total seqs of the _**clade_collection**_).
+* c) the maximum and minimum relative abundances (emboldened) are associated to the _**analysis_type**_ and used in ITS2 type profile assignment.
 
-<p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment1.svg" width="80%" height="80%">
-</p>
+|  | C3 | C3a | C3cc |
+| --- | --- | --- | --- |
+| supporting _**clade_collection**_ 1 | 0.66 | 0.18| 0.16 |
+| supporting _**clade_collection**_ 2 | 0.65| **0.19** | 0.16 |
+| supporting _**clade_collection**_ 3 | 0.67| 0.18| 0.15 |
+| supporting _**clade_collection**_ 4 | 0.67 |0.16 | 0.16 |
+| supporting _**clade_collection**_ 5 |**0.75 **| **0.13** | 0.13 |
+| supporting _**clade_collection**_ 6 | **0.73** | 0.17 |0.19|
+
+2. Check to see if _**clade_collection**_ 'Example1' contains all DIVs within the maximum and minimum relative abundances of the _**analysis_type**_.
+* a) DIVs of the _**analysis_type**_ in the _**clade_collection**_ are summed
+
+|  | C3 | C3a | C3cc | C3ab | C3d | C3t | C3z | Total seqs | DIV seqs |
+| --- | --- | --- | --- |--- | --- |--- | --- |--- | --- |
+| Example1 | **751** | **210** | **180** | 12 | 121 |0 | 0 | 1274 | **1141** |
+
+* b) the relative abundances of the _**analysis_type**_ in question's DIV sequences for _**clade_collection**_ 'Example1' are calculated
+
+|  | C3 | C3a | C3cc |
+| --- | --- | --- |
+| Example1 | 0.66 | 0.18 | 0.16 |
+
+Result: analysis_type C3-C3a-C3cc _is_ found in **_clade_collection_** 'Example1' as the **_clade_collection_** object's relative abundances are within the maximum and minimum relative abundances of the **_analysis_type_**.
 
 Following the above logic several _**analysis_type**_ objects that share the same DIVs may be found in a single _**clade_collection**_. However, SymPortal does not allow _**analysis_type**_ objects that have DIVs in common to be associated to the same _**clade_collection**_. SymPortal will always associate the _**analysis_type**_ that covers the greatest number of sequences for the given _**clade_collection**_ rather than an _**analysis_type**_ that covers more DIVs of the _**clade_collection**_ object's sequences.
 
