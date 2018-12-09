@@ -187,10 +187,6 @@ Following the above logic several _**analysis_type**_ objects that share the sam
 > _**analysis_type**_ C3-C3a-C3cc represents the largest proportion of _**clade_collection**_ 'Example1's sequences and is associated to the _**clade_collection**_. The other two _**analysis_type**_ objects are not.
 
 
-<p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment2.svg" width="80%" height="80%">
-</p>
-
 # Appendix
 ## A.1 Determining supported profiles
 back to [searching for supported type profiles](#searching-for-supported-type-profiles)
@@ -243,10 +239,34 @@ As well as creating artefacts at the ITS2 type profile assignment phase, the _wi
 
 For example, types D1-D17-D6-D17b and D1-D17-D6-D2 may exist. In the _**clade_collection**_ object initially supporting the D17b profile the D2 DIV may exist at > 0.03 in some _**clade_collection**_ objects and at abundances <0.03 and > 0.005 in all other _**clade_collection**_ objects. Equally, in the D2 profile the D17b DIV may exist at > 0.03 in some _**clade_collection**_ objects and at abundances <0.03 and > 0.005 in all other _**clade_collection**_ objects. See example below.
 
+1. Closely related analysis_type objects (those with profiles that only differ by unlocked DIVs) are considered in pairwise comparisons (unlocked DIVs are emboldened below).
+_**analysis_type**_ D1-D17-D6-**D17b**:
 
-<p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/typeDiscoArtefact.svg" width="80%" height="80%">
-</p>
+> || D1 | D17 | D6 | D17b | D2 |
+> | --- | --- | --- | --- |--- | --- |
+> | supporting _**clade_collection**_ 1 | 0.58 | 0.19 | 0.14 | 0.05 | 0.04 |
+> | supporting _**clade_collection**_ 2 | 0.62 | 0.09 | 0.15 | 0.12 | 0.02 |
+> | supporting _**clade_collection**_ 3 | 0.53 | 0.21 | 0.18 | 0.06 | 0.02 |
+> | supporting _**clade_collection**_ 4 | 0.68 | 0.16 | 0.11 | 0.03 | 0.02 |
+> | supporting _**clade_collection**_ 5 | 0.55 | 0.18 | 0.13 | 0.12 | 0.02 |
+> | supporting _**clade_collection**_ 6 | 0.54 | 0.18 | 0.21 | 0.06 | 0.01 |
+> | supporting _**clade_collection**_ 7 | 0.68 | 0.12 | 0.16 | 0.04 | 0.00 |
+> | supporting _**clade_collection**_ 8 | 0.55 | 0.18 | 0.24 | 0.03 | 0.00 |
+> | supporting _**clade_collection**_ 9 | 0.54 | 0.15 | 0.28 | 0.03 | 0.00 |
+
+_**analysis_type**_ D1-D17-D6-**D2**:
+
+> || D1 | D17 | D6 | D17b | D2 |
+> | --- | --- | --- | --- |--- | --- |
+> | supporting _**clade_collection**_ 1 | 0.55 | 0.12 | 0.16 | 0.08 | 0.08 |
+> | supporting _**clade_collection**_ 2 | 0.62 | 0.19 | 0.14 | 0.02 | 0.03 |
+> | supporting _**clade_collection**_ 3 | 0.54 | 0.22 | 0.09 | 0.05 | 0.10 |
+> | supporting _**clade_collection**_ 4 | 0.68 | 0.12 | 0.13 | 0.02 | 0.05 |
+> | supporting _**clade_collection**_ 5 | 0.62 | 0.18 | 0.12 | 0.01 | 0.17 |
+> | supporting _**clade_collection**_ 6 | 0.54 | 0.20 | 0.18 | 0.02 | 0.06 |
+> | supporting _**clade_collection**_ 7 | 0.58 | 0.15 | 0.23 | 0.00 | 0.04 |
+> | supporting _**clade_collection**_ 8 | 0.62 | 0.22 | 0.13 | 0.00 | 0.03 |
+> | supporting _**clade_collection**_ 9 | 0.52 | 0.23 | 0.21 | 0.00 | 0.04 |
 
 Without correction for the effects of the _withinCladeCutoff_, these _**clade_collection**_ objects will be represented as the two ITS2 type profiles shown above (in the scenario where fewer than 4 of the supporting _**clade_collection**_ objects contain both the D17b and D2 DIV > 0.03). Again, the _withinCladeCutoff_ is affecting which instances of sequences rather than just which sequences, are being incorporated into an ITS2 type profile and thus creating an artefact. In this scenario, the super-profile of D1-D17-D6-D2-D17b would be a better match. To mitigate this artefact, closely related types are compared in a pairwise manner to see whether their combined _**clade_collection**_ objects would be better represented by their super-type (combination of DIVs). In this comparison any unlocked DIVs are only required to be found at a relative abundance of 0.005 (0.5%) in the supporting _**clade_collection**_ objects. If the super-type is found to be a better match, for a subset of the _**clade_collection**_ objects (>= 4 cladeCollections for support) a new _**analysis_type**_ is created and _**clade_collection**_ support is redistributed. If the original _**analysis_type**_ objects being compared no longer have the required support, due to their supporting _**clade_collection**_ objects now supporting the new super-type, they are deleted, else, they remain. Any _**clade_collection**_ object(s) that are not associated with the new super-type, but were associated to one of the original _**analysis_type**_ objects that no longer has support, are re-associated to an existing or new analysis_type.
 Mitigation of _withinCladeCutoff_ artefacts is conducted directly after the ITS2 type discovery phase. The lowering of the lower abundance limits for unlocked DIVs is implemented in ITS2 type profile assignment phase.
