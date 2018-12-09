@@ -132,7 +132,14 @@ Within each _**clade_collection**_, every _**analysis_type**_ of the correspondi
 
 e.g. when searching for analysis_type C3-C3a-C3cc in clade_collection 'Example1':
 <p align="center">
-<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment1.svg" width="50%" height="50%">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment1.svg" width="80%" height="80%">
+</p>
+
+Following the above logic several _**analysis_type**_ objects that share the same DIVs may be found in a single _**clade_collection**_. However, SymPortal does not allow _**analysis_type**_ objects that have DIVs in common to be associated to the same _**clade_collection**_. SymPortal will always associate the _**analysis_type**_ that covers the greatest number of sequences for the given _**clade_collection**_ rather than an _**analysis_type**_ that covers more DIVs of the _**clade_collection**_ object's sequences.
+
+e.g. when checking whether the analysis_type objects, C3-C3a-C3cc, C3-C3a-C3dd or C3-C3a should be associated to _**clade_collection**_ 'Example1':
+<p align="center">
+<img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment1.svg" width="80%" height="80%">
 </p>
 
 # Appendix
