@@ -152,7 +152,7 @@ Within each _**clade_collection**_, every _**analysis_type**_ of the correspondi
 > | supporting _**clade_collection**_ 2 | 0.65| **0.19** | 0.16 |
 > | supporting _**clade_collection**_ 3 | 0.67| 0.18| 0.15 |
 > | supporting _**clade_collection**_ 4 | 0.67 |0.16 | 0.16 |
-> | supporting _**clade_collection**_ 5 | **0.75 **| **0.13** | 0.13 |
+> | supporting _**clade_collection**_ 5 | **0.75 ** | **0.13** | 0.13 |
 > | supporting _**clade_collection**_ 6 | **0.73** | 0.17 |0.19|
 > 
 > 2. Check to see if _**clade_collection**_ 'Example1' contains all DIVs within the maximum and minimum relative abundances of the _**analysis_type**_.
@@ -172,7 +172,21 @@ Within each _**clade_collection**_, every _**analysis_type**_ of the correspondi
 
 Following the above logic several _**analysis_type**_ objects that share the same DIVs may be found in a single _**clade_collection**_. However, SymPortal does not allow _**analysis_type**_ objects that have DIVs in common to be associated to the same _**clade_collection**_. SymPortal will always associate the _**analysis_type**_ that covers the greatest number of sequences for the given _**clade_collection**_ rather than an _**analysis_type**_ that covers more DIVs of the _**clade_collection**_ object's sequences.
 
-e.g. when checking whether the analysis_type objects, C3-C3a-C3cc, C3-C3a-C3dd or C3-C3a should be associated to _**clade_collection**_ 'Example1':
+> e.g. when checking whether the _**analysis_type**_ objects, C3-C3a-C3cc, C3-C3a-C3dd or C3-C3a should be associated to _**clade_collection**_ 'Example1':
+> 
+> Check to see which _**analysis_type**_ objects' DIVs cover the largest proportion of sequences in _**clade_collection**_ 'Example1'.
+> 
+> Abundance of DIVs in _**clade_collection**_ 'Example1':
+>
+> |  | C3 | C3a | C3cc | C3ab | C3d | C3t | C3z | Total|
+> | --- | --- | --- | --- |--- | --- |--- | --- |--- |
+> | C3-C3a-C3cc | **751** | **210** | **180** | 12 | 121 |0 | 0 | 1141 |
+> | C3-C3a-C3d | **751** | **210** | 180 | 12 | **121** |0 | 0 | 1082 |
+> | C3-C3a | **751** | **210** | 180 | 12 | 121 |0 | 0 | 961 |
+> 
+> _**analysis_type**_ C3-C3a-C3cc represents the largest proportion of _**clade_collection**_ 'Example1's sequences and is associated to the _**clade_collection**_. The other two _**analysis_type**_ objects are not.
+
+
 <p align="center">
 <img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/analysis_type_assignment2.svg" width="80%" height="80%">
 </p>
