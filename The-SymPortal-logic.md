@@ -182,8 +182,10 @@ For example, types D1-D17-D6-D17b and D1-D17-D6-D2 may exist. In the _**clade_co
 <img src="https://github.com/didillysquat/symportal_wiki_assets/blob/master/typeDiscoArtefact.png" width="80%" height="80%">
 </p>
 
+Without correction for the effects of the _withinCladeCutoff_, these _**clade_collection**_ objects will be represented as the two ITS2 type profiles shown above (in the scenario where fewer than 4 of the supporting _**clade_collection**_ objects contain both the D17b and D2 DIV > 0.03). Again, the _withinCladeCutoff_ is affecting which instances of sequences rather than just which sequences, are being incorporated into an ITS2 type profile and thus creating an artefact. In this scenario, the super-profile of D1-D17-D6-D2-D17b would be a better match. To mitigate this artefact, closely related types are compared in a pairwise manner to see whether their combined _**clade_collection**_ objects would be better represented by their super-type (combination of DIVs). In this comparison any unlocked DIVs are only required to be found at a relative abundance of 0.005 (0.5%) in the supporting _**clade_collection**_ objects. If the super-type is found to be a better match, for a subset of the _**clade_collection**_ objects (>= 4 cladeCollections for support) a new _**analysis_type**_ is created and _**clade_collection**_ support is redistributed. If the original _**analysis_type**_ objects being compared no longer have the required support, due to their supporting _**clade_collection**_ objects now supporting the new super-type, they are deleted, else, they remain. Any _**clade_collection**_ object(s) that are not associated with the new super-type, but were associated to one of the original _**analysis_type**_ objects that no longer has support, are re-associated to an existing or new analysis_type.
+Mitigation of _withinCladeCutoff_ artefacts is conducted directly after the ITS2 type discovery phase. The lowering of the lower abundance limits for unlocked DIVs is implemented in ITS2 type profile assignment phase.
 
-back to [Artefact resolutions caused by the withinCladeCutoff](#artefact-resolutions-caused-by-the-withincladecutoff)
+back to [Artefact resolutions caused by the _withinCladeCutoff_](#artefact-resolutions-caused-by-the-withincladecutoff)
 
 
 
