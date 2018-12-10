@@ -1,4 +1,4 @@
-* #### [Home](https://github.com/SymPortal/SymPortal_framework/wiki/Welcome-to-SymPortal)
+* #### [Welcome](https://github.com/SymPortal/SymPortal_framework/wiki/Welcome-to-SymPortal)
 
 * #### [SymPortal setup](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup)
     * **[Getting SymPortal](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#1-download-the-latest-release-and-decompress-in-your-chosen-working-directory)**
