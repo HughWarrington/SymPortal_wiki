@@ -1,5 +1,5 @@
 # This page is under development
-This page details the core logic of the SymPortal analytical format
+This page details the core logic of the SymPortal analytical framework
 # Contents
 * [A brief introduction to SymPortal](#a-brief-introduction-to-symportal)
     * [Overview](#overview)
@@ -17,9 +17,9 @@ This page details the core logic of the SymPortal analytical format
         * [blastn](#blastn)
         * [Size screening](#size-screening)
         * [MED decomposition](#med-decomposition)
-        * [An introduction to the clade_collection, data_set_sample_sequence and reference_sequence objects](#an-introduction-to-the-clade_collection-data_set_sample_sequence-and-reference_sequence-objects)
-        * [Naming of ITS2 sequences](#naming-of-its2-sequences)
-        * [Data submission conclusion and output](#data-submission-conclusion-and-output)
+    * [An introduction to the clade_collection, data_set_sample_sequence and reference_sequence objects](#an-introduction-to-the-clade_collection-data_set_sample_sequence-and-reference_sequence-objects)
+    * [Naming of ITS2 sequences](#naming-of-its2-sequences)
+    * [Data submission conclusion and output](#data-submission-conclusion-and-output)
 * [Data analysis](#data-analysis)
     * [Overview](#overview-2)
     * [ITS2 type profile discovery](#its2-type-profile-discovery)
@@ -123,7 +123,7 @@ After taxonomic screening Symbiodiniaceae sequences are size screened. This is d
 ### MED decomposition
 A [MED decomposition is run](https://www.nature.com/articles/ismej2014195) using a dynamic M value set as the largest of 4 or 0.004 * the number of sequences being decomposed. MED nodes are read in from the analysis output and are eventually used to create the _**data_set_sample_sequence**_ and _**reference_sequence**_ objects of the database. However, before we take a closer look at these two objects we must first take a closer look at the _**clade_collection**_ object. [[top]](#contents)
 
-### An introduction to the _**clade_collection**_, _**data_set_sample_sequence**_ and _**reference_sequence**_ objects
+## An introduction to the _**clade_collection**_, _**data_set_sample_sequence**_ and _**reference_sequence**_ objects
 Broadly speaking, in the field of Symbiodiniaceae taxonomy (specifically Symbiodiniaceae phylogenetics) all Symbiodiniaceae taxa defined using the ITS2 marker are resolved at, or below, the clade level. Therefore, no Symbiodiniaceae taxa defined with the ITS2 markers may contain intragenomic variants from multiple clades (although multiple Symbiodiniaceae taxa from different clades may reside in a single host). As such, SymPortal subdivides the ITS2 amplicon sequences found in every sample into clade groupings. SymPortal will only attempt to discover ITS2 type profiles (the taxonomic unit of resolution outputted from SymPortal analyses) from any such sample's clade grouping if it contains more than 200 sequences. Any cut-off lower than this may lead to an inability to detect defining intragenomic variants due to insufficient sequencing depth rather than true biological absence . Each collection of these clade grouped sequences from a given sample is represented in the SymPortal database as a _**clade_collection**_. Given that an analysis will not attempt to search a clade group where the total abundance of the constituent sequences is not above 200, per sample, _**clade_collection**_ objects will only be made for clade-separated groups of sequences above this threshold. E.g. if a sample contains 1980 clade C sequences, 42192 clade D sequences and 124 clade A sequences, it will have a _**clade_collection**_ object for each of the clade C and clade D sequences but there will not be a _**clade_collection**_ object representing the clade A sequences. The sample, will contain two clade collections, despite harbouring representative sequences from three of the Symbiodiniaceae clades.
 
 An instance of a _**clade_collection**_ will contain a number of ITS2 amplicon sequences. To reduce information redundancy, multiple occurrences of the same sequence associated with a _**clade_collection**_ are stored in a single object. For example, 100 C3 sequences found in a _**clade_collection**_ will be represented as a single sequence instance found 100 times rather than 100 sequence instances. As well as being found multiple times within the same sample, sequences will be found in common between many different samples. For example, the previously mentioned C3 sequence is found globally. To minimise information redundancy, information specific to an instance of a sequence, e.g. which _**clade_collection**_ it was found in and at what abundance it was found at, is stored separately from the sequence information e.g. the nucleotide sequence, the clade, and the sequence name. The _**clade_collection**_-specific object is the _**data_set_sample_sequence**_ whilst the general sequence information is the _**reference_sequence**_ object. This concept is illustrated in figure 2.
@@ -135,10 +135,10 @@ An instance of a _**clade_collection**_ will contain a number of ITS2 amplicon s
 **Figure 2.** Schematic representation of the relationship between the _**data_set_sample**_, _**clade_collection**_, _**data_set_sample_sequence**_ and _**reference_sequence**_ objects within the context of minimising redundancy when storing sequence information.
 [[top]](#contents)
 
-### Naming of ITS2 sequences
+## Naming of ITS2 sequences
 Due to the massive diversity of ITS2 sequences that have already been submitted to the SymPortal database, not all sequences are given names. Only those sequences that are used in the definition of ITS2 type profiles (i.e. DIVs) are named. This naming process currently only happens in the remote version SymPortal to prevent disagreement with novel sequences named by local instance. Given that only those sequences that are used to define ITS2 type profiles are named, the naming process doesn't happen during data submission but rather at the end of a data analysis. This is due to the fact that it is impossible to know whether any novel sequences encountered (those sequences not already in the SymPortal database) during data submission will be used to define ITS2 type profiles before a data analysis has been run. However, during data submission, each of the MED nodes output from the MED analysis are checked against the current reference_sequence objects held in the SymPortal database. If the MED node sequences already match one of sequences of an existing reference_sequence, the data_set_sample_sequence generated from this MED node will be associated to this reference_sequence. Importantly, when looking for matches to the output MED nodes, subsetting is taken into account. For example, if a MED node sequence is AGGATGCA and there is a _**reference_sequence**_ object with a sequence sequence of GGATGCA then these will be considered a match, and the _**data_set_sample_sequence**_ generated will be associated to the _**reference_sequence**_ with the GGATGCA sequence. If there is no match for a given MED node sequence, a new _**reference_sequence**_ object is created. This _**reference_sequence**_ will not have a name. Unnamed _**reference_sequence**_ objects are referred to by their unique identifier (UID). [[top]](#contents)
 
-### Data submission conclusion and output
+## Data submission conclusion and output
 Once MED nodes have been used to generate the _**data_set_sample_sequence**_ objects, that are in turn associated to the _**reference_sequence**_, _**clade_collection**_, and _**data_set_sample**_ objects, that are all associated to a single _**data_set**_ object, data submission is complete.
 
 The items of a standard output of a data submission are:
