@@ -1,4 +1,27 @@
 # This page is under development
+This page details the core logic of the SymPortal analytical format
+# Contents
+* [A brief introduction to SymPortal](#a-brief-introduction-to-symportal)
+    * [Overview](#overview)
+    * [Resolving intra- and inter-genomic diversity: the central assumption](#resolving-intra--and-inter-genomic-diversity-the-central-assumption)
+    * [The ITS2 type profile: the taxonomic unit of SymPortal](#the-its2-type-profile-the-taxonomic-unit-of-symportal)
+    * [A community driven framework](#a-community-driven-framework)
+    * [The database](#the-database)
+* [The SymPortal relational database](#the-symportal-relational-database)
+    * [Overview](#overview-1)
+    * [Data submission-based objects](#data-submission-based-objects)
+    * [Data analysis-based objects](#data-analysis-based-objects)
+* [Data submission](#data-submission)
+    * [Sequence quality control](#sequence-quality-control)
+        * [mothur QC](#mothur-qc)
+        * [blastn](#blastn)
+        * [Size screening](#size-screening)
+        * [MED decomposition](#med-decomposition)
+        * [An introduction to the clade_collection, data_set_sample_sequence and reference_sequence objects](#an-introduction-to-the-clade_collection-data_set_sample_sequence-and-reference_sequence-objects)
+        * [Naming of ITS2 sequences](#naming-of-its2-sequences)
+        * [Data submission conclusion and output](#data-submission-conclusion-and-output)
+
+
 # A brief introduction to SymPortal
 #### Overview
 SymPortal is a analytical framework for phylogenetically resolving putative taxa within the Symbiodiniaceae using NGS data of the ITS2 amplicon. SymPortal makes use of the considerable intragenomic diversity found within every Symbiodiniaceae genome to achieve a resolution that matches that of hypervariable markers such as the chloroplastic psbAncr whilst maintaining a superior taxonomic breadth over which comparisons can be made. 
@@ -50,7 +73,7 @@ Before any analyses are performed on samples, these samples must be converted fr
 ### Data input format
 SymPortal takes sets of demultiplexed, paired fastq.gz files as input with a forward and reverse read file for every sample. This set of submitted files will be represented in the SymPortal database as an instance of a _**data_set**_ object. 
 
-## Sequence quality control.
+## Sequence quality control
 Quality control (QC) of these paired files is performed on a sample by sample basis rather than working on all sequences of all samples together. Each sample contained within the data_set object is represented in the SymPortal database as a data_set_sample object. Quality control of the sequences contained in each of the samples is performed using [mothur](https://www.mothur.org/), the [blast+ suite of executables](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download) and [minimum entropy decomposition](http://merenlab.org/software/med/) (MED). 
 
 ### mothur QC
