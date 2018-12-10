@@ -1,5 +1,5 @@
 #### The SymPortal manuscript
-The SymPortal manuscript will be available on BioRxiv very soon. At this point, data may be submitted via SymPortal.org.
+The SymPortal manuscript will be available very soon. At this point, data may be submitted via SymPortal.org.
 
 #### Submitting data via [SymPortal.org](http:symportal.org)
 To submit data to the remote version of [SymPortal](http:symportal.org) email benjamin.hume@kaust.edu.sa for a submission link. By submitting your data you will be making use of the thousands of samples that have already been run through the SymPortal analytical framework to maximize your power to resolve!
