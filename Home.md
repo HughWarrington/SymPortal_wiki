@@ -13,6 +13,7 @@ Whilst we would very much like to have a 'submit data' button on the webpage whi
 * the size of data uploads, 
 * the user technical expertise required to use some of the more appropriate file transfer protocols, 
 * and importantly the need to safeguard against the attack of the website by mass uploads from robots. 
+
 To find a balance between all three of these considerations upload to the remote SymPortal instance is completed via an upload link. To obtain an upload link please email benjamin.hume@kaust.edu.sa. 
 
 By submitting your data to the remote SymPortal instance hosted on SymPortal.org you will be making use of the thousands of samples that have already been run through the SymPortal analytical framework to maximize your power to resolve!
