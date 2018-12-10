@@ -6,7 +6,7 @@ The manuscript associated with the SymPortal analytical framework will be availa
 ### Running SymPortal
 
 #### Getting started with a local instance of the SymPortal framework
-[Set up](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) and [run](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal) SymPortal.
+[Set up](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup) and [run](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal) SymPortal. [Query](https://github.com/didillysquat/SymPortal_framework/wiki/Querying-the-SymPortal-database) your new SymPortal database.
 
 #### Submitting data to the remote version of SymPortal hosted at SymPortal.org
 Whilst we would very much like to have a 'submit data' button on the webpage which would allow users to upload their data directly via their browser and HTTP, this is currently not feasible due to: 
