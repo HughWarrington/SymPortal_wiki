@@ -20,6 +20,22 @@ This page details the core logic of the SymPortal analytical format
         * [An introduction to the clade_collection, data_set_sample_sequence and reference_sequence objects](#an-introduction-to-the-clade_collection-data_set_sample_sequence-and-reference_sequence-objects)
         * [Naming of ITS2 sequences](#naming-of-its2-sequences)
         * [Data submission conclusion and output](#data-submission-conclusion-and-output)
+* [Data analysis](#data-analysis)
+    * [Overview](#overview-2)
+    * [ITS2 type profile discovery](#its2-type-profile-discovery)
+        * [Creation of initial profiles for testing](#creation-of-initial-profiles-for-testing)
+        * [Searching for supported type profiles](#searching-for-supported-type-profiles)
+        * [Artefact resolutions caused by the withinCladeCutoff](#artefact-resolutions-caused-by-the-withincladecutoff)
+    * [ITS2 type profile assignment](#its2-type-profile-assignment)
+    * [Multi-modal detection](#multi-modal-detection)
+    * [Naming DIV reference_sequence objects](#naming-div-reference_sequence-objects)
+    * [Identifying relations between Symbiodiniaceae taxonomic descriptions and ITS2 type profiles](#identifying-relations-between-symbiodiniaceae-taxonomic-descriptions-and-its2-type-profiles)
+    * [Data analysis conclusion and output](#data-analysis-conclusion-and-output)
+* [Appendix](#appendix)
+    * [A.1 Determining supported profiles](#a1-determining-supported-profiles)
+    * [A.2 Mitigating withinCladeCutoff artefact resolutions](#a2-mitigating-withincladecutoff-artefact-resolutions)
+        * [Artefacts during the ITS2 type profile assignment phase](#artefacts-during-the-its2-type-profile-assignment-phase)
+        * [Artefacts during the ITS2 type profile discovery phase](#artefacts-during-the-its2-type-profile-discovery-phase)
 
 
 # A brief introduction to SymPortal
@@ -172,7 +188,7 @@ In ITS2 type profile assignment each of the discovered analysis_type objects is 
 Within each _**clade_collection**_, every _**analysis_type**_ of the corresponding clade is searched for. An _**analysis_type**_ is found within a _**clade_collection**_ if the _**clade_collection**_ contains the DIVs that define the _**analysis_type**_ within the relative abundance ranges defined for that _**analysis_type**_ during the ITS2 type profile discovery phase (explained below; except for the relaxed lower limits implemented due to artefact mitigation in unlocked DIVs; see [A.2 Mitigating _withinCladeCutoff_ artefact resolutions](#A2-mitigating-withincladecutoff-artefact-resolutions)). For each DIV within each typeProfile this relative abundance range is simply the max and min relative abundance that the DIVs were found at in the initial supporting _**clade_collection**_ objects. [[top]](#contents)
 
 > e.g. when searching for analysis_type C3-C3a-C3cc in clade_collection 'Example1':
-> 1. Determing maximum and minimum relative abundances for each DIV in the analysis_type by examining supporting clade_collection onjects.
+> 1. Determining maximum and minimum relative abundances for each DIV in the analysis_type by examining supporting clade_collection onjects.
 > * a) the abundances of the _**analysis_type**_ object's DIVs are summed
 >
 > || C3 | C3a | C3cc | C3ab | C3d | C3t | C3z | Total seqs | DIV seqs |
@@ -287,6 +303,7 @@ The items of a standard output from a data analysis are:
 # Appendix
 ## A.1 Determining supported profiles
 back to [searching for supported type profiles](#searching-for-supported-type-profiles)
+
 Initial profiles are processed in order of length (the number of sequences they contain). Each unique profile is firstly checked to see how many _**clade_collection**_ objects it was found in. If it was found in >=4 _**clade_collection**_ objects, it is deemed supported. It is added to a list of supported profiles, each of which will become an instance of an _**analysis_type**_ (ITS2 type profile). If for all of the clade_collections in the analysis, all profiles of this length (n) are supported then the process continues with the next smallest profile (n-1).
 
 > e.g. if initial profile C3-C3ab-C1c-C1cc-C3dv is found in 6 clade_collection objects, this profile will become an analysis_type.
@@ -318,7 +335,7 @@ back to [Artefact resolutions caused by the _withinCladeCutoff_](#artefact-resol
 
 Artefacts resolutions due to the _withinCladeCutoff_ may occur either in ITS2 type profile assignment or during ITS2 type profile discovery. To introduce the theory behind the generation of artefact ITS2 type profiles we will first discuss the ITS2 type profile assignment cases. [[top]](#contents)
 
-### Artefacts during the ITS2 type profile assignments phase
+### Artefacts during the ITS2 type profile assignment phase
 Consider an ITS2 type profile of C3a-C3ab-C3ac-C3d. Let’s consider that this type profile has been found in 6 corals, and that we know the true relative abundances of each of the DIVs in these corals, by some means other than SymPortal. In all of the corals each of the DIVs has a relative abundance above 5% (i.e. 2% clear of the required 3% _withinCladeCutoff_), except for the C3d DIV. Its relative abundances are 0.06, 0.05, 0.04, 0.038, 0.028, 0.025. In this instance, the relative abundances of the DIV spans the 0.03 (3%) _withinCladeCutoff_. 
 
 Following the type profile discovery logic, C3a-C3ab-C3ac-C3d is a supported profile and thus becomes a _**analysis_type**_ object. However, in our above example, 2 out of the 6 coral samples will not have gone towards supporting this _**analysis_type**_ due to their C3d sequence relative abundances being below the 0.03 threshold. In type profile assignment (see section XXX) typeProfiles are found in a _**clade_collection**_ object only if the DIVs of the _**analysis_type**_ are present, and at relative abundances within the range of those found in the initial supporting _**clade_collection**_ objects. For example, the C3a-C3ab-C3ac-C3d was created, and was supported by four _**clade_collection**_ objects where the C3d DIV relative abundances were 0.06, 0.05, 0.04, 0.038. Therefore, in type profile assignment, as well as meeting all other requirements, a _**clade_collection**_ must contain the C3d DIV at a relative abundance of between 0.038 and 0.06. As such the _**clade_collection**_ objects that contained this DIV at 0.028 and 0.025 will not be assigned this _**analysis_type**_. 
