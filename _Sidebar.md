@@ -20,8 +20,8 @@
     * [**The database objects**](https://github.com/SymPortal/SymPortal_framework/wiki/Querying-the-SymPortal-database#the-database-objects)
 
 * #### [The SymPortal logic](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic)
-    * [Introduction to SymPortal](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#a-brief-introduction-to-symportal)
-    * [The SymPortal relational database](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#the-symportal-relational-database)
-    * [Data submission](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#data-submission)
-    * [Data Analysis](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#data-analysis)
+    * [**Introduction to SymPortal**](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#a-brief-introduction-to-symportal)
+    * [**The SymPortal relational database**](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#the-symportal-relational-database)
+    * [**Data submission**](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#data-submission)
+    * [**Data Analysis**](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#data-analysis)
     
