@@ -34,7 +34,7 @@ Download the dataset from [here](https://drive.google.com/drive/folders/1qOZy7jb
 ***
 
 ### Submitting data
-The first step of analysing any dataset is to submit it to the SymPortal framework's database. In this step, SymPortal will perform all quality control filtering of the sequence data and convert the raw sequence data into database objects such as **data_set**, **data_set_sample**, **clade_collection**, **data_set_sample_sequence** and **reference_sequence**. As part of a data_set submission SymPortal will output a count table of the ITS2 sequences returned from each of the **data_set_sample**s in the **data_set**. In addition, SymPortal will generate clade separated, between sample pairwise distance matrices. By default SymPortal will also run a principal coordinate analysis (PCoA) on these distance matrices and return the coordinates of the principal components for each **data_set_sample**. 
+The first step of analysing any dataset is to submit it to the SymPortal framework's database. In this step, SymPortal will perform all quality control filtering of the sequence data and convert the raw sequence data into database objects such as **data_set**, **data_set_sample**, **clade_collection**, **data_set_sample_sequence** and **reference_sequence**. For more information on the database objects and how to query the database, please see the [Querying the SymPortal database page](https://github.com/didillysquat/SymPortal_framework/wiki/Querying-the-SymPortal-database). As part of a data_set submission, SymPortal will output a count table of the ITS2 sequences returned from each of the **data_set_sample**s in the **data_set**. A plot visualizing this count table will also be produced.  In addition, SymPortal will generate clade separated, between sample pairwise distance matrices (BrayCurtis-based by default). By default SymPortal will also run a principal coordinate analysis (PCoA) on these distance matrices and return the coordinates of the principal components for each **data_set_sample**.
 
 To submit a dataset to the database:
 ```console
@@ -54,7 +54,7 @@ To switch off the automatic generation of plots (stacked bar charts for the coun
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noFig
 ```
-To switch off the ordination component of the data_submission the ```--noOrd``` flag may be passed. This may be useful if any of the [Additional dependencies](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies) are unavailable.
+To switch off the ordination component of the data_submission the ```--noOrd``` flag may be passed.
 ```console
 $ ./main.py --submit /path/to/example_data_location --name first_submission --num_proc 3 --data_sheet /path/to/example_data_location/smith_et_al_meta_input.xlxs --noOrd
 ```
@@ -64,6 +64,7 @@ Both the ```--noFig``` and ```--noOrd``` flags may be passed simultaneously.
 SymPortal has been designed to take advantage of multi-processor environments and is parallelised wherever possible. However, the somewhat simple SQLite database that the local framework comes setup with by default (for sake of simplicity) has limited support for handling simultaneous requests to write. As such, whilst all of the SymPortal functions may be run with multiple processors, when using the default SQLite database, the chances of a 'timeout' failure or conflict will increase with the number of processors used. In general a small degree of parallelisation, e.g. ```--num_proc 3```, should be very unlikely to cause any issue. To robustly run SymPortal in a highly parallelised manner, the SQLite database should be upgraded to a server based PostgreSQL database.
 
 There are multiple online resources that can be used to aid in setting up the [Django framework](https://www.djangoproject.com/) (the framework underlying SymPortal's interaction with the database) to run with a PostgreSQL, rather than a SQLite, database: [here](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-14-04), [here](https://tutorial-extensions.djangogirls.org/en/optional_postgresql_installation/?q=) and [here](https://www.youtube.com/watch?v=Axh8rNKgvmk) for example.
+
 #### Checking data_set submissions
 The ID, name and time stamp of submitted data_set instances can be output by running the following command:
 ```console
@@ -77,7 +78,7 @@ The ```--debug``` flag can be passed when submitting data. When this flag is pas
 ***
 
 ### Running an analysis
-Running a SymPortal analysis will programmatically search for recurring sets of ITS2 sequences in the **data_set_sample**s of the **data_set** objects submitted to the analysis. The output of an analysis is a count table of predicted ITS2 type profiles (representative of putative taxa). By default a graphical representation of this count table is output. A clade separated, between ITS2 type profile pairwise similarity distance matrices are also output. As are the coordinates of the PCoA run on each of these matrices.
+Running a SymPortal analysis will programmatically search for recurring sets of ITS2 sequences in the **data_set_sample**s of the **data_set** objects submitted to the analysis. The output of an analysis is a count table of predicted ITS2 type profiles (representative of putative taxa). By default a graphical representation of this count table, as well as the sequences found in the samples, is output. Clade separated, between ITS2 type profile pairwise similarity distance matrices are also output (BrayCurtis-based by default). As are the coordinates of the PCoA run on each of these matrices.
 
 To run an analysis on one of the data_set instances that have been submitted to the database:
 ```console
@@ -139,19 +140,26 @@ This may be useful when only wanting to output a subset of the data_set objects 
 ***
 
 ### Generating within clade, pairwise UniFrac distances and PCoA
-N.B. in order for these commands to be run the additional third party dependencies must be met. Please see [this](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies) section in the wiki.
+Pairwise distances and Principal Coordinate Analyses may be generated as either between sample or between ITS2 type profile. Distance matrices may be generated either by a BrayCurtis- or UniFrac-based methodology. The BrayCurtis method is faster and requires no additional dependencies. However, it can perform less optimally than the UniFrac method when comparing very closely related ITS2 sequence profiles. The UniFrac methodology requires more time to compute and additional dependencies. Please see [this](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies) section in the wiki.
 
-Pairwise UniFrac distance for between either samples (independent of analysis) or ITS2 type profiles (from an analysis) may be generated. A PCoA is automatically run on these distances to facilitate ordination of data.
+Pairwise UniFrac distance for between either samples (independent of analysis) or ITS2 type profiles (from an analysis) may be generated. A PCoA is automatically run on these distances to facilitate visual ordination of data.
 ##### Between samples
 ```console
 $ ./main.py --between_sample_distances 5 --bootstrap 100 --num_proc 3
-/SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/PCoA_coords.csv
-/SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/consensus_tree_sumtrees.newick1.weighted.phylip.dist
+/SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/2018-12-10_07-25-34.420342.PCoA_coords.csv
+/SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/2018-12-10_07-25-34.420342.consensus_tree_sumtrees.newick.dist
 ```
 ##### Between ITS2 type profiles
 ```console 
 $ ./main.py --between_type_distances 5 --data_analysis_id 2 --bootstrap 100 --num_proc 3
 Output files:
-/SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/PCoA_coords.csv
-/SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/consensus_tree_sumtrees.newick1.weighted.phylip.dist
+/SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/2018-12-10_07-25-34.420342.PCoA_coords.csv
+/SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/2018-12-10_07-25-34.420342.consensus_tree_sumtrees.newick.dist
+```
+Additionally, it is sometimes useful to compare a set of samples that are a subset of one or multiple data_set object(s). The ```--between_sample_distances_sample_set``` takes a comma separated list of data_set_sample object IDs as its input and will compute distances and perform PCoAs for only these samples. As always, distances are BrayCurtis-based by default, but the UniFrac method may be used instead by passing ```--distance_method unifrac```.
+```console
+$ ./main.py --between_sample_distances_sample_set 5 --num_proc 3 --distance_method unifrac
+Output files:
+/SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/2018-12-10_07-25-34.420342.PCoA_coords.csv
+/SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/2018-12-10_07-25-34.420342.consensus_tree_sumtrees.newick.dist
 ```
