@@ -139,16 +139,17 @@ $ ./main.py --print_output_types '1,3,5' --data_analysis_id 1 --num_proc 3
 This may be useful when only wanting to output a subset of the data_set objects that were input to an analysis.
 ***
 
-### Generating within clade, pairwise UniFrac distances and PCoA
-Pairwise distances and Principal Coordinate Analyses may be generated as either between sample or between ITS2 type profile. Distance matrices may be generated either by a BrayCurtis- or UniFrac-based methodology. The BrayCurtis method is faster and requires no additional dependencies. However, it can perform less optimally than the UniFrac method when comparing very closely related ITS2 sequence profiles. The UniFrac methodology requires more time to compute and additional dependencies. Please see [this](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies) section in the wiki.
+### Generating within clade, pairwise distances and PCoA
+Pairwise distances and Principal Coordinate Analyses may be generated as either between sample or between ITS2 type profile. Distance matrices may be generated either by a BrayCurtis- or UniFrac-based methodology. The BrayCurtis method is faster and requires no additional dependencies. However, it can perform less optimally than the UniFrac method when comparing very closely related ITS2 sequence profiles. The UniFrac methodology requires more time to compute and additional dependencies. Please see [this](https://github.com/SymPortal/SymPortal_framework/wiki/SymPortal-setup#6-third-party-dependencies) section in the wiki regarding additional dependencies.
 
-Pairwise UniFrac distance for between either samples (independent of analysis) or ITS2 type profiles (from an analysis) may be generated. A PCoA is automatically run on these distances to facilitate visual ordination of data.
 ##### Between samples
 ```console
 $ ./main.py --between_sample_distances 5 --bootstrap 100 --num_proc 3
 /SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/2018-12-10_07-25-34.420342.PCoA_coords.csv
 /SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/2018-12-10_07-25-34.420342.consensus_tree_sumtrees.newick.dist
 ```
+To use a UniFrac based methodology rather than the default BrayCurtis methodology pass ```--distance_method unifrac```.
+
 ##### Between ITS2 type profiles
 ```console 
 $ ./main.py --between_type_distances 5 --data_analysis_id 2 --bootstrap 100 --num_proc 3
@@ -158,7 +159,7 @@ Output files:
 ```
 Additionally, it is sometimes useful to compare a set of samples that are a subset of one or multiple data_set object(s). The ```--between_sample_distances_sample_set``` takes a comma separated list of data_set_sample object IDs as its input and will compute distances and perform PCoAs for only these samples. As always, distances are BrayCurtis-based by default, but the UniFrac method may be used instead by passing ```--distance_method unifrac```.
 ```console
-$ ./main.py --between_sample_distances_sample_set 5 --num_proc 3 --distance_method unifrac
+$ ./main.py --between_sample_distances_sample_set 234,235,236,237,238,239,240,243 --num_proc 3 --distance_method unifrac
 Output files:
 /SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/2018-12-10_07-25-34.420342.PCoA_coords.csv
 /SymPortal_framework/outputs/ordination/5/between_samples/mothur/C/2018-12-10_07-25-34.420342.consensus_tree_sumtrees.newick.dist
