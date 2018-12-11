@@ -157,6 +157,7 @@ Output files:
 /SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/2018-12-10_07-25-34.420342.PCoA_coords.csv
 /SymPortal_framework/outputs/ordination/5/between_profiles/mothur/C/2018-12-10_07-25-34.420342.consensus_tree_sumtrees.newick.dist
 ```
+##### Generating distances for subset of samples
 Additionally, it is sometimes useful to compare a set of samples that are a subset of one or multiple data_set object(s). The ```--between_sample_distances_sample_set``` takes a comma separated list of data_set_sample object IDs as its input and will compute distances and perform PCoAs for only these samples. As always, distances are BrayCurtis-based by default, but the UniFrac method may be used instead by passing ```--distance_method unifrac```.
 ```console
 $ ./main.py --between_sample_distances_sample_set 234,235,236,237,238,239,240,243 --num_proc 3 --distance_method unifrac
