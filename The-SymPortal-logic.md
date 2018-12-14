@@ -1,4 +1,3 @@
-# This page is under development
 This page details the core logic of the SymPortal analytical framework
 # Contents
 * [A brief introduction to SymPortal](#a-brief-introduction-to-symportal)
