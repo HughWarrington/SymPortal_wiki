@@ -24,4 +24,8 @@
     * [**The SymPortal relational database**](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#the-symportal-relational-database)
     * [**Data submission**](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#data-submission)
     * [**Data Analysis**](https://github.com/didillysquat/SymPortal_framework/wiki/The-SymPortal-logic#data-analysis)
+
+* #### [**Data ownership and accessibility**](https://github.com/didillysquat/SymPortal_framework/wiki/Data-ownership-and-accessibility-when-submitting-data-to-SymPortal)
+
+
     
