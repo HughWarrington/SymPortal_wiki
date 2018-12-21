@@ -1,21 +1,21 @@
-To setup a local instance of the SymPortal analytical framework follow the directions below. SymPortal is designed to run using a MacOS or linux environment.
+To set up a local instance of the SymPortal analytical framework follow the directions below. SymPortal is designed to run in a MacOS or Linux environment.
 
-#### 1. Download the [latest release](https://github.com/SymPortal/SymPortal_framework/releases/latest) and decompress in your chosen working directory.
-or
-#### 1. Clone the SymPortal repository into your chosen working directory.
+#### 1. Obtain a copy of the code
 
-See GitHub's [online documentation](https://help.github.com/articles/cloning-a-repository/) for further details.
+The simplest option is to download the [latest release](https://github.com/SymPortal/SymPortal_framework/releases/latest) and decompress in your chosen working directory.
+
+Alternatively if you are comfortable with `git` and plan to share with others any changes you make to the code, clone the SymPortal repository. See GitHub's [online documentation](https://help.github.com/articles/cloning-a-repository/) for instructions.
 
 
 #### 2a. Configure settings.py
 
 You will find a file in your chosen directory named: **settings_blank.py**.
 
-Rename this file **settings.py**.
+Rename this file to **settings.py**.
 
 Generate a bespoke secret key [here](https://www.miniwebtool.com/django-secret-key-generator/) and paste it into your settings.py file so that:
 
-`SECRET_KEY = ''` 
+`SECRET_KEY = ''`
 
 becomes (key only for example)
 
@@ -25,79 +25,65 @@ Save the modified **settings.py**.
 
 #### 2b. Configure sp_config (optional)
 
-Replace the value for the ```user_name``` and ```user_email``` keys in the **sp_config** file.
+Replace the value for the `user_name` and `user_email` keys in the **sp_config** file.
 
 e.g. 
 
-```"user_name"   :   "undefined"``` --> ```"user_name"   :   "bcchume"```
+`"user_name"   :   "undefined"` --> `"user_name"   :   "bcchume"`
 
-```"user_email"   :   "undefined"``` --> ```"user_name"   :   "bcchume@symportal.com"```
+`"user_email"   :   "undefined"` --> `"user_name"   :   "bcchume@symportal.com"`
 
 You will not be contacted on this email, it will only be used to log your details with the data_set and data_analysis objects. It will also be appended to output results.
 
 
-#### 3. Setting up the Python3.6 environment
+#### 3. Setting up the Python environment
 
-The SymPortal framework is scripted in the [Python3](https://www.python.org/download/releases/3.0/) language.
+The SymPortal framework is written in the [Python 3](https://www.python.org/download/releases/3.0/) language.
 
-**WARNING:** Please be aware that overwriting or replacing your system's current python installation can cause fatal instability. If you are unsure of what you are doing, please seek the advice of someone who is. 
+To run SymPortal you must have installed a Python 3.6 environment with all of the libraries specified in [requirements.txt](https://github.com/didillysquat/SymPortal_framework/blob/master/requirements.txt).
 
-To run SymPortal you must have a python3.6 installation that satisfies all of SymPortal's [package and module prerequisites](#31-Package-and-module-prerequisites). Irrespective of whether you already have a Python3.6 installation on your system, we recommend the [Miniconda](https://conda.io/docs/user-guide/install/download.html) or [Anaconda](https://conda.io/docs/user-guide/install/download.html) distributions. Please see the [docs](https://conda.io/docs/user-guide/install/download.html) for further information on which distribution suits your needs best. Both may be installed independent of root privileges.
+To prevent problems with other programs and existing Python installations, we recommend starting with a fresh [Conda](https://conda.io) environment. The details of how to set up a Python environment on your machine are outside the scope of this document, but [this page](https://conda.io/docs/user-guide/install/) is a good starting point.
 
-We recommend running SymPortal via setting up a Python3.6 virtual environment ([conda](https://conda.io/docs/user-guide/tasks/manage-environments.html) or [standard](https://docs.python.org/3.6/library/venv.html)) containing all required [package and module prerequisites](####31-Package-and-module-prerequisites). But SymPortal may be run using any Python3.6 installation.
+**WARNING:** modifying or replacing your system's Python installation can cause other programs to stop working. If you are unsure of what you are doing, please consult someone with more experience.
 
-#### 3.1. Package and module prerequisites
-The Python3.6 installation used to run SymPortal must have the following packages and modules installed:
-* Django==1.11.4
-* numpy==1.13.1
-* matplotlib==2.0.2
-* scipy==0.19.1
-* sklearn==0.0
-* pandas==0.23.1
-* plumbum==1.6.6
-* biopython==1.71
-* scikit-bio==0.5.2
-* xlrd==1.1.0
+To install the libraries SymPortal depends on, from within your Python environment you can type:
 
-__N.B. some of the above package versions are not maintained in the conda repositories. As such, please install the packages using pip.__ 
-
-E.g. (making sure you are installing to the correct python version):
-```console 
-(sp_venv)$ pip install sklearn==0.0
+```console
+(sp_venv)$ pip install -r requirements.txt
 ```
 
-#### 4. Creating the framework's database
 
-The SymPortal analysis is integrated with a mySQL database. This database can be either a [SQLite](https://www.sqlite.org) or [PostgreSQL](https://www.postgresql.org/) database.
+#### 4. Creating the database
 
-The cloned SymPortal repository is currently setup to create a [SQLite](https://www.sqlite.org) database. This database is a much lighter database than the [PostgreSQL](https://www.postgresql.org/) and is file-based rather than server-based.
+SymPortal stores its results in a SQL database. This database can be either a [SQLite](https://www.sqlite.org) or [PostgreSQL](https://www.postgresql.org) database.
 
-Please see [A note on running SymPortal with multiple processors](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#a-note-on-running-symportal-with-multiple-processors) for some considerations when running parallelised instances of SymPortal with the default SQLite database.
+By default, SymPortal is configured to create a SQLite database. This is the simplest configuration. If you are an advanced user and are considering running SymPortal with multiple processors to improve performance, read [this section](https://github.com/SymPortal/SymPortal_framework/wiki/Running-SymPortal#a-note-on-running-symportal-with-multiple-processors).
 
-To create the SQLite database (that will be named **db.sqlite3** by default) and automatically populate it with the tables defined in the **dbApp/models.py** file we will use the `makemigrations` and `migrate` commands from the [Django API](https://www.djangoproject.com/) via the **manage.py** file.
+To create the SQLite database and automatically populate it with the tables defined in the **dbApp/models.py** file we will use the `makemigrations` and `migrate` commands from the [Django API](https://www.djangoproject.com/) via the **manage.py** entry point.
 
-From within the SymPortal_framework directory (using the Python3.6 installation meeting the package and module requirements):
+Enter your Python environment and change into the **SymPortal_framework** directory. Then run:
 ```shell
 $ python3.6 manage.py makemigrations
-```
-A file, **dbApp/migrations/0001_initial.py** will be created.
-
-then:
-```console
 $ python3.6 manage.py migrate
 ```
-You should see that a **db.sqlite3** file has been created in your working directory. This is your SQLite database populated with empty tables.
+
+The first command will create the file **dbApp/migrations/0001_initial.py**. And the second command will create **db.sqlite3** in your working directory. This is your SQLite database populated with empty tables.
+
 
 #### 5. Populating the local database with SymPortal's reference_sequences
-A key part of the SymPortal framework is its enforced standardisation of the data it works with. The quality controls built into the SymPortal framework ensures that all submitted sequence data goes from raw input to output following the same set of standards. 
 
-One key part of this standardisation is the naming of sequences. The same nucleotide sequence should always have the same name and these nucleotide sequences should always represent the same region of the rDNA. To ensure that SymPortal maintains good agreement with the important sequence names already existing in the literature, e.g. A1, D1, D4, D6, C1, C3, C15 and C21 to name just a few, the SymPortal database was initialised using a carefully curated collection of > 350 commonly found sequences. However, ITS2 sequence diversity is immensely large and many thousands of sequences have already been submitted to the SymPortal database (maintained remotely). To assign identities to these sequences when run via SymPortal.org the SymPortal framework generates systematic alphanumeric identifiers e.g. C3ac or D1cd. However, given the immensity of ITS2 sequence diversity, not all sequences are given names. Only those sequences defined as DIVs and used to define ITS2 type profiles are named. I.e. only sequences used to characterise putative _Symbiodinium_ taxa are named.
+An important aspect of the SymPortal framework is its enforced standardisation of data. The framework's quality controls ensure that all submitted sequence data goes from raw input to output following the same set of standards. 
 
-The SymPortal analysis run locally is not integrated with the remote SymPortal database. Whilst the local analysis could also generate alphanumeric identifiers, doing so would run the risk of assigning alphanumeric identifiers that were out of sync with the SymPortal database. I.e. more than one name could be associated to a single sequence or vice versa. To prevent this from happening, locally run instances of the SymPortal framework do not generate alphanumeric identifiers for sequences that are currently unnamed. For DIVs output from local analyses, the UID of the local database will be used in place of an alphanumeric identifier if one is not available.
+One key part of this standardisation is the naming of sequences. The same nucleotide sequence should always have the same name and these nucleotide sequences should always represent the same region of the rDNA.
 
-However, to aid in the identification of ITS2 type profiles and ITS2 sequences output from local analyses, all named sequences from the current SymPortal database have been provided as part of this repository. These can be found in the [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB) file.
+To ensure that SymPortal maintains good agreement with the important sequence names already existing in the literature, e.g. A1, D1, D4, D6, C1, C3, C15 and C21 to name just a few, the SymPortal database has been initialised using a carefully curated collection of > 350 commonly found sequences. However, ITS2 sequence diversity is immense and many thousands of sequences have already been submitted to SymPortal.org. To assign identities to these sequences SymPortal generates systematic alphanumeric identifiers, e.g. C3ac or D1cd. However, given the immensity of ITS2 sequence diversity, not all sequences are given names. Only those sequences defined as DIVs and used to define ITS2 type profiles are named. I.e. only sequences used to characterise putative _Symbiodinium_ taxa are named.
+
+A SymPortal analysis run locally is not integrated with the central SymPortal.org database. Whilst the local analysis could also generate alphanumeric identifiers, doing so would risk assigning alphanumeric identifiers that were inconsistent with the SymPortal.org database. I.e. more than one name could be associated to a single sequence or vice versa. To prevent an inconsistent mapping from arising, local runs of SymPortal do not generate alphanumeric identifiers for sequences that are currently unnamed. For DIVs output from local analyses, an alphanumeric identifier will be used if available; otherwise the UID from the local database will be used instead.
+
+However, to aid in the identification of ITS2 type profiles and ITS2 sequences output from local analyses, a file containing a recent copy of all named sequences from the current SymPortal.org database is provided in [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB).
 
 #### 5.1. Populating reference_sequences
+
 To make use of the sequences contained in the [refSeqDB.fa](https://github.com/SymPortal/SymPortal_framework/tree/master/symbiodiniumDB) file, they must be input to the local database. A standalone script has been provided to do this: [populate_db_ref_seqs.py](https://github.com/SymPortal/SymPortal_framework/tree/master/populate_db_ref_seqs.py).
 
 Simply run:
@@ -105,12 +91,14 @@ Simply run:
 $ python3.6 populate_db_ref_seqs.py
 ```
 
+
 #### 6. Third party dependencies
-SymPortal relies on a number of third party programmes that can be divided into core dependencies (required for the core SymPortal analysis) and additional dependencies (required only for the UniFrac-based ordination functions; no additional dependencies are required for the BrayCurtis-based ordinations that are run as default).
+
+SymPortal relies on a number of third party programs that can be divided into core dependencies (required for the core SymPortal analysis) and additional dependencies (required only for the UniFrac-based ordination functions; no additional dependencies are required for the BrayCurtis-based ordinations that are run as default).
 
 __Core dependencies__ (required)
-To perform quality filtering SymPortal relies on the following core third party programmes (please visit the links for information on how to install them):
-* [mothur](https://www.mothur.org/)(version=1.39.5)
+To perform quality filtering SymPortal relies on the following core third party programs (please visit the links for information on how to install them):
+* [mothur](https://www.mothur.org/) (version=1.39.5)
 * [BLAST+ executables](): blastn; makeblastdb (version 2.6.0+)
 
 __Additional dependencies__ (only required for UniFrac-based ordination analyses) 
@@ -120,29 +108,35 @@ __Additional dependencies__ (only required for UniFrac-based ordination analyses
 
 __Testing dependencies__
 
-For SymPortal to run correctly, each of the above executables must be in your systems PATH.
-To test whether these executables are found in your PATH you can use the _which_ command.
+For SymPortal to run correctly, each of the above executables must be in your system `PATH` variable.
+To test whether these executables are found in your path you can use the _which_ command.
 ```console
 $ which mothur
 /usr/bin/mothur
+
 $ which o-pad-with-gaps
 /home/user/anaconda2/bin/o-pad-with-gaps
+
 $ which sumtrees.py
 /home/user/miniconda3/bin/sumtrees.py
+
 $ which blastn
 /home/user/ncbi-blast-2.6.0+/bin/blastn
+
 $ which makeblastdb
 /home/user/ncbi-blast-2.6.0+/bin/makeblastdb
+
 $ which mafft
 /home/user/mafft/bin/mafft
 ```
-If the executable is installed and found in your PATH, the path to the executable should be returned 
+If the executable is installed and found in your PATH, the path to the executable will be returned.
 
-Please also ensure that the programmes are working correctly:
+Please also ensure that the programs are working correctly. You should see output similar to the below:
 ```console
 $ mothur -v
 Mothur version=1.39.5
 Release Date=3/20/2017
+
 $ sumtrees.py --version
 /==========================================================================\
 |                                 SumTrees                                 |
@@ -170,32 +164,35 @@ $ sumtrees.py --version
 | version of the SumTrees program, but also the DendroPy library used in   |
 | your analysis. For your information, you are running DendroPy 4.4.0.     |
 \==========================================================================/
+
 $ blastn -version
 blastn: 2.2.31+
 Package: blast 2.2.31, build Jan  7 2016 23:17:17
+
 $ makeblastdb -version
 makeblastdb: 2.2.31+
 Package: blast 2.2.31, build Jan  7 2016 23:17:17
+
 $ mafft --version
 v7.402 (2018/May/23)
+
 $ fseqboot -version
 EMBOSS:6.6.0.0 PHYLIPNEW:3.69.650
 ```
 
-__Installing the PHYLIPNEW collection of commands__
+##### Installing the PHYLIPNEW collection of commands
+
 In order to be able to compute UniFrac-based distance matrices and PCoA ordinations between sample and ITS2 type profiles, respectively, some further packages are required. These packages are all contained in the PHYLIPNEW package which is part of the [EMBOSS](http://emboss.sourceforge.net/) project. The PHYLIPNEW tar.gz can be downloaded from [here](ftp://emboss.open-bio.org/pub/EMBOSS/). There is a bit of knack to getting the PHYLIPNEW packages installed on a system. I recommend reading the answer to this question: [Can you give an example of how to install an EMBASSY package](http://emboss.sourceforge.net/docs/faq.html).
 
-Because the compilation of these executable can be difficult (due to library dependencies) I have also made the precompiled executables available [here](https://drive.google.com/drive/folders/1W0rw8UpW2-Ly1BLiIY-kCiZ8KsZMtzWc?usp=sharing). To 'install' these executables for use in SymPortal, simply download the .zip file, decompress it and copy the three executables into the [./lib/phylipnew/](https://github.com/didillysquat/SymPortal_framework/tree/master/lib/phylipnew) directory. SymPortal will automatically check to see whether the required executables are found in your system's PATH. If not, it will search for them in this ./lib/phylipnew/ directory.
-***
+Because the compilation of these executable can be difficult (due to library dependencies) I have also made the precompiled executables available [here](https://drive.google.com/drive/folders/1W0rw8UpW2-Ly1BLiIY-kCiZ8KsZMtzWc?usp=sharing). To 'install' these executables for use in SymPortal, download the .zip file, decompress it and copy the three executables into your `./lib/phylipnew/` directory. SymPortal will automatically check to see whether the required executables are found in your system's PATH. If not, it will search for them in this ./lib/phylipnew/ directory.
 
-#### To check that you have SymPortal setup correctly:
+
+#### 7. Checking your installation
+
+If you have set up SymPortal correctly, you should see the following when you run `main.py`:
+
 ```console
 $ ./main.py
-```
-
-This command should produce an output similar to:
-
-```console
 /path/to/repo/SymPortal_framework/db.sqlite3
 usage: main.py [-h] [--submit path_to_dir] [--display_data_sets]
                [--analyse data_set IDs]
