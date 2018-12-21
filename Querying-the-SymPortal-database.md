@@ -19,10 +19,10 @@ This page describes how to access the data stored in your SymPortal database.
         * [The _**clade_collection_type**_ object](#the-clade_collection_type-object)
 
 # The Django interface
-SymPortal uses an [API provided as part of the Django module](https://docs.djangoproject.com/en/2.1/intro/tutorial02/#playing-with-the-api) to interact with the SymPortal database. By using the Django API, the database is queried using Python3 language rather than SQL through an interactive Python shell.
+SymPortal uses an [API provided as part of the Django module](https://docs.djangoproject.com/en/2.1/intro/tutorial02/#playing-with-the-api) to interact with the SymPortal database. By using the Django API, the database can be queried in an interactive Python shell using Python objects, rather than having to write SQL.
 
 ### Starting a Python interactive shell and using the Django API to interact with your database
-To start a Python3 shell and connect to your database using Django, you can run the following command from within your SymPortal_framework base directory:
+To start a Python shell and connect to your database using Django, run the following command from within your SymPortal_framework base directory:
 ```console
 (sp_venv) $ python3 manage.py shell
 
@@ -33,25 +33,24 @@ IPython 6.4.0 -- An enhanced Interactive Python. Type '?' for help.
 In [1]:
 ```
 
-This will start the interactive python shell and a connection to your database will automatically be created.
-
 ### Importing database objects
-To work with any database objects in this interactive shell you will first need to import them from the models.py file that is in your SymPortal_framework/dbApp/ directory. The following command will import all database objects.
+To work with any database objects in this interactive shell you will first need to import them from the models.py file that is in your SymPortal_framework/dbApp/ directory. The following command will import all database objects:
 ```console
 In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, analysis_group, data_set_sample, data_analysis, clade_collection, clade_collection_type
 ```
 
 # Interacting with your database
-Eventually, an in depth introduction to the database schematic, its objects, their relationships, and their attributes will be provided as part of this wiki. For the time being, if more details are required, the [models.py](https://github.com/SymPortal/SymPortal_framework/blob/master/dbApp/models.py) file should be fairly comprehensible. However, for basic functions such as querying and deleting objects, the below code examples should be a sufficient primer.
+Eventually, an in depth description of the database schema will be provided as part of this wiki. For the time being, the [models.py](https://github.com/SymPortal/SymPortal_framework/blob/master/dbApp/models.py) file describes the different classes, their attributes, and relationships to other classes.
 
-For a thorough introduction into how to work with these database objects using the Django API you can visit the following [link](https://docs.djangoproject.com/en/2.1/intro/tutorial02/#playing-with-the-api). In this part of the wiki we will cover some of the basics.
+A thorough introduction to how to work with the Django API can be found in the [official docs](https://docs.djangoproject.com/en/2.1/intro/tutorial02/#playing-with-the-api), but for basic functions such as querying and deleting objects, the below code examples are a primer.
 
 ## Deleting and renaming objects
-The below example uses the _**data_set**_ object however this code can be applied to any of the imported database objects.
+The below example uses the _**data_set**_ class, however this code can be applied to any of the imported database classes.
 ```python
-#display the id and name of each of the data_set objects in your database
+# import all the database model classes
 In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, analysis_group, data_set_sample, data_analysis, clade_collection, clade_collection_type
 
+# display the id and name of each of the data_set objects in your database
 In [2]: for ds in data_set.objects.all():
    ...:    print('{}:{}'.format(ds.id, ds.name))
 
@@ -101,18 +100,22 @@ In [8]: ds.save()
 In [9]: ds
 out[9]: <data_set: ADifferentName>
 ```
+
 # The database objects
 ## Data submission-based objects
 The below example will give you an introduction into the structure of the database, the objects it holds, and their inter-relations through some code examples.
 
 The data submission-based objects are:
-* _**data_set**_ - collection of samples usually from the same study
-* _**data_set_sample**_ - representative of a single sample
-* _**clade_collection**_ - collection of sequences of the same clade from a given sample
+* _**data_set**_ - a collection of samples usually from the same study
+* _**data_set_sample**_ - a single sample
+* _**clade_collection**_ - a collection of sequences of the same clade from a given sample
 * _**data_set_sample_sequence**_ - an ITS2 sequence found in a single sample
 * _**reference_sequence**_ - an ITS2 sequence that may be found in multiple samples
 
+The following examples assume you have first run this `import` statement:
+
 ```python
+# import all the database model classes
 In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, data_set_sample, data_analysis, clade_collection, clade_collection_type
 ```
 ### The _**data_set**_ object
@@ -126,7 +129,7 @@ In [2]: for ds in data_set.objects.all():
 4 fourth_data_set_submission
 ```
 
-_**data_set**_ objects represent a set of samples that are usually part of a single study
+_**data_set**_ objects represent a set of samples that are usually part of a single study.
 ```python
 # create a variable 'first_data_set_var' and assign a data_set object to it
 In [2]: first_data_set_var = data_set.objects.get(id=1)
@@ -135,7 +138,7 @@ In [3]: first_data_set_var
 Out[3]: <data_set: first_data_set_submission>
 ```
 
-All of the database objects have attributes. The full list can be seen in the [models.py](https://github.com/SymPortal/SymPortal_framework/blob/master/dbApp/models.py) file
+All of the database objects have attributes. The full list can be seen in the [models.py](https://github.com/SymPortal/SymPortal_framework/blob/master/dbApp/models.py) file.
 We'll take a look at a couple of useful ones here:
 ```python
 In [4]: first_data_set_var.name
@@ -151,7 +154,7 @@ In [6]: first_data_set_var.timeStamp
 Out[6]: '2018-10-18 06:49:43.750268'
 ```
 ### The _**data_set_sample**_ object
-All of the database objects are related to at least one other database object. Database objects can be queried according to these relationships. The _**data_set**_ object has _**data_set_sample**_ objects associated to it
+All of the database objects are related to at least one other database object. Database objects can be queried according to these relationships. The _**data_set**_ object has _**data_set_sample**_ objects associated with it.
 ```python
 In [7]: dss_objects_var = data_set_sample.objects.filter(dataSubmissionFrom=first_data_set_var)
 
@@ -189,7 +192,7 @@ Out[11]: <data_set_sample: AW0000216_BG8KK_12BA102>
 * _size_violation_unique_ - the number of unique (distinct) sequences at same stage as above
 
 * _post_med_absolute_ - absolute number of sequences after all QC and Minimum Entropy Decomposition
-* _post_med_unique_ - - the number of unique (distinct) sequences at same stage as above
+* _post_med_unique_ - the number of unique (distinct) sequences at same stage as above
 
 * _cladalSeqTotals_ - A comma separated list of the number of sequences from each of the Symbiodiniaceae clades
 
@@ -208,10 +211,10 @@ Out[11]: <data_set_sample: AW0000216_BG8KK_12BA102>
 * _collection_depth_
 
 ### The _**clade_collection**_ and _**data_set_sample_sequence**_ objects
-_**data_set_sample**_ objects are associated with _**clade_collection**_ objects. A _**clade_collection**_ object holds all of the sequences (_**data_set_sample_sequence**_ objects) of a given clade from a given sample IF the total abundance of those sequences is greater than 200. If less then 200 then SymPortal deems this collection of sequences to be too small to attempt to predict ITS2 type profiles robustly (the probability of encountering sequencing depth artefacts is too high) and no _**clade_collection**_ object will be created. To ensure that all sequences are still associated with every _**data_set_sample**_ (even if there are <200 sequences of a given clade), _**data_set_sample_sequence**_ objects are associated directly to each _**data_set_sample**_ object and to a _**clade_collection**_.
+_**data_set_sample**_ objects are associated with _**clade_collection**_ objects. A _**clade_collection**_ object holds all of the sequences (_**data_set_sample_sequence**_ objects) of a given clade from a given sample IF the total abundance of those sequences is greater than 200. If less than 200 then SymPortal deems this collection of sequences to be too small to attempt to predict ITS2 type profiles robustly (the probability of encountering sequencing depth artefacts is too high) and no _**clade_collection**_ object will be created. To ensure that all sequences are still associated with every _**data_set_sample**_ (even if there are <200 sequences of a given clade), _**data_set_sample_sequence**_ objects are linked directly to each _**data_set_sample**_ object and to a _**clade_collection**_.
 
 ```python
-# get a QuerySet of the clade_collection objects associated to the data_set_sample assigned to the dss variable
+# get a QuerySet of the clade_collection objects associated with the data_set_sample assigned to the dss variable
 In [12]: cc_objects_var = clade_collection.objects.filter(dataSetSampleFrom=dss_object)
 
 In [13]: cc_objects_var
@@ -232,13 +235,13 @@ Out[16]: <clade_collection: AW0000216_BG8KK_12BA102>
 In [17]: cc_object_var.clade
 Out[17]: 'D'
 
-# get a QuerySet of the data_set_sample_sequence objects associated to the clade_collection assigned to the cc_object_var variable
+# get a QuerySet of the data_set_sample_sequence objects associated with the clade_collection assigned to the cc_object_var variable
 In [18]: dsss_objects_var = data_set_sample_sequence.objects.filter(cladeCollectionTwoFoundIn=cc_object_var)
 
 In [19]: dsss_objects_var
 Out[19]: <QuerySet [<data_set_sample_sequence: D1>, <data_set_sample_sequence: D4>, <data_set_sample_sequence: ID=17148>, <data_set_sample_sequence: D2>, <data_set_sample_sequence: ID=17150>, <data_set_sample_sequence: ID=17151>, <data_set_sample_sequence: ID=17152>, <data_set_sample_sequence: D1m>, <data_set_sample_sequence: ID=17154>, <data_set_sample_sequence: ID=17155>, <data_set_sample_sequence: D2.2>, <data_set_sample_sequence: ID=17157>, <data_set_sample_sequence: ID=17158>, <data_set_sample_sequence: ID=17159>, <data_set_sample_sequence: D17d>, <data_set_sample_sequence: D1r>, <data_set_sample_sequence: ID=17162>, <data_set_sample_sequence: D17e>, <data_set_sample_sequence: D17c>, <data_set_sample_sequence: ID=17165>]>
 
-# remember that data_set_sample_sequence objects are also associated directly to the data_set_sample object:
+# remember that data_set_sample_sequence objects are also linked directly to the data_set_sample object:
 In [20]: dss_object
 Out[20]: <data_set_sample: AW0000216_BG8KK_12BA102>
 
@@ -250,10 +253,10 @@ Out[22]: <QuerySet [<data_set_sample_sequence: A3>, <data_set_sample_sequence: I
 ```
 __Attributes of the _**data_set_sample_sequence**_ object__
 
-The only attribute associated to the _**data_set_sample_sequence**_ objects, that isn't a relation to another database object, is _abundance_. This attribute holds the absolute abundance that this _**data_set_sample_sequence**_ was found at in the _**data_set_sample**_.
+The only attribute present on _**data_set_sample_sequence**_ objects, that isn't a relation to another database object, is _abundance_. This attribute holds the absolute abundance that this _**data_set_sample_sequence**_ was found at in the _**data_set_sample**_.
 
 ### The _**reference_sequence**_ object
-Obviously it would be useful to know the name of the sequence (if it has one), its clade and its actual nucleic sequence (i.e. all those lovely AGCTs). Given that the same sequence may be found in multiple samples (think about the D1 or C3 sequence), this information (name, clade and sequence) is not stored with the **_data_set_sample_sequence_** object. Rather it is stored with the **_reference_sequence_** object. In this way, if two _**data_set_sample**_ objects both contain the C3 sequence, each sample can have a unique _**data_set_sample_sequence**_ object associated to it that will store the information on its abundance. But both of the **_data_set_sample_sequence_** objects will have the same _referenceSequenceOf_ attribute that will point to the 'C3' _**reference_sequence**_ object. In this way, the name, clade and sequence information for the C3 sequence need only be stored once, rather than storing it for every occurrence of the sequence. This offers a dramatic saving of space and speedup for the SymPortal implementation. Therefore, to get the name, clade and sequence of a given **_data_set_sample_sequence_**, we must examine the associated **_reference_sequence_** object.
+Obviously it would be useful to know the name of the sequence (if it has one), its clade and its actual nucleic sequence (i.e. all those lovely AGCTs). Given that the same sequence may be found in multiple samples (think about the D1 or C3 sequence), this information (name, clade and sequence) is not stored with the **_data_set_sample_sequence_** object. Rather it is stored with the **_reference_sequence_** object. In this way, if two _**data_set_sample**_ objects both contain the C3 sequence, each sample can have a unique _**data_set_sample_sequence**_ object associated with it that will store the information on its abundance. But both of the **_data_set_sample_sequence_** objects will have the same _referenceSequenceOf_ attribute that will point to the 'C3' _**reference_sequence**_ object. In this way, the name, clade and sequence information for the C3 sequence need only be stored once, rather than storing it for every occurrence of the sequence. This offers a dramatic saving of space and speedup for the SymPortal implementation. Therefore, to get the name, clade and sequence of a given **_data_set_sample_sequence_**, we must examine the associated **_reference_sequence_** object.
 
 ```python
 In [23]: for dsss in dsss_objects_directly_from_dss:
@@ -318,7 +321,10 @@ The data analysis-based objects are:
 * _**analysis_type**_ - An ITS2 type profile found in one or more _**clade_collection**_
 * _**clade_collection_type**_ - An abstract object used to link the _**analysis_type**_ and _**clade_collection**_ objects. This object therefore represents the link between data submission-based and data analysis-based objects
 
+Again, the examples in the following section assume you have first run this `import` statement:
+
 ```python
+# import all the database model classes
 In [1]: from dbApp.models import data_set, reference_sequence, data_set_sample_sequence, analysis_type, data_set_sample, data_analysis, clade_collection, clade_collection_type
 ```
 ### The _**data_analysis**_ object
@@ -340,7 +346,7 @@ Out[4]: <data_analysis: data_analysis object>
 **Some useful attributes:**
 * _name_
 * _description_
-* _listOfDataSubmissions_ - a comma delimited list of the IDs of the _**data_set**_ objects included in the analysis
+* _listOfDataSubmissions_ - a comma-delimited list of the IDs of the _**data_set**_ objects included in the analysis
 * _timeStamp_
 
 ### The _**analysis_type**_ object
@@ -366,10 +372,10 @@ Out[9]: <analysis_type: C3-C3gulf-C3c-C3aq>
 
 **Some useful attributes:**
 * _name_
-* _dataAnalysisFrom_ - the _**data_analysis**_ object to which the _**analysis_type**_ is associated to
+* _dataAnalysisFrom_ - the _**data_analysis**_ object which the _**analysis_type**_ is associated with
 * _clade_ - the taxonomic clade
 * _coDom_ - boolean; whether there is more than one sequence found as the most abundant sequence in this _**analysis_type**_
-* _orderedFootprintList_ - a comma separated list of the IDs of the _**reference_sequence**_ objects that make up the DIVs of the _**analysis_type**_ in question
+* _orderedFootprintList_ - a comma separated list of the IDs of the _**reference_sequence**_ objects that make up the DIVs of this _**analysis_type**_
 
 ### The _**clade_collection_type**_ object
 The _**clade_collection_type**_ object links the data analysis-based objects to the data submission-based objects. I.e. it allows us to answer questions like, which _**data_set_sample**_ objects contained a given _**analysis_type**_ object? There is one _**clade_collection_type**_ object for every _**clade_collection**_ that was found to contain a given _**analysis_type**_ (e.g. see below).
