@@ -1,4 +1,7 @@
-This page will cover how to access the database objects that are stored in your database. It is structured as follows:
+This page describes how to access the data stored in your SymPortal database.
+
+# Contents
+
 * [**The Django interface**](#the-django-interface)
     * [Starting a Python interactive shell and using the Django API to interact with your database](#starting-a-python-interactive-shell-and-using-the-django-api-to-interact-with-your-database)
     * [Importing database objects](#importing-database-objects)
